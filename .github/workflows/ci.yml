@@ -1,4 +1,4 @@
-name: CI
+name: Roadtrip Continuous Integration
 
 on:
   pull_request:
