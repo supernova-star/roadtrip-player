@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import { ListMusic, Wrench } from 'lucide-react';
-import { ColumnFlexContainer, RowFlexContainer } from '../uiComponents/container/Container';
+import {
+  ColumnFlexContainer,
+  RowFlexContainer,
+} from '../uiComponents/container/Container';
 import { Typography } from '../uiComponents/typography/Typography';
 import { useResponsive } from '@/hooks/useResponsive';
 import { useWallpaper } from '@/hooks/useWallpaper';
@@ -17,7 +20,12 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
   const { wallpaper } = useWallpaper();
   const quote = wallpaperQuotes[wallpaper.id] ?? 'Every road has a story.';
   return (
-    <RowFlexContainer justifyContent="between" alignItems="start" gap={[7]} margin={[0]}>
+    <RowFlexContainer
+      justifyContent="between"
+      alignItems="start"
+      gap={[7]}
+      margin={[0]}
+    >
       <ColumnFlexContainer gap={[2]}>
         <ColumnFlexContainer
           gap={[3]}
@@ -69,7 +77,10 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
             }}
           >
             <RowFlexContainer alignItems="center" gap={[1]}>
-              <ListMusic size={isMobile ? '16px' : '20px'} color="var(--blur-text-accent)" />
+              <ListMusic
+                size={isMobile ? '16px' : '20px'}
+                color="var(--blur-text-accent)"
+              />
               <Typography
                 variant={isMobile ? 'body2' : 'subtitle1'}
                 weight="semiBold"
@@ -93,7 +104,10 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
         }}
         onClick={(event: React.MouseEvent<HTMLElement>) => handleClick(event)}
       >
-        <Wrench color="var(--player-text-primary)" size={isMobile ? '12px' : '20px'} />
+        <Wrench
+          color="var(--player-text-primary)"
+          size={isMobile ? '12px' : '20px'}
+        />
       </RowFlexContainer>
     </RowFlexContainer>
   );

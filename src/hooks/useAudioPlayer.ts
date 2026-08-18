@@ -12,11 +12,28 @@ export function useAudioPlayer() {
   const next = usePlayerStore((state) => state.next);
   const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
   const setDuration = usePlayerStore((state) => state.setDuration);
+  const previous = usePlayerStore((state) => state.previous);
 
   const audioRef = useRef<HTMLAudioElement>(new Audio());
 
   useEffect(() => {
     const audio = audioRef.current;
+    if ('mediaSession' in navigator && currentSong) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentSong.title,
+        artist: currentSong.artist,
+        album: currentSong.album ?? 'Roadtrip Player',
+        artwork: currentSong.coverUrl
+          ? [
+              {
+                src: currentSong.coverUrl,
+                sizes: '512x512',
+                type: 'image/png',
+              },
+            ]
+          : [],
+      });
+    }
     if (!currentSong) {
       audio.pause();
       return;
@@ -36,6 +53,24 @@ export function useAudioPlayer() {
       audio.pause();
     }
   }, [currentSong, isPlaying, setCurrentTime]);
+
+  useEffect(() => {
+    if (!('mediaSession' in navigator)) {
+      return;
+    }
+
+    navigator.mediaSession.setActionHandler('play', play);
+    navigator.mediaSession.setActionHandler('pause', pause);
+    navigator.mediaSession.setActionHandler('nexttrack', next);
+    navigator.mediaSession.setActionHandler('previoustrack', previous);
+
+    return () => {
+      navigator.mediaSession.setActionHandler('play', null);
+      navigator.mediaSession.setActionHandler('pause', null);
+      navigator.mediaSession.setActionHandler('nexttrack', null);
+      navigator.mediaSession.setActionHandler('previoustrack', null);
+    };
+  }, [play, pause, next, previous]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -73,5 +108,14 @@ export function useAudioPlayer() {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, [currentIndex, currentSong, queue.length, next, pause, play, setCurrentTime, setDuration]);
+  }, [
+    currentIndex,
+    currentSong,
+    queue.length,
+    next,
+    pause,
+    play,
+    setCurrentTime,
+    setDuration,
+  ]);
 }
