@@ -1,16 +1,21 @@
-import React from 'react';
-import { Select, MenuItem, FormControl, type SelectChangeEvent } from '@mui/material';
-import { colorPalette } from '@/theme/colors';
-import type { Spacing } from '@/theme/themeTypes';
-import { getSpacing } from '@/theme/spacing';
-import theme from '@/theme/theme';
+import React from "react";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  type SelectChangeEvent,
+} from "@mui/material";
+import { colorPalette } from "@/theme/colors";
+import type { Spacing } from "@/theme/themeTypes";
+import { getSpacing } from "@/theme/spacing";
+import theme from "@/theme/theme";
 import {
   Typography,
   type FontWeight,
   type TextStyle,
   type TypographyVariant,
-} from '@/components/uiComponents/typography/Typography';
-import type { Colors } from '@/theme/themeTypes';
+} from "@/components/uiComponents/typography/Typography";
+import type { Colors } from "@/theme/themeTypes";
 
 export interface DropdownOption {
   label: string;
@@ -28,7 +33,7 @@ export interface DropdownProps {
   options: DropdownOption[];
   value: string;
   onChange: (value: string) => void;
-  size?: 'small' | 'medium';
+  size?: "small" | "medium";
   borderRadius?: Spacing;
   width?: string | number;
   disabled?: boolean;
@@ -41,18 +46,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
   onChange,
-  size = 'small',
+  size = "small",
   borderRadius = [2],
-  width = 'fit-content',
+  width = "fit-content",
   disabled = false,
   textOptions,
   hasBorder = true,
   padding,
 }) => {
-  const textColor = textOptions?.textColor ?? 'surface';
-  const textWeight = textOptions?.textWeight ?? 'regular';
-  const textVariant = textOptions?.textVariant ?? 'body2';
-  const textStyle = textOptions?.textStyle ?? 'regular';
+  const textColor = textOptions?.textColor ?? "surface";
+  const textWeight = textOptions?.textWeight ?? "regular";
+  const textVariant = textOptions?.textVariant ?? "body2";
+  const textStyle = textOptions?.textStyle ?? "regular";
   const radius = getSpacing(borderRadius, theme.spacing);
 
   const handleChange = (e: SelectChangeEvent) => onChange(e.target.value);
@@ -64,45 +69,49 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onChange={handleChange}
         sx={{
           borderRadius: radius,
-          color: colorPalette.surface,
-          backgroundColor: 'var(--player-background)',
+          color: colorPalette.white,
+          backgroundColor: "var(--player-background)",
           ...(padding && {
-            '& .MuiSelect-select': { padding: getSpacing(padding, theme.spacing) },
+            "& .MuiSelect-select": {
+              padding: getSpacing(padding, theme.spacing),
+            },
           }),
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: hasBorder ? 'var(--player-border)' : 'transparent',
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: hasBorder ? "var(--player-border)" : "transparent",
             borderRadius: radius,
           },
-          '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: hasBorder ? 'var(--player-accent)' : 'transparent',
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: hasBorder ? "var(--player-accent)" : "transparent",
           },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: hasBorder ? 'var(--player-accent)' : 'transparent',
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: hasBorder ? "var(--player-accent)" : "transparent",
           },
-          '& .MuiSelect-icon': {
-            color: colorPalette.surface,
+          "& .MuiSelect-icon": {
+            color: "var(--player-accent)",
           },
-          '&.Mui-disabled': {
+          "&.Mui-disabled": {
             opacity: 0.5,
-            '& .MuiSelect-select': { WebkitTextFillColor: '#cccccc' },
-            '& .MuiSelect-icon': { color: '#cccccc' },
-            '& .MuiOutlinedInput-notchedOutline': { borderColor: colorPalette.border },
+            "& .MuiSelect-select": { WebkitTextFillColor: "#cccccc" },
+            "& .MuiSelect-icon": { color: "#cccccc" },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: colorPalette.border,
+            },
           },
         }}
         MenuProps={{
           slotProps: {
             paper: {
               sx: {
-                backgroundColor: 'var(--player-background)',
+                backgroundColor: "var(--player-background)",
                 borderRadius: radius,
-                border: hasBorder ? `1px solid var(--player-border)` : 'none',
-                '& .MuiMenuItem-root': {
-                  color: colorPalette.surface,
-                  '&:hover': {
-                    backgroundColor: 'var(--background-transparent)',
+                border: hasBorder ? `1px solid var(--player-border)` : "none",
+                "& .MuiMenuItem-root": {
+                  color: colorPalette.white,
+                  "&:hover": {
+                    backgroundColor: "var(--background-transparent)",
                   },
-                  '&.Mui-selected': {
-                    backgroundColor: 'var(--background-selected)',
+                  "&.Mui-selected": {
+                    backgroundColor: "var(--background-selected)",
                   },
                 },
               },
