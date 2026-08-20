@@ -5,7 +5,8 @@ import { useWallpaper } from '@/hooks/useWallpaper';
 import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
 import { usePlayerStore } from '@/store/playerStore';
-import Container, {
+import {
+  Container,
   ColumnFlexContainer,
   RowFlexContainer,
 } from '../uiComponents/container/Container';

@@ -5,57 +5,63 @@ const createSongIds = (prefix: string, count: number): string[] =>
 
 export const playlists: Playlist[] = [
   {
+    id: 'dhurandhar',
+    title: 'Dhurandhar',
+    description: 'Hit songs from the movie Dhurandhar.',
+    songIds: createSongIds('dhurandhar', 25),
+  },
+  {
     id: 'hindi-classics',
     title: '90s Hindi Classics',
-    description: 'Nostalgic Bollywood hits for the long road.',
+    description: 'Bollywood hits for the road.',
     songIds: createSongIds('hindi', 12),
   },
   {
     id: 'barbershop',
     title: 'Barbershop Vibes',
-    description: 'Banger songs that play at Indian barber shops.',
+    description: 'Bangers from the barbershop.',
     songIds: createSongIds('barber', 27),
   },
   {
     id: 'romance',
     title: 'Romance',
-    description: 'Romantic Bollywood songs from your curated workbook.',
+    description: 'Romantic Bollywood songs.',
     songIds: createSongIds('romance', 74),
   },
   {
     id: 'heartbreak',
     title: 'Heartbreak',
-    description: 'Heartbreak and sad Bollywood songs from your curated workbook.',
+    description: 'Sad Bollywood songs.',
     songIds: createSongIds('heartbreak', 35),
   },
   {
     id: 'masti',
     title: 'Masti',
-    description: 'High-energy and fun Bollywood tracks from your curated workbook.',
+    description: 'High-energy Bollywood tracks.',
     songIds: createSongIds('masti', 32),
   },
   {
     id: 'nostalgia',
     title: 'Nostalgia',
-    description: 'Nostalgic Bollywood throwbacks from your curated workbook.',
+    description: 'Nostalgic Bollywood throwbacks.',
     songIds: createSongIds('nostalgia', 16),
   },
   {
     id: 'bhojpuri-reels',
     title: 'Bhojpuri Reels Hits',
-    description: 'Popular Bhojpuri tracks often trending in short-form videos.',
+    description: 'Trending Bhojpuri tracks.',
     songIds: createSongIds('bhojpuri', 63),
   },
   {
     id: 'himesh-hot-hits',
     title: 'Hot Himesh Hits',
-    description: 'Hook-heavy Himesh Reshammiya anthems and chart favorites.',
+    description: 'Hook-heavy Himesh anthems.',
     songIds: createSongIds('himesh', 24),
   },
   {
     id: 'kk-best',
     title: 'KK Best Songs',
-    description: 'Timeless KK vocals from romantic to soulful chartbusters.',
+    description: 'Timeless KK chartbusters.',
     songIds: createSongIds('kk', 25),
   },
 ];

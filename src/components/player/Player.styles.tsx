@@ -37,7 +37,8 @@ export const PlayButton = styled.button`
 `;
 
 export const ProgressBar = styled.input`
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   appearance: none;
   background-color: var(--player-text-primary);
   height: ${({ theme }) => theme.spacing(1.5)};

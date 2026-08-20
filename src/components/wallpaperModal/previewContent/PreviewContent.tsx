@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import Container, {
+import {
+  Container,
   ColumnFlexContainer,
   Divider,
   RowFlexContainer,
