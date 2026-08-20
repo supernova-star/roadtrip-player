@@ -4,7 +4,11 @@ import { playlists } from '../../constants/playlists';
 import { useAudioPlayer } from '../../hooks/useAudioPlayer';
 import { usePlayerStore } from '../../store/playerStore';
 import { Player } from '../../components/player/Player';
-import { Container, RowFlexContainer } from '@/components/uiComponents/container/Container';
+import {
+  ColumnFlexContainer,
+  Container,
+  RowFlexContainer,
+} from '@/components/uiComponents/container/Container';
 import { Typography } from '@/components/uiComponents/typography/Typography';
 import { useResponsive } from '@/hooks/useResponsive';
 import Popover from '@/components/uiComponents/popover/Popover';
@@ -19,6 +23,11 @@ import { PlaylistModal } from '@/components/playlistModal/PlaylistModal';
 import { Header } from '@/components/header/Header';
 import { Drawer } from '@/components/uiComponents/drawer/Drawer';
 import { PlaylistDrawer } from '@/components/playlistDrawer/PlaylistDrawer';
+import { MobileNav, MobileNavItem } from '@/components/mobileNav/MobileNav';
+import { MobilePlaylistPage } from '@/components/mobilePlaylistPage/MobilePlaylistPage';
+import { MobileSettingsPage } from '@/components/mobileSettingsPage/MobileSettingsPage';
+import { MobileProfilePage } from '@/components/mobileProfilePage/MobileProfilePage';
+import { usePlayerPreferencesStore } from '@/store/playerPreferencesStore';
 
 const ClockDisplay: React.FC = () => {
   const { isMobile } = useResponsive();
@@ -116,7 +125,10 @@ export const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPopoverItem, setSelectedPopoverItem] = useState<ViewType | null>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [activeNavTab, setActiveNavTab] = useState<MobileNavItem>('home');
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
+  const showMiniPlayer = usePlayerPreferencesStore((state) => state.showMiniPlayer);
+  const showQueueShortcut = usePlayerPreferencesStore((state) => state.showQueueShortcut);
 
   const activePlaylist = useMemo(
     () => playlists.find((p) => p.id === currentPlaylistId) ?? playlists[0],
@@ -144,14 +156,61 @@ export const Home: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const handleMobileNavChange = (item: MobileNavItem) => {
+    setActiveNavTab(item);
+  };
+
+  if (isMobile && activeNavTab !== 'home') {
+    const pageComponents: Record<Exclude<MobileNavItem, 'home'>, React.ReactNode> = {
+      library: <MobilePlaylistPage />,
+      settings: <MobileSettingsPage />,
+      profile: <MobileProfilePage />,
+    };
+
+    return (
+      <Container minHeight="100vh">
+        {pageComponents[activeNavTab]}
+        <ColumnFlexContainer
+          position="fixed"
+          bottom="0px"
+          left="0px"
+          right="0px"
+          width="100%"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <MobileNav active={activeNavTab} onChange={handleMobileNavChange} />
+        </ColumnFlexContainer>
+      </Container>
+    );
+  }
+
   return (
     <Container minHeight="100vh" padding={isMobile ? [12, 6] : [12, 20]}>
       <Container>
         <Header handleClick={handleClick} activePlaylist={activePlaylist} />
         <ClockDisplay />
       </Container>
+      <ColumnFlexContainer
+        position="fixed"
+        bottom="0px"
+        left="0px"
+        right="0px"
+        width="100%"
+        padding={isMobile ? [0, 0, 0] : [0, 0, 6]}
+        // gap={[3]}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {(!isMobile || showMiniPlayer) && (
+          <Player
+            openPlaylistDrawer={() => setOpenDrawer(true)}
+            showQueueShortcut={!isMobile || showQueueShortcut}
+          />
+        )}
+        {isMobile && <MobileNav active={activeNavTab} onChange={handleMobileNavChange} />}
+      </ColumnFlexContainer>
 
-      <Player openPlaylistDrawer={() => setOpenDrawer(true)} />
       <Popover
         id="user-menu-popover"
         open={open}

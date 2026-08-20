@@ -105,5 +105,3 @@ export const ColumnFlexContainer = forwardRef<
 export const Divider: FC<React.PropsWithChildren<StyledContainerProps>> = (props) => {
   return <Container height="1px" width="100%" backgroundColor="divider" {...props} />;
 };
-
-export default Container;

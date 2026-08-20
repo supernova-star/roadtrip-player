@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Container, { RowFlexContainer } from '../container/Container';
+import { Container, RowFlexContainer } from '../container/Container';
 
 type StepperProps = {
   steps: number;

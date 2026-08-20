@@ -7,6 +7,7 @@ import { nostalgiaSongs } from './playlistSongs/nostalgiaSongs';
 import { bhojpuriSongs } from './playlistSongs/bhojpuriSongs';
 import { himeshSongs } from './playlistSongs/himeshSongs';
 import { kkSongs } from './playlistSongs/kkSongs';
+import { dhurandharSongs } from './playlistSongs/dhurandhar';
 
 export { hindiClassicsSongs } from './playlistSongs/hindiClassics';
 export { barbershopSongs } from './playlistSongs/barbershop';
@@ -17,6 +18,7 @@ export { nostalgiaSongs } from './playlistSongs/nostalgiaSongs';
 export { bhojpuriSongs } from './playlistSongs/bhojpuriSongs';
 export { himeshSongs } from './playlistSongs/himeshSongs';
 export { kkSongs } from './playlistSongs/kkSongs';
+export { dhurandharSongs } from './playlistSongs/dhurandhar';
 
 export const songs = [
   ...hindiClassicsSongs,
@@ -28,4 +30,5 @@ export const songs = [
   ...bhojpuriSongs,
   ...himeshSongs,
   ...kkSongs,
+  ...dhurandharSongs,
 ];

@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
 import { ListMusic, Wrench } from 'lucide-react';
-import {
-  ColumnFlexContainer,
-  RowFlexContainer,
-} from '../uiComponents/container/Container';
+import { ColumnFlexContainer, RowFlexContainer } from '../uiComponents/container/Container';
 import { Typography } from '../uiComponents/typography/Typography';
 import { useResponsive } from '@/hooks/useResponsive';
 import { useWallpaper } from '@/hooks/useWallpaper';
@@ -24,14 +21,16 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
       justifyContent="between"
       alignItems="start"
       gap={[7]}
+      width="100%"
       margin={[0]}
     >
-      <ColumnFlexContainer gap={[2]}>
+      <ColumnFlexContainer gap={[2]} width={isMobile ? '100%' : undefined}>
         <ColumnFlexContainer
           gap={[3]}
           backgroundColor="var(--background-dark-transparent) "
           padding={isMobile ? [3] : [5]}
           borderRadius={isMobile ? [5] : [8]}
+          width={isMobile ? '100%' : undefined}
           style={{
             border: `1px solid var(--player-border)`,
             backdropFilter: 'blur(8px)',
@@ -77,10 +76,7 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
             }}
           >
             <RowFlexContainer alignItems="center" gap={[1]}>
-              <ListMusic
-                size={isMobile ? '16px' : '20px'}
-                color="var(--blur-text-accent)"
-              />
+              <ListMusic size={isMobile ? '16px' : '20px'} color="var(--blur-text-accent)" />
               <Typography
                 variant={isMobile ? 'body2' : 'subtitle1'}
                 weight="semiBold"
@@ -93,22 +89,21 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick }) => {
           </RowFlexContainer>
         </ColumnFlexContainer>
       </ColumnFlexContainer>
-      <RowFlexContainer
-        backgroundColor="var(--surface-selected)"
-        padding={isMobile ? [3] : [4]}
-        borderRadius={[10]}
-        cursor="pointer"
-        style={{
-          border: `1px solid var(--player-border)`,
-          backdropFilter: 'blur(10px)',
-        }}
-        onClick={(event: React.MouseEvent<HTMLElement>) => handleClick(event)}
-      >
-        <Wrench
-          color="var(--player-text-primary)"
-          size={isMobile ? '12px' : '20px'}
-        />
-      </RowFlexContainer>
+      {!isMobile && (
+        <RowFlexContainer
+          backgroundColor="var(--surface-selected)"
+          padding={[4]}
+          borderRadius={[10]}
+          cursor="pointer"
+          style={{
+            border: `1px solid var(--player-border)`,
+            backdropFilter: 'blur(10px)',
+          }}
+          onClick={(event: React.MouseEvent<HTMLElement>) => handleClick(event)}
+        >
+          <Wrench color="var(--player-text-primary)" size="20px" />
+        </RowFlexContainer>
+      )}
     </RowFlexContainer>
   );
 };

@@ -2,7 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { useResponsive } from '@/hooks/useResponsive';
 import { useWallpaper } from '@/hooks/useWallpaper';
-import Container, {
+import {
+  Container,
   ColumnFlexContainer,
   RowFlexContainer,
 } from '../uiComponents/container/Container';

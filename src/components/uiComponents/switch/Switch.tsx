@@ -1,6 +1,6 @@
 import React from 'react';
 import MuiSwitch, { type SwitchProps as MuiSwitchProps } from '@mui/material/Switch';
-import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
 
 const StyledSwitch = styled(MuiSwitch)(() => ({
   '& .MuiSwitch-switchBase': {
