@@ -9,19 +9,14 @@ import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
 import { usePlayerStore } from '@/store/playerStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
-import { formatTime } from '@/utils/formatter';
+import { formatTime, formatTotalDuration } from '@/utils/formatter';
+import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
 
 type MobilePlaylistDetailPageProps = {
   playlistId?: string;
   isFavorites?: boolean;
   onBack: () => void;
-};
-
-const formatTotalDuration = (totalSeconds: number) => {
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 };
 
 export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> = ({
@@ -39,6 +34,7 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
   const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
   const { isLightMode } = useWallpaper();
+  const mobilePageSurface = useMobilePageSurface();
   const selectedRowBackground = isLightMode
     ? 'var(--background-dark-transparent)'
     : 'var(--surface-selected)';
@@ -101,15 +97,7 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
   const description = isFavorites ? 'Songs you have liked.' : playlist?.description;
 
   return (
-    <ColumnFlexContainer
-      width="100%"
-      height="100vh"
-      padding={[0, 0, 32]}
-      style={{
-        backgroundColor: 'var(--surface-panel-strong)',
-        backdropFilter: 'blur(24px)',
-      }}
-    >
+    <ColumnFlexContainer width="100%" height="100vh" padding={[0, 0, 32]} style={mobilePageSurface}>
       <ColumnFlexContainer gap={[4]} padding={[6, 5, 4]} style={{ flexShrink: 0 }}>
         <RowFlexContainer
           alignItems="center"

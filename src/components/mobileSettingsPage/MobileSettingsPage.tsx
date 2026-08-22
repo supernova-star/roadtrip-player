@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
-import { ChevronRight, Clock3, Image, PlaySquare } from 'lucide-react';
+import React from 'react';
+import {
+  ChevronRight,
+  Clock3,
+  Image,
+  Layers,
+  PanelTop,
+  PlaySquare,
+  SlidersHorizontal,
+} from 'lucide-react';
 import {
   ColumnFlexContainer,
+  Container,
   RowFlexContainer,
 } from '@/components/uiComponents/container/Container';
 import { Typography } from '@/components/uiComponents/typography/Typography';
@@ -9,32 +18,51 @@ import { useTimeStore } from '@/store/timeStore';
 import { useWallpaperStore } from '@/store/wallpaperStore';
 import { wallpapers } from '@/constants/wallpapers';
 import { percentToHex } from '@/utils/formatter';
+import { useMobileHistoryView } from '@/hooks/useMobileHistoryView';
+import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import { MobileWallpaperPage } from './MobileWallpaperPage';
 import { MobileTimeSettingsPage } from './MobileTimeSettingsPage';
 import { MobilePlayerSettingsPage } from './MobilePlayerSettingsPage';
+import { MobileDisplaySettingsPage } from './MobileDisplaySettingsPage';
+import { MobileHeaderSettingsPage } from './MobileHeaderSettingsPage';
+import { MobileOtherScreenSettingsPage } from './MobileOtherScreenSettingsPage';
+
+type MobileSettingsView = 'wallpaper' | 'time' | 'player' | 'display' | 'header' | 'otherScreen';
 
 export const MobileSettingsPage: React.FC = () => {
-  const [isWallpaperViewOpen, setIsWallpaperViewOpen] = useState(false);
-  const [isTimeViewOpen, setIsTimeViewOpen] = useState(false);
-  const [isPlayerViewOpen, setIsPlayerViewOpen] = useState(false);
+  const { activeView, openView, closeView } =
+    useMobileHistoryView<MobileSettingsView>('mobileSettingsView');
   const wallpaperId = useWallpaperStore((state) => state.wallpaperId);
   const timeFormat = useTimeStore((state) => state.timeFormat);
   const showAmPm = useTimeStore((state) => state.showAmPm);
   const activeWallpaper = wallpapers.find((wallpaper) => wallpaper.id === wallpaperId);
   const clockFormat = timeFormat === '12-hour' ? `12h${showAmPm ? ' • AM/PM' : ''}` : '24h';
   const { isLightMode } = useWallpaper();
+  const mobilePageSurface = useMobilePageSurface();
 
-  if (isWallpaperViewOpen) {
-    return <MobileWallpaperPage onBack={() => setIsWallpaperViewOpen(false)} />;
+  if (activeView === 'wallpaper') {
+    return <MobileWallpaperPage onBack={closeView} />;
   }
 
-  if (isTimeViewOpen) {
-    return <MobileTimeSettingsPage onBack={() => setIsTimeViewOpen(false)} />;
+  if (activeView === 'time') {
+    return <MobileTimeSettingsPage onBack={closeView} />;
   }
 
-  if (isPlayerViewOpen) {
-    return <MobilePlayerSettingsPage onBack={() => setIsPlayerViewOpen(false)} />;
+  if (activeView === 'player') {
+    return <MobilePlayerSettingsPage onBack={closeView} />;
+  }
+
+  if (activeView === 'display') {
+    return <MobileDisplaySettingsPage onBack={closeView} />;
+  }
+
+  if (activeView === 'header') {
+    return <MobileHeaderSettingsPage onBack={closeView} />;
+  }
+
+  if (activeView === 'otherScreen') {
+    return <MobileOtherScreenSettingsPage onBack={closeView} />;
   }
 
   return (
@@ -43,10 +71,7 @@ export const MobileSettingsPage: React.FC = () => {
       padding={[8, 5, 24]}
       width="100%"
       height="100vh"
-      style={{
-        backgroundColor: 'var(--surface-panel-strong)',
-        backdropFilter: 'blur(24px)',
-      }}
+      style={mobilePageSurface}
     >
       <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
         Settings
@@ -69,14 +94,28 @@ export const MobileSettingsPage: React.FC = () => {
             icon={<Image size="25px" color="var(--player-accent)" />}
             title="Wallpaper"
             subtitle={activeWallpaper?.name ?? 'Road Trip'}
-            onClick={() => setIsWallpaperViewOpen(true)}
+            onClick={() => openView('wallpaper')}
           />
-          <div style={{ height: '1px', backgroundColor: 'var(--player-border)', opacity: 0.65 }} />
+          <Container height="1px" backgroundColor="var(--player-border)" opacity={0.65} />
           <SettingsRow
             icon={<Clock3 size="25px" color="var(--player-accent)" />}
             title="Clock & Time"
             subtitle={clockFormat}
-            onClick={() => setIsTimeViewOpen(true)}
+            onClick={() => openView('time')}
+          />
+          <Container height="1px" backgroundColor="var(--player-border)" opacity={0.65} />
+          <SettingsRow
+            icon={<SlidersHorizontal size="25px" color="var(--player-accent)" />}
+            title="Display"
+            subtitle="Home background, blur and overlay"
+            onClick={() => openView('display')}
+          />
+          <Container height="1px" backgroundColor="var(--player-border)" opacity={0.65} />
+          <SettingsRow
+            icon={<Layers size="25px" color="var(--player-accent)" />}
+            title="Other Screen Settings"
+            subtitle="Overlay for every screen except Home"
+            onClick={() => openView('otherScreen')}
           />
         </ColumnFlexContainer>
       </ColumnFlexContainer>
@@ -98,7 +137,14 @@ export const MobileSettingsPage: React.FC = () => {
             icon={<PlaySquare size="25px" color="var(--player-accent)" />}
             title="Player"
             subtitle="Player display and controls"
-            onClick={() => setIsPlayerViewOpen(true)}
+            onClick={() => openView('player')}
+          />
+          <Container height="1px" backgroundColor="var(--player-border)" opacity={0.65} />
+          <SettingsRow
+            icon={<PanelTop size="25px" color="var(--player-accent)" />}
+            title="Header"
+            subtitle="Header visibility and content"
+            onClick={() => openView('header')}
           />
         </ColumnFlexContainer>
       </ColumnFlexContainer>

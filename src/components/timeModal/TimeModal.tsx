@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import { format } from 'date-fns';
 import { useResponsive } from '@/hooks/useResponsive';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import {
@@ -19,7 +18,7 @@ import {
   type ClockSize,
   type TimeFormat,
 } from '@/store/timeStore';
-import { percentToHex } from '@/utils/formatter';
+import { formatClockTime, percentToHex } from '@/utils/formatter';
 
 type TimeModalProps = {
   onCancel: () => void;
@@ -51,10 +50,11 @@ const ClockPreview: FC<ClockPreviewProps> = ({
     return () => clearInterval(timer);
   }, []);
 
-  const hourFormat = timeFormat === '12-hour' ? 'hh' : 'HH';
-  const seconds = showSeconds ? ':ss' : '';
-  const ampm = timeFormat === '12-hour' && showAmPm ? ' aa' : '';
-  const formattedDigitalTime = format(currentTime, `${hourFormat}:mm${seconds}${ampm}`);
+  const formattedDigitalTime = formatClockTime(currentTime, {
+    timeFormat,
+    showSeconds,
+    showAmPm,
+  });
 
   return (
     <RowFlexContainer

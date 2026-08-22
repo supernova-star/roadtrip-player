@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
-import { ChevronLeft, Clock3, MousePointerClick } from 'lucide-react';
+import { MousePointerClick } from 'lucide-react';
 import {
   ColumnFlexContainer,
   RowFlexContainer,
@@ -9,25 +9,62 @@ import { Typography } from '@/components/uiComponents/typography/Typography';
 import { Switch } from '@/components/uiComponents/switch/Switch';
 import { Dropdown } from '@/components/uiComponents/dropdown/Dropdown';
 import { AnalogClock } from '@/components/uiComponents/analogClock/AnalogClock';
+import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
+import {
+  useDisplayPreferencesStore,
+  type ClockDateFormat,
+} from '@/store/displayPreferencesStore';
 import {
   useTimeStore,
   type ClockPosition,
   type ClockSize,
   type TimeFormat,
 } from '@/store/timeStore';
+import { CLOCK_DATE_FORMATS, DATE_FORMAT_OPTIONS } from '@/constants';
+import { formatClockTime } from '@/utils/formatter';
+import { MobileSettingsHeader } from '@/components/uiComponents/settings/MobileSettingsHeader';
 
 type MobileTimeSettingsPageProps = {
   onBack: () => void;
 };
 
-export const MobileTimeSettingsPage: React.FC<MobileTimeSettingsPageProps> = ({ onBack }) => {
+const dateFormatOptions: Array<{ label: string; value: ClockDateFormat }> = [
+  ...DATE_FORMAT_OPTIONS,
+];
+
+export const MobileTimeSettingsPage: React.FC<MobileTimeSettingsPageProps> = ({
+  onBack,
+}) => {
   const stored = useTimeStore();
   const [timeFormat, setTimeFormat] = useState<TimeFormat>(stored.timeFormat);
   const [showAmPm, setShowAmPm] = useState(stored.showAmPm);
   const [showSeconds, setShowSeconds] = useState(stored.showSeconds);
   const [clockSize, setClockSize] = useState<ClockSize>(stored.clockSize);
-  const [clockPosition, setClockPosition] = useState<ClockPosition>(stored.clockPosition);
-  const [showAnalogClock, setShowAnalogClock] = useState(stored.showAnalogClock);
+  const [clockPosition, setClockPosition] = useState<ClockPosition>(
+    stored.clockPosition,
+  );
+  const [showAnalogClock, setShowAnalogClock] = useState(
+    stored.showAnalogClock,
+  );
+  const showClockCard = useDisplayPreferencesStore(
+    (state) => state.showClockCard,
+  );
+  const showClockDate = useDisplayPreferencesStore(
+    (state) => state.showClockDate,
+  );
+  const clockDateFormat = useDisplayPreferencesStore(
+    (state) => state.clockDateFormat,
+  );
+  const setShowClockCard = useDisplayPreferencesStore(
+    (state) => state.setShowClockCard,
+  );
+  const setShowClockDate = useDisplayPreferencesStore(
+    (state) => state.setShowClockDate,
+  );
+  const setClockDateFormat = useDisplayPreferencesStore(
+    (state) => state.setClockDateFormat,
+  );
+  const mobilePageSurface = useMobilePageSurface();
 
   const isApplyDisabled =
     timeFormat === stored.timeFormat &&
@@ -53,32 +90,16 @@ export const MobileTimeSettingsPage: React.FC<MobileTimeSettingsPageProps> = ({ 
   return (
     <ColumnFlexContainer
       gap={[5]}
-      padding={[6, 5, 32]}
+      padding={[6, 5, 23]}
       width="100%"
       height="100vh"
-      style={{ backgroundColor: 'var(--surface-panel-strong)', backdropFilter: 'blur(24px)' }}
+      style={mobilePageSurface}
     >
-      <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
-        <RowFlexContainer
-          alignItems="center"
-          justifyContent="center"
-          width={[10]}
-          height={[10]}
-          cursor="pointer"
-          onClick={onBack}
-          style={{ borderRadius: '999px', backgroundColor: 'var(--background-dark-transparent)' }}
-        >
-          <ChevronLeft size="20px" color="var(--player-text-primary)" />
-        </RowFlexContainer>
-        <ColumnFlexContainer gap={[1]}>
-          <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
-            Clock & Time
-          </Typography>
-          <Typography variant="caption" color="var(--player-text-secondary)">
-            Set up your player clock
-          </Typography>
-        </ColumnFlexContainer>
-      </RowFlexContainer>
+      <MobileSettingsHeader
+        title="Clock & Time"
+        subtitle="Set up your player clock"
+        onBack={onBack}
+      />
 
       <ClockPreview
         timeFormat={timeFormat}
@@ -87,9 +108,41 @@ export const MobileTimeSettingsPage: React.FC<MobileTimeSettingsPageProps> = ({ 
         clockSize={clockSize}
         clockPosition={clockPosition}
         showAnalogClock={showAnalogClock}
+        showClockCard={showClockCard}
+        showClockDate={showClockDate}
+        clockDateFormat={clockDateFormat}
       />
 
-      <ColumnFlexContainer gap={[3]} flex={1} minHeight="0px" overflow="auto" hideScrollbar>
+      <ColumnFlexContainer
+        gap={[3]}
+        flex={1}
+        minHeight="0px"
+        overflow="auto"
+        hideScrollbar
+      >
+        <SettingsSection title="Clock card">
+          <SettingToggle
+            title="Show clock card"
+            subtitle="Display time in a glass card on the home page"
+            checked={showClockCard}
+            onChange={(event) => setShowClockCard(event.target.checked)}
+          />
+          <SettingToggle
+            title="Show date"
+            subtitle="Add date above the time"
+            checked={showClockDate}
+            disabled={!showClockCard}
+            onChange={(event) => setShowClockDate(event.target.checked)}
+          />
+          {showClockDate && showClockCard && (
+            <ChoiceRow
+              title="Date style"
+              options={dateFormatOptions}
+              value={clockDateFormat}
+              onChange={setClockDateFormat}
+            />
+          )}
+        </SettingsSection>
         <SettingsSection title="Time format">
           <RowFlexContainer gap={[2]}>
             <Segment
@@ -165,7 +218,11 @@ export const MobileTimeSettingsPage: React.FC<MobileTimeSettingsPageProps> = ({ 
         }}
       >
         <MousePointerClick size="16px" color="var(--player-background)" />
-        <Typography variant="body2" weight="semiBold" color="var(--player-background)">
+        <Typography
+          variant="body2"
+          weight="semiBold"
+          color="var(--player-background)"
+        >
           Apply Settings
         </Typography>
       </RowFlexContainer>
@@ -180,7 +237,20 @@ const ClockPreview: React.FC<{
   clockSize: ClockSize;
   clockPosition: ClockPosition;
   showAnalogClock: boolean;
-}> = ({ timeFormat, showAmPm, showSeconds, clockSize, clockPosition, showAnalogClock }) => {
+  showClockCard: boolean;
+  showClockDate: boolean;
+  clockDateFormat: ClockDateFormat;
+}> = ({
+  timeFormat,
+  showAmPm,
+  showSeconds,
+  clockSize,
+  clockPosition,
+  showAnalogClock,
+  showClockCard,
+  showClockDate,
+  clockDateFormat,
+}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -188,46 +258,103 @@ const ClockPreview: React.FC<{
     return () => clearInterval(timer);
   }, []);
 
-  const formattedTime = format(
+  const formattedTime = formatClockTime(currentTime, {
+    timeFormat,
+    showSeconds,
+    showAmPm,
+  });
+  const formattedDate = format(
     currentTime,
-    `${timeFormat === '12-hour' ? 'hh' : 'HH'}:mm${showSeconds ? ':ss' : ''}${
-      timeFormat === '12-hour' && showAmPm ? ' aa' : ''
-    }`
+    CLOCK_DATE_FORMATS[clockDateFormat],
   );
   const justifyContent =
-    clockPosition === 'left' ? 'start' : clockPosition === 'right' ? 'end' : 'center';
+    clockPosition === 'left'
+      ? 'start'
+      : clockPosition === 'right'
+        ? 'end'
+        : 'center';
 
   return (
     <ColumnFlexContainer gap={[2]} style={{ flexShrink: 0 }}>
-      <Typography variant="caption" weight="semiBold" color="var(--player-text-secondary)">
+      <Typography
+        variant="caption"
+        weight="semiBold"
+        color="var(--player-text-secondary)"
+      >
         PREVIEW
       </Typography>
-      <RowFlexContainer
-        alignItems="center"
-        justifyContent={showAnalogClock ? 'center' : justifyContent}
-        padding={[4]}
-        style={{
-          minHeight: '132px',
-          borderRadius: '12px',
-          backgroundColor: 'var(--background-dark-transparent)',
-          border: '1px solid var(--player-border)',
-        }}
-      >
-        {showAnalogClock ? (
-          <AnalogClock
-            value={currentTime}
-            scale={clockSize === 'large' ? 0.65 : clockSize === 'medium' ? 0.5 : 0.4}
-            showSeconds={showSeconds}
-          />
-        ) : (
-          <Typography
-            variant={clockSize === 'large' ? 'h4' : clockSize === 'medium' ? 'h6' : 'body1'}
-            weight="semiBold"
-            color="var(--player-text-primary)"
-            sx={{ fontVariantNumeric: 'tabular-nums' }}
+      <RowFlexContainer alignItems="center" justifyContent={justifyContent}>
+        {showClockCard ? (
+          <ColumnFlexContainer
+            alignItems="center"
+            gap={showClockDate ? [2] : [0]}
+            padding={[4, 6]}
+            style={{
+              minHeight: '132px',
+              minWidth: 'min(100%, 260px)',
+              borderRadius: '12px',
+              background: 'var(--header-glass-background)',
+              border: '1px solid var(--player-border)',
+              backdropFilter: 'blur(18px) saturate(1.08)',
+              boxShadow: 'var(--header-glass-shadow)',
+            }}
           >
-            {formattedTime}
-          </Typography>
+            {showClockDate && (
+              <Typography
+                variant="caption"
+                weight="semiBold"
+                color="var(--player-text-secondary)"
+                sx={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}
+              >
+                {formattedDate}
+              </Typography>
+            )}
+            {showAnalogClock ? (
+              <AnalogClock
+                value={currentTime}
+                scale={
+                  clockSize === 'large'
+                    ? 0.65
+                    : clockSize === 'medium'
+                      ? 0.5
+                      : 0.4
+                }
+                showSeconds={showSeconds}
+              />
+            ) : (
+              <Typography
+                variant={
+                  clockSize === 'large'
+                    ? 'h4'
+                    : clockSize === 'medium'
+                      ? 'h6'
+                      : 'body1'
+                }
+                weight="semiBold"
+                color="var(--player-text-primary)"
+                sx={{ fontVariantNumeric: 'tabular-nums' }}
+              >
+                {formattedTime}
+              </Typography>
+            )}
+          </ColumnFlexContainer>
+        ) : (
+          <RowFlexContainer
+            alignItems="center"
+            justifyContent="center"
+            padding={[4]}
+            width="100%"
+            style={{
+              minHeight: '132px',
+              borderRadius: '12px',
+              backgroundColor: 'var(--background-dark-transparent)',
+              border: '1px dashed var(--player-border)',
+            }}
+          >
+            <Typography variant="caption" color="var(--player-text-secondary)">
+              Clock card hidden
+            </Typography>
+          </RowFlexContainer>
         )}
       </RowFlexContainer>
     </ColumnFlexContainer>
@@ -239,18 +366,22 @@ const SettingsSection: React.FC<React.PropsWithChildren<{ title: string }>> = ({
   children,
 }) => (
   <ColumnFlexContainer gap={[2]}>
-    <Typography variant="body2" weight="semiBold" color="var(--player-text-secondary)">
+    <Typography
+      variant="body2"
+      weight="semiBold"
+      color="var(--player-text-secondary)"
+    >
       {title}
     </Typography>
     {children}
   </ColumnFlexContainer>
 );
 
-const Segment: React.FC<{ label: string; active: boolean; onClick: () => void }> = ({
-  label,
-  active,
-  onClick,
-}) => (
+const Segment: React.FC<{
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}> = ({ label, active, onClick }) => (
   <RowFlexContainer
     alignItems="center"
     justifyContent="center"
@@ -260,7 +391,9 @@ const Segment: React.FC<{ label: string; active: boolean; onClick: () => void }>
     onClick={onClick}
     style={{
       borderRadius: '8px',
-      backgroundColor: active ? 'var(--surface-selected)' : 'var(--background-dark-transparent)',
+      backgroundColor: active
+        ? 'var(--surface-selected)'
+        : 'var(--background-dark-transparent)',
       border: `1px solid ${active ? 'var(--player-accent)' : 'var(--player-border)'}`,
     }}
   >
@@ -294,7 +427,11 @@ const SettingToggle: React.FC<{
     }}
   >
     <ColumnFlexContainer gap={[1]} flex={1} minWidth={[0]}>
-      <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+      <Typography
+        variant="body2"
+        weight="semiBold"
+        color="var(--player-text-primary)"
+      >
         {title}
       </Typography>
       {subtitle && (
@@ -303,7 +440,12 @@ const SettingToggle: React.FC<{
         </Typography>
       )}
     </ColumnFlexContainer>
-    <Switch size="small" checked={checked} disabled={disabled} onChange={onChange} />
+    <Switch
+      size="small"
+      checked={checked}
+      disabled={disabled}
+      onChange={onChange}
+    />
   </RowFlexContainer>
 );
 
@@ -324,7 +466,11 @@ const SelectRow: React.FC<{
       border: '1px solid var(--player-border)',
     }}
   >
-    <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+    <Typography
+      variant="body2"
+      weight="semiBold"
+      color="var(--player-text-primary)"
+    >
       {label}
     </Typography>
     <Dropdown
@@ -332,10 +478,76 @@ const SelectRow: React.FC<{
       value={value}
       onChange={onChange}
       size="small"
-      textOptions={{ textColor: 'var(--player-text-primary)', textVariant: 'caption' }}
+      textOptions={{
+        textColor: 'var(--player-text-primary)',
+        textVariant: 'caption',
+      }}
       padding={[1, 2]}
       borderRadius={[2]}
       hasBorder={false}
     />
   </RowFlexContainer>
+);
+
+type ChoiceRowProps<Value extends string> = {
+  title: string;
+  options: Array<{ label: string; value: Value }>;
+  value: Value;
+  onChange: (value: Value) => void;
+};
+
+const ChoiceRow = <Value extends string>({
+  title,
+  options,
+  value,
+  onChange,
+}: ChoiceRowProps<Value>) => (
+  <ColumnFlexContainer gap={[3]}>
+    <Typography
+      variant="body2"
+      weight="semiBold"
+      color="var(--player-text-primary)"
+    >
+      {title}
+    </Typography>
+    <ColumnFlexContainer gap={[2]}>
+      {options.map((option) => {
+        const isActive = option.value === value;
+        return (
+          <RowFlexContainer
+            key={option.value}
+            alignItems="center"
+            justifyContent="between"
+            padding={[2, 3]}
+            borderRadius={[2]}
+            cursor="pointer"
+            onClick={() => onChange(option.value)}
+            style={{
+              backgroundColor: isActive
+                ? 'var(--background-selected)'
+                : 'var(--background-dark-transparent)',
+              border: `1px solid ${isActive ? 'var(--player-accent)' : 'var(--player-border)'}`,
+            }}
+          >
+            <Typography
+              variant="caption"
+              weight="semiBold"
+              color="var(--player-text-primary)"
+            >
+              {option.label}
+            </Typography>
+            {isActive && (
+              <Typography
+                variant="caption"
+                weight="bold"
+                color="var(--player-accent)"
+              >
+                Selected
+              </Typography>
+            )}
+          </RowFlexContainer>
+        );
+      })}
+    </ColumnFlexContainer>
+  </ColumnFlexContainer>
 );

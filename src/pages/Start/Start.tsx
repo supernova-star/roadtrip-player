@@ -2,10 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Home } from 'lucide-react';
 import { Input } from '@mui/material';
 import { Button } from '../../components/uiComponents/button/Button';
-import {
-  ColumnFlexContainer,
-  Container,
-} from '../../components/uiComponents/container/Container';
+import { ColumnFlexContainer, Container } from '../../components/uiComponents/container/Container';
 import { Typography } from '../../components/uiComponents/typography/Typography';
 import { useUserProfileStore } from '../../store/userProfileStore';
 import { wallpaperUrl } from '../../utils/formatter';
@@ -190,8 +187,7 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
                   borderRadius: '999px',
                   transformOrigin: 'left center',
                   animation: `redirectProgress ${redirectDelayMs}ms ease-out forwards`,
-                  background:
-                    'linear-gradient(90deg, #ff9d53 0%, #ffd29a 100%)',
+                  background: 'linear-gradient(90deg, #ff9d53 0%, #ffd29a 100%)',
                   '@keyframes redirectProgress': {
                     '0%': { transform: 'scaleX(0)' },
                     '100%': { transform: 'scaleX(1)' },
@@ -290,8 +286,7 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
                 background: 'linear-gradient(180deg, #ffd09a 0%, #ffaf63 100%)',
                 boxShadow: '0 14px 26px rgba(19, 13, 12, 0.24)',
                 '&:hover': {
-                  background:
-                    'linear-gradient(180deg, #ffdaa8 0%, #ffb872 100%)',
+                  background: 'linear-gradient(180deg, #ffdaa8 0%, #ffb872 100%)',
                 },
                 '&.Mui-disabled': {
                   background: 'rgba(255, 238, 217, 0.34)',

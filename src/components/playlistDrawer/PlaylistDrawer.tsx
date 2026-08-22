@@ -5,9 +5,11 @@ import { Typography } from '../uiComponents/typography/Typography';
 import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
 import { formatTime, percentToHex } from '@/utils/formatter';
-import { Pause, Play } from 'lucide-react';
+import { ListMusic, Pause, Play } from 'lucide-react';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import { usePlayerStore } from '@/store/playerStore';
+import { useFavoritesStore } from '@/store/favoritesStore';
+import { getSongsByIds } from '@/utils/music';
 
 type PlaylistDrawerProps = {
   currentPlaylistId: string;
@@ -21,12 +23,15 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({ currentPlaylistId }) =
   const setQueue = usePlayerStore((state) => state.setQueue);
   const playSong = usePlayerStore((state) => state.playSong);
   const togglePlay = usePlayerStore((state) => state.togglePlay);
+  const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
 
   const playListDetails = playlists.find((playlist) => playlist.id === currentPlaylistId);
 
-  const songDetails = playListDetails?.songIds
-    .map((songId) => songs.find((song) => song.id === songId))
-    .filter((song): song is (typeof songs)[number] => Boolean(song));
+  const songIds =
+    currentPlaylistId === 'favorites' ? favoriteSongIds : (playListDetails?.songIds ?? []);
+  const songDetails = getSongsByIds(songIds, songs);
+
+  const playlistTitle = currentPlaylistId === 'favorites' ? 'Favorites' : playListDetails?.title;
 
   const panelBackground = isLightMode
     ? percentToHex(currentWallpaper.theme.playerBackground, 80)
@@ -58,77 +63,180 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({ currentPlaylistId }) =
 
   return (
     <ColumnFlexContainer
-      gap={[2]}
+      gap={[3]}
       borderRadius={isMobile ? [3, 3, 0, 0] : [3, 0, 0, 3]}
-      padding={[3]}
+      padding={isMobile ? [4, 4, 5] : [5, 4]}
       backgroundColor={panelBackground}
       height="100%"
+      sx={{
+        backgroundImage: isLightMode
+          ? 'linear-gradient(145deg, rgba(255,255,255,0.18), transparent 42%)'
+          : 'linear-gradient(145deg, rgba(255,255,255,0.08), transparent 42%)',
+      }}
     >
-      <ColumnFlexContainer gap={[1]}>
-        <Typography
-          textStyle="uppercase"
-          weight="bold"
-          variant="caption"
-          color="var(--player-accent)"
+      <RowFlexContainer alignItems="center" gap={[3]}>
+        <RowFlexContainer
+          alignItems="center"
+          justifyContent="center"
+          width={[11]}
+          height={[11]}
+          borderRadius={[3]}
+          style={{
+            flexShrink: 0,
+            backgroundColor: isLightMode
+              ? 'rgba(255,255,255,0.56)'
+              : 'var(--background-dark-transparent)',
+            border: '1px solid var(--player-border)',
+          }}
         >
-          Playlist songs
-        </Typography>
-        <Typography variant="h6" weight="semiBold" color="var(--player-text-primary)">
-          {playListDetails?.title || 'Unknown Playlist'} ({songDetails?.length || 0} songs)
-        </Typography>
-      </ColumnFlexContainer>
+          <ListMusic size="20px" color="var(--player-accent)" />
+        </RowFlexContainer>
+        <ColumnFlexContainer gap={[1]} flex={1} minWidth={[0]}>
+          <Typography
+            textStyle="uppercase"
+            weight="bold"
+            variant="caption"
+            color="var(--player-accent)"
+          >
+            Now playing from
+          </Typography>
+          <Typography
+            variant="h6"
+            weight="semiBold"
+            color="var(--player-text-primary)"
+            sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          >
+            {playlistTitle || 'Unknown Playlist'}
+          </Typography>
+          <Typography variant="caption" color="var(--player-text-secondary)">
+            {songDetails.length} {songDetails.length === 1 ? 'song' : 'songs'}
+          </Typography>
+        </ColumnFlexContainer>
+      </RowFlexContainer>
 
       <ColumnFlexContainer
-        gap={[1]}
-        maxHeight={isMobile ? '510px' : '90vh'}
+        gap={[2]}
+        flex={1}
+        minHeight="0px"
         overflow="auto"
-        padding={[1, 0, 2]}
+        padding={[1, 0, 3]}
         hideScrollbar
       >
-        {songDetails &&
+        {songDetails.length > 0 ? (
           songDetails.map((song) => (
             <RowFlexContainer
-              key={song?.id}
-              padding={[2, 3]}
-              borderRadius={[3]}
+              key={song.id}
+              padding={isMobile ? [3, 3] : [3, 3]}
+              borderRadius={[4]}
               justifyContent="between"
               alignItems="center"
+              width="100%"
+              minWidth={[0]}
               backgroundColor={currentSong?.id === song.id ? selectedSongBackground : 'transparent'}
               onClick={() => handleSelectSong(song.id)}
+              cursor="pointer"
+              sx={{
+                minHeight: isMobile ? '72px' : '68px',
+                transition: 'background-color 160ms ease, transform 160ms ease',
+                '&:hover': {
+                  backgroundColor:
+                    currentSong?.id === song.id
+                      ? selectedSongBackground
+                      : 'var(--background-dark-transparent)',
+                },
+                '&:active': { transform: 'scale(0.99)' },
+              }}
             >
-              <RowFlexContainer gap={[3]} alignItems="center">
+              <RowFlexContainer gap={[3]} alignItems="center" flex={1} minWidth={[0]}>
                 <div
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '5px',
+                    width: isMobile ? '52px' : '48px',
+                    minWidth: isMobile ? '52px' : '48px',
+                    height: isMobile ? '52px' : '48px',
+                    borderRadius: '8px',
                     backgroundImage: `url(${song?.coverUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18)',
                   }}
                 />
-                <ColumnFlexContainer>
-                  <Typography variant="body1" weight="semiBold" color="var(--player-text-primary)">
+                <ColumnFlexContainer minWidth={[0]} flex={1} width="100%">
+                  <Typography
+                    variant="body1"
+                    weight="semiBold"
+                    color="var(--player-text-primary)"
+                    sx={{
+                      display: 'block',
+                      width: '100%',
+                      maxWidth: '100%',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
                     {song.title}
                   </Typography>
                   <Typography
                     variant="caption"
                     weight="semiBold"
                     color="var(--player-text-secondary)"
+                    sx={{
+                      display: 'block',
+                      width: '100%',
+                      maxWidth: '100%',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {song.artist}
                   </Typography>
                 </ColumnFlexContainer>
               </RowFlexContainer>
-              <RowFlexContainer gap={[3]} justifyContent="center" alignItems="center">
-                <Typography variant="caption" weight="bold" color="var(--player-text-secondary)">
+              <RowFlexContainer
+                gap={[3]}
+                justifyContent="center"
+                alignItems="center"
+                style={{ flexShrink: 0 }}
+              >
+                <Typography
+                  variant="caption"
+                  weight="bold"
+                  color="var(--player-text-secondary)"
+                  sx={{ fontVariantNumeric: 'tabular-nums' }}
+                >
                   {formatTime(song.duration || 0)}
                 </Typography>
-                {isSongPlaying(song.id) && <Pause size="20px" color="var(--player-accent)" />}
-                {!isSongPlaying(song.id) && <Play size="20px" color="var(--player-accent)" />}
+                <RowFlexContainer
+                  alignItems="center"
+                  justifyContent="center"
+                  width={[8]}
+                  height={[8]}
+                  borderRadius={[20]}
+                  style={{
+                    backgroundColor:
+                      currentSong?.id === song.id
+                        ? 'var(--player-accent)'
+                        : 'var(--background-dark-transparent)',
+                  }}
+                >
+                  {isSongPlaying(song.id) ? (
+                    <Pause size="14px" color="var(--player-background)" />
+                  ) : (
+                    <Play size="14px" color="var(--player-accent)" />
+                  )}
+                </RowFlexContainer>
               </RowFlexContainer>
             </RowFlexContainer>
-          ))}
+          ))
+        ) : (
+          <ColumnFlexContainer alignItems="center" justifyContent="center" padding={[8]} gap={[2]}>
+            <ListMusic size="28px" color="var(--player-text-disabled)" />
+            <Typography variant="body2" color="var(--player-text-secondary)">
+              No songs in this playlist yet
+            </Typography>
+          </ColumnFlexContainer>
+        )}
       </ColumnFlexContainer>
     </ColumnFlexContainer>
   );

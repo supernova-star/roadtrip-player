@@ -6,10 +6,13 @@ import {
 } from '@/components/uiComponents/container/Container';
 import { Typography } from '@/components/uiComponents/typography/Typography';
 import {
-  nostalgicWallpaperIds,
-  rusticWallpaperIds,
+  DEFAULT_WALLPAPER_POSITION,
+  getWallpapersByCategory,
+  isWallpaperInCategory,
+  WALLPAPER_CATEGORIES,
   type WallpaperCategory,
 } from '@/constants/wallpapers';
+import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import { useWallpaperStore, type WallpaperPosition } from '@/store/wallpaperStore';
 
@@ -17,29 +20,23 @@ type MobileWallpaperPageProps = {
   onBack: () => void;
 };
 
-const categories: WallpaperCategory[] = ['Nature', 'Rustic', 'Nostalgic'];
-
 export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack }) => {
   const { wallpaper, wallpaperPosition, wallpapers, setWallpaper, setWallpaperPosition } =
     useWallpaper();
+  const mobilePageSurface = useMobilePageSurface();
   const wallpaperPositions = useWallpaperStore((state) => state.wallpaperPositions);
   const [selectedWallpaperId, setSelectedWallpaperId] = useState(wallpaper.id);
   const [selectedWallpaperPosition, setSelectedWallpaperPosition] =
     useState<WallpaperPosition>(wallpaperPosition);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<WallpaperCategory>(() => {
-    if (rusticWallpaperIds.has(wallpaper.id)) return 'Rustic';
-    if (nostalgicWallpaperIds.has(wallpaper.id)) return 'Nostalgic';
+    if (isWallpaperInCategory(wallpaper.id, 'Rustic')) return 'Rustic';
+    if (isWallpaperInCategory(wallpaper.id, 'Nostalgic')) return 'Nostalgic';
     return 'Nature';
   });
 
   const categoryWallpapers = useMemo(
-    () =>
-      wallpapers.filter((item) => {
-        if (activeCategory === 'Rustic') return rusticWallpaperIds.has(item.id);
-        if (activeCategory === 'Nostalgic') return nostalgicWallpaperIds.has(item.id);
-        return !rusticWallpaperIds.has(item.id) && !nostalgicWallpaperIds.has(item.id);
-      }),
+    () => getWallpapersByCategory(wallpapers, activeCategory),
     [activeCategory, wallpapers]
   );
   const selectedWallpaper = wallpapers.find((item) => item.id === selectedWallpaperId) ?? wallpaper;
@@ -57,7 +54,7 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
 
   const selectWallpaper = (wallpaperId: string) => {
     setSelectedWallpaperId(wallpaperId);
-    setSelectedWallpaperPosition(wallpaperPositions[wallpaperId] ?? { x: 50, y: 50 });
+    setSelectedWallpaperPosition(wallpaperPositions[wallpaperId] ?? DEFAULT_WALLPAPER_POSITION);
   };
 
   if (isPreviewOpen) {
@@ -79,10 +76,7 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
       padding={[6, 5, 32]}
       width="100%"
       height="100vh"
-      style={{
-        backgroundColor: 'var(--surface-panel-strong)',
-        backdropFilter: 'blur(24px)',
-      }}
+      style={mobilePageSurface}
     >
       <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
         <RowFlexContainer
@@ -111,7 +105,7 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
       </RowFlexContainer>
 
       <RowFlexContainer gap={[2]} style={{ flexShrink: 0 }}>
-        {categories.map((category) => {
+        {WALLPAPER_CATEGORIES.map((category) => {
           const isActive = activeCategory === category;
           return (
             <RowFlexContainer
@@ -306,85 +300,89 @@ const MobileWallpaperPreview: React.FC<MobileWallpaperPreviewProps> = ({
   onPositionChange,
   onApply,
   isApplyDisabled,
-}) => (
-  <ColumnFlexContainer
-    gap={[5]}
-    padding={[6, 5, 32]}
-    width="100%"
-    height="100vh"
-    style={{ backgroundColor: 'var(--surface-panel-strong)', backdropFilter: 'blur(24px)' }}
-  >
-    <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
-      <RowFlexContainer
-        alignItems="center"
-        justifyContent="center"
-        width={[10]}
-        height={[10]}
-        cursor="pointer"
-        onClick={onBack}
-        style={{ borderRadius: '999px', backgroundColor: 'var(--background-dark-transparent)' }}
-      >
-        <ChevronLeft size="20px" color="var(--player-text-primary)" />
+}) => {
+  const mobilePageSurface = useMobilePageSurface();
+
+  return (
+    <ColumnFlexContainer
+      gap={[5]}
+      padding={[6, 5, 32]}
+      width="100%"
+      height="100vh"
+      style={mobilePageSurface}
+    >
+      <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
+        <RowFlexContainer
+          alignItems="center"
+          justifyContent="center"
+          width={[10]}
+          height={[10]}
+          cursor="pointer"
+          onClick={onBack}
+          style={{ borderRadius: '999px', backgroundColor: 'var(--background-dark-transparent)' }}
+        >
+          <ChevronLeft size="20px" color="var(--player-text-primary)" />
+        </RowFlexContainer>
+        <ColumnFlexContainer gap={[1]}>
+          <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
+            Preview
+          </Typography>
+          <Typography variant="caption" color="var(--player-text-secondary)">
+            {wallpaper.name}
+          </Typography>
+        </ColumnFlexContainer>
       </RowFlexContainer>
-      <ColumnFlexContainer gap={[1]}>
-        <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
-          Preview
+
+      <div
+        role="img"
+        aria-label={`${wallpaper.name} wallpaper preview`}
+        style={{
+          width: 'min(100%, 220px)',
+          height: 'min(48vh, 360px)',
+          minHeight: '260px',
+          alignSelf: 'center',
+          borderRadius: '16px',
+          border: '2px solid var(--player-border)',
+          backgroundImage: `url(${wallpaper.src})`,
+          backgroundSize: 'cover',
+          backgroundPosition: `${position.x}% ${position.y}%`,
+          boxShadow: 'var(--surface-shadow)',
+        }}
+      />
+
+      <ColumnFlexContainer
+        gap={[2]}
+        padding={[4]}
+        borderRadius={[3]}
+        style={{
+          backgroundColor: 'var(--background-dark-transparent)',
+          border: '1px solid var(--player-border)',
+        }}
+      >
+        <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+          Adjust image position
         </Typography>
         <Typography variant="caption" color="var(--player-text-secondary)">
-          {wallpaper.name}
+          Drag to choose the part of the image that appears behind the player.
         </Typography>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={position.x}
+          aria-label="Wallpaper horizontal position"
+          onChange={(event) => onPositionChange({ ...position, x: Number(event.target.value) })}
+          style={{ width: '100%', accentColor: 'var(--player-accent)' }}
+        />
       </ColumnFlexContainer>
-    </RowFlexContainer>
 
-    <div
-      role="img"
-      aria-label={`${wallpaper.name} wallpaper preview`}
-      style={{
-        width: 'min(100%, 220px)',
-        height: 'min(48vh, 360px)',
-        minHeight: '260px',
-        alignSelf: 'center',
-        borderRadius: '16px',
-        border: '2px solid var(--player-border)',
-        backgroundImage: `url(${wallpaper.src})`,
-        backgroundSize: 'cover',
-        backgroundPosition: `${position.x}% ${position.y}%`,
-        boxShadow: 'var(--surface-shadow)',
-      }}
-    />
-
-    <ColumnFlexContainer
-      gap={[2]}
-      padding={[4]}
-      borderRadius={[3]}
-      style={{
-        backgroundColor: 'var(--background-dark-transparent)',
-        border: '1px solid var(--player-border)',
-      }}
-    >
-      <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
-        Adjust image position
-      </Typography>
-      <Typography variant="caption" color="var(--player-text-secondary)">
-        Drag to choose the part of the image that appears behind the player.
-      </Typography>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={position.x}
-        aria-label="Wallpaper horizontal position"
-        onChange={(event) => onPositionChange({ ...position, x: Number(event.target.value) })}
-        style={{ width: '100%', accentColor: 'var(--player-accent)' }}
+      <ActionButton
+        icon={<MousePointerClick size="16px" />}
+        label="Apply Wallpaper"
+        onClick={onApply}
+        disabled={isApplyDisabled}
+        primary
       />
     </ColumnFlexContainer>
-
-    <ActionButton
-      icon={<MousePointerClick size="16px" />}
-      label="Apply Wallpaper"
-      onClick={onApply}
-      disabled={isApplyDisabled}
-      primary
-    />
-  </ColumnFlexContainer>
-);
+  );
+};

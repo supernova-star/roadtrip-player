@@ -1,5 +1,5 @@
 import { useWallpaperStore, type WallpaperPosition } from '@/store/wallpaperStore';
-import { wallpapers } from '../constants/wallpapers';
+import { DEFAULT_WALLPAPER_POSITION, wallpapers } from '../constants/wallpapers';
 
 export const useWallpaper = () => {
   const wallpaperId = useWallpaperStore((state) => state.wallpaperId);
@@ -16,7 +16,8 @@ export const useWallpaper = () => {
     wallpaper,
     wallpapers,
     setWallpaper,
-    wallpaperPosition: wallpaperPosition ?? ({ x: 50, y: 50 } satisfies WallpaperPosition),
+    wallpaperPosition:
+      wallpaperPosition ?? (DEFAULT_WALLPAPER_POSITION satisfies WallpaperPosition),
     setWallpaperPosition,
     isLightMode,
   };

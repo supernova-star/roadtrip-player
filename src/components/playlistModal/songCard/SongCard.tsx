@@ -10,6 +10,7 @@ import { Typography } from '@/components/uiComponents/typography/Typography';
 import { Playlist, Song } from '@/types/music';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import { usePlayerStore } from '@/store/playerStore';
+import { formatTime } from '@/utils/formatter';
 
 type SongCardProps = {
   song: Song;
@@ -73,9 +74,7 @@ export const SongCard: FC<SongCardProps> = ({
       </ColumnFlexContainer>
       <RowFlexContainer alignItems="center" gap={[2]} style={{ minWidth: 0 }}>
         <Typography variant="legal" color="var(--player-text-secondary)">
-          {song.duration
-            ? `${Math.floor(song.duration / 60)}:${String(song.duration % 60).padStart(2, '0')}`
-            : '--:--'}
+          {song.duration ? formatTime(song.duration) : '--:--'}
         </Typography>
         <Button
           text={isMobile ? '' : isThisSongPlaying ? 'Pause' : 'Play'}
