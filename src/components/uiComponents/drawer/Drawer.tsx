@@ -7,6 +7,7 @@ type DrawerAnchor = 'left' | 'right' | 'top' | 'bottom';
 interface DrawerProps {
   open: boolean;
   onClose: () => void;
+  showCloseButton?: boolean;
   anchor?: DrawerAnchor;
   width?: string | number;
   height?: string | number;
@@ -42,6 +43,7 @@ const closeButtonStyle = (anchor: DrawerAnchor): React.CSSProperties => {
 export const Drawer: React.FC<DrawerProps> = ({
   open,
   onClose,
+  showCloseButton = true,
   anchor = 'left',
   width = 320,
   height = 320,
@@ -78,12 +80,24 @@ export const Drawer: React.FC<DrawerProps> = ({
       ModalProps={{ keepMounted: false }}
     >
       {/* close button centered on the opening edge */}
-      <button onClick={onClose} style={closeButtonStyle(anchor)} aria-label="Close drawer">
-        <X size={16} />
-      </button>
+      {showCloseButton && (
+        <button onClick={onClose} style={closeButtonStyle(anchor)} aria-label="Close drawer">
+          <X size={16} />
+        </button>
+      )}
 
       {/* scrollable content area */}
-      <div style={{ height: '100%', overflowY: 'auto' }}>{children}</div>
+      <div
+        style={{
+          height: '100%',
+          overflowY: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        <style>{`::-webkit-scrollbar { display: none; }`}</style>
+        {children}
+      </div>
     </MuiDrawer>
   );
 };

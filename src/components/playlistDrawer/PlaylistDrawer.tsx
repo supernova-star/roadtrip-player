@@ -5,17 +5,26 @@ import { Typography } from '../uiComponents/typography/Typography';
 import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
 import { formatTime, percentToHex } from '@/utils/formatter';
-import { ListMusic, Pause, Play } from 'lucide-react';
+import { ListMusic, Pause, Play, X } from 'lucide-react';
 import { useWallpaper } from '@/hooks/useWallpaper';
 import { usePlayerStore } from '@/store/playerStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
 import { getSongsByIds } from '@/utils/music';
+import { ChevronLeft } from 'lucide-react';
 
 type PlaylistDrawerProps = {
   currentPlaylistId: string;
+  onBack?: () => void;
+  onClose?: () => void;
+  showBackToNowPlaying?: boolean;
 };
 
-export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({ currentPlaylistId }) => {
+export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
+  currentPlaylistId,
+  onBack,
+  onClose,
+  showBackToNowPlaying = false,
+}) => {
   const { isMobile } = useResponsive();
 
   const { isLightMode, wallpaper: currentWallpaper } = useWallpaper();
@@ -64,8 +73,9 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({ currentPlaylistId }) =
   return (
     <ColumnFlexContainer
       gap={[3]}
+      position="relative"
       borderRadius={isMobile ? [3, 3, 0, 0] : [3, 0, 0, 3]}
-      padding={isMobile ? [4, 4, 5] : [5, 4]}
+      padding={isMobile ? [7, 5, 10] : [5, 4]}
       backgroundColor={panelBackground}
       height="100%"
       sx={{
@@ -74,6 +84,45 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({ currentPlaylistId }) =
           : 'linear-gradient(145deg, rgba(255,255,255,0.08), transparent 42%)',
       }}
     >
+      {!showBackToNowPlaying && (
+        <RowFlexContainer
+          width={[10]}
+          height={[10]}
+          alignItems="center"
+          position="absolute"
+          top="30px"
+          right="20px"
+          borderRadius={[10]}
+          justifyContent="center"
+          cursor="pointer"
+          onClick={onClose}
+          gap={[3]}
+          backgroundColor={
+            isLightMode ? 'var(--background-dark-transparent)' : 'var(--surface-panel)'
+          }
+        >
+          <X size="24px" color="var(--player-text-primary)" cursor="pointer" />
+        </RowFlexContainer>
+      )}
+      {showBackToNowPlaying && onBack && (
+        <RowFlexContainer
+          alignItems="center"
+          gap={[2]}
+          cursor="pointer"
+          onClick={onBack}
+          padding={[3]}
+          borderRadius={[3]}
+          style={{ alignSelf: 'flex-start' }}
+          backgroundColor={
+            isLightMode ? 'var(--background-dark-transparent)' : 'var(--surface-panel)'
+          }
+        >
+          <ChevronLeft size="20px" color="var(--player-text-primary)" />
+          <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+            Now playing
+          </Typography>
+        </RowFlexContainer>
+      )}
       <RowFlexContainer alignItems="center" gap={[3]}>
         <RowFlexContainer
           alignItems="center"
