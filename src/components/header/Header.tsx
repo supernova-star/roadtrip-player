@@ -16,6 +16,8 @@ import { formatClockTime } from '@/utils/formatter';
 type HeaderProps = {
   activePlaylist: Playlist;
   handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  isFavorites?: boolean;
+  favoriteSongCount?: number;
   displayOptions?: {
     showHeaderCard: boolean;
     showHeaderNowPlaying: boolean;
@@ -24,7 +26,13 @@ type HeaderProps = {
   };
 };
 
-export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick, displayOptions }) => {
+export const Header: FC<HeaderProps> = ({
+  activePlaylist,
+  handleClick,
+  isFavorites = false,
+  favoriteSongCount = 0,
+  displayOptions,
+}) => {
   const { isMobile } = useResponsive();
   const { wallpaper } = useWallpaper();
   const storedShowHeaderCard = useDisplayPreferencesStore((state) => state.showHeaderCard);
@@ -38,7 +46,8 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick, displayOp
   const showHeaderQuote = displayOptions?.showHeaderQuote ?? storedShowHeaderQuote;
   const showHeaderClock = displayOptions?.showHeaderClock ?? storedShowHeaderClock;
   const quote = wallpaperQuotes[wallpaper.id] ?? 'Every road has a story.';
-  const songCount = activePlaylist.songIds.length;
+  const playlistTitle = isFavorites ? 'Favorites' : activePlaylist.title;
+  const songCount = isFavorites ? favoriteSongCount : activePlaylist.songIds.length;
   const [clockDate, setClockDate] = useState(new Date());
 
   useEffect(() => {
@@ -267,7 +276,7 @@ export const Header: FC<HeaderProps> = ({ activePlaylist, handleClick, displayOp
                     color="var(--player-text-primary)"
                     sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
                   >
-                    {activePlaylist.title}
+                    {playlistTitle}
                   </Typography>
                   <Typography variant="caption" color="var(--player-text-secondary)">
                     {songCount} songs

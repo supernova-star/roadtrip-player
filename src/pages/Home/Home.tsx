@@ -29,6 +29,8 @@ import { MobileSettingsPage } from '@/components/mobileSettingsPage/MobileSettin
 import { MobileProfilePage } from '@/components/mobileProfilePage/MobileProfilePage';
 import { useDisplayPreferencesStore } from '@/store/displayPreferencesStore';
 import { usePlayerPreferencesStore } from '@/store/playerPreferencesStore';
+import { useFavoritesStore } from '@/store/favoritesStore';
+import { NowPlayingPage } from '@/components/nowPlaying/NowPlaying';
 import { CLOCK_DATE_FORMATS } from '@/constants';
 import { formatClockTime } from '@/utils/formatter';
 
@@ -155,11 +157,14 @@ export const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPopoverItem, setSelectedPopoverItem] = useState<ViewType | null>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [drawerView, setDrawerView] = useState<'playlist' | 'nowPlaying'>('playlist');
+  const [showBackToNowPlaying, setShowBackToNowPlaying] = useState(false);
   const [activeNavTab, setActiveNavTab] = useState<MobileNavItem>('home');
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
   const showMiniPlayer = usePlayerPreferencesStore((state) => state.showMiniPlayer);
   const showQueueShortcut = usePlayerPreferencesStore((state) => state.showQueueShortcut);
   const showProgressBar = usePlayerPreferencesStore((state) => state.showProgressBar);
+  const favoriteSongCount = useFavoritesStore((state) => state.favoriteSongIds.length);
 
   const activePlaylist = useMemo(
     () => playlists.find((p) => p.id === currentPlaylistId) ?? playlists[0],
@@ -226,7 +231,12 @@ export const Home: React.FC = () => {
   return (
     <Container minHeight="100vh" padding={isMobile ? [12, 6] : [12, 20]}>
       <Container>
-        <Header handleClick={handleClick} activePlaylist={activePlaylist} />
+        <Header
+          handleClick={handleClick}
+          activePlaylist={activePlaylist}
+          isFavorites={currentPlaylistId === 'favorites'}
+          favoriteSongCount={favoriteSongCount}
+        />
         <ClockDisplay />
       </Container>
       <ColumnFlexContainer
@@ -236,13 +246,21 @@ export const Home: React.FC = () => {
         right="0px"
         width="100%"
         padding={isMobile ? [0, 0, 0] : [0, 0, 6]}
-        // gap={[3]}
         alignItems="center"
         justifyContent="center"
       >
         {(!isMobile || showMiniPlayer) && (
           <Player
-            openPlaylistDrawer={() => setOpenDrawer(true)}
+            openPlaylistDrawer={() => {
+              setDrawerView('playlist');
+              setShowBackToNowPlaying(false);
+              setOpenDrawer(true);
+            }}
+            openNowPlaying={() => {
+              setDrawerView('nowPlaying');
+              setShowBackToNowPlaying(false);
+              setOpenDrawer(true);
+            }}
             showQueueShortcut={!isMobile || showQueueShortcut}
             showProgressBar={!isMobile || showProgressBar}
           />
@@ -269,12 +287,28 @@ export const Home: React.FC = () => {
 
       <Drawer
         open={openDrawer}
-        anchor={isMobile ? 'bottom' : 'right'}
-        height={isMobile ? '600px' : undefined}
-        width={isMobile ? '100%' : '448px'}
+        anchor="bottom"
+        height="100dvh"
+        width="100%"
+        showCloseButton={false}
         onClose={() => setOpenDrawer(false)}
       >
-        <PlaylistDrawer currentPlaylistId={currentPlaylistId} />
+        {drawerView === 'playlist' ? (
+          <PlaylistDrawer
+            currentPlaylistId={currentPlaylistId}
+            onBack={() => setDrawerView('nowPlaying')}
+            onClose={() => setOpenDrawer(false)}
+            showBackToNowPlaying={showBackToNowPlaying}
+          />
+        ) : (
+          <NowPlayingPage
+            onBack={() => setOpenDrawer(false)}
+            onQueue={() => {
+              setShowBackToNowPlaying(true);
+              setDrawerView('playlist');
+            }}
+          />
+        )}
       </Drawer>
 
       {selectedPopoverItem && (

@@ -45,7 +45,7 @@ export const MobilePlaylistPage: React.FC = () => {
   return (
     <ColumnFlexContainer
       gap={[4]}
-      padding={[8, 5, 32]}
+      padding={[8, 5, 23]}
       width="100%"
       height="100vh"
       style={mobilePageSurface}
@@ -65,6 +65,7 @@ export const MobilePlaylistPage: React.FC = () => {
         padding={[3]}
         borderRadius={[3]}
         cursor="pointer"
+        onClick={() => openPlaylist('favorites')}
       >
         <RowFlexContainer alignItems="center" gap={[3]} flex={1} minWidth={[0]}>
           <RowFlexContainer
@@ -97,7 +98,6 @@ export const MobilePlaylistPage: React.FC = () => {
           width={[10]}
           height={[10]}
           cursor="pointer"
-          onClick={() => openPlaylist('favorites')}
         >
           <ChevronRight size="18px" color="var(--player-text-secondary)" />
         </RowFlexContainer>
@@ -138,7 +138,7 @@ export const MobilePlaylistPage: React.FC = () => {
               borderRadius={[3]}
               cursor="pointer"
               backgroundColor={isActive ? selectedRowBackground : 'transparent'}
-              onClick={() => setCurrentPlaylistId(playlist.id)}
+              onClick={() => openPlaylist(playlist.id)}
             >
               <RowFlexContainer alignItems="center" gap={[3]} flex={1} minWidth={[0]}>
                 <RowFlexContainer
@@ -206,10 +206,6 @@ export const MobilePlaylistPage: React.FC = () => {
                   width={[10]}
                   height={[10]}
                   cursor="pointer"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    openPlaylist(playlist.id);
-                  }}
                 >
                   <ChevronRight size="18px" color="var(--player-text-secondary)" />
                 </RowFlexContainer>

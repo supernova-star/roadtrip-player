@@ -11,6 +11,30 @@ export const playlists: Playlist[] = [
     songIds: createSongIds('dhurandhar', 25),
   },
   {
+    id: 'coke-studio-pakistan',
+    title: 'Coke Studio Pakistan',
+    description: 'Recognizable Coke Studio Pakistan collaborations.',
+    songIds: createSongIds('coke-studio-pakistan', 20),
+  },
+  {
+    id: 'coke-studio-bangla',
+    title: 'Coke Studio Bangla',
+    description: 'Folk and Baul-influenced Coke Studio Bangla favorites.',
+    songIds: createSongIds('coke-studio-bangla', 21),
+  },
+  {
+    id: 'coke-studio-india',
+    title: 'Coke Studio India',
+    description: 'Coke Studio India and Coke Studio @ MTV highlights.',
+    songIds: createSongIds('coke-studio-india', 20),
+  },
+  {
+    id: 'monsoon-mixtape',
+    title: 'MIX - Monsoon Mixtape',
+    description: 'A rainy-day mix of Hindi and Bengali favorites.',
+    songIds: createSongIds('monsoon-mixtape', 27),
+  },
+  {
     id: 'hindi-classics',
     title: '90s Hindi Classics',
     description: 'Bollywood hits for the road.',

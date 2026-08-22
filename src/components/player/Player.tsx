@@ -100,9 +100,10 @@ const ControlSection: FC<ControlSectionProps> = ({
 
 export const Player: React.FC<{
   openPlaylistDrawer: () => void;
+  openNowPlaying: () => void;
   showQueueShortcut?: boolean;
   showProgressBar?: boolean;
-}> = ({ openPlaylistDrawer, showQueueShortcut = true, showProgressBar = true }) => {
+}> = ({ openPlaylistDrawer, openNowPlaying, showQueueShortcut = true, showProgressBar = true }) => {
   const { isMobile } = useResponsive();
   const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -125,6 +126,7 @@ export const Player: React.FC<{
       gap={[4]}
       width={playerWidth}
       overflow="hidden"
+      onClick={openNowPlaying}
       sx={{
         position: 'relative',
         backdropFilter: 'blur(28px)',
@@ -132,6 +134,7 @@ export const Player: React.FC<{
         border: isMobile ? 'none' : '1px solid var(--player-border)',
         backgroundColor: 'var(--player-surface)',
         boxShadow: 'var(--player-surface-shadow)',
+        cursor: currentSong ? 'pointer' : 'default',
       }}
     >
       {currentSong && <CoverImage currentSong={currentSong} isMobile={isMobile} />}
@@ -181,6 +184,7 @@ export const Player: React.FC<{
             data-testid="player-controls"
             alignItems="center"
             style={{ flexShrink: 0 }}
+            onClick={(event) => event.stopPropagation()}
           >
             <ControlSection
               isPlaying={isPlaying}
@@ -205,7 +209,11 @@ export const Player: React.FC<{
         </RowFlexContainer>
 
         {!isMobile && (
-          <RowFlexContainer alignItems="center" gap={[1, 2]}>
+          <RowFlexContainer
+            alignItems="center"
+            gap={[1, 2]}
+            onClick={(event) => event.stopPropagation()}
+          >
             <Typography variant="caption" weight="semiBold" color="var(--player-text-secondary)">
               {formatTime(currentTime)}
             </Typography>
