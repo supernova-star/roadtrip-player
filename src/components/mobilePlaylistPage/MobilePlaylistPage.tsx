@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ListMusic, Play, Pause, ChevronRight, Heart } from 'lucide-react';
 import {
   ColumnFlexContainer,
@@ -10,7 +10,10 @@ import { songs } from '@/constants/songs';
 import { usePlayerStore } from '@/store/playerStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
 import { MobilePlaylistDetailPage } from './MobilePlaylistDetailPage';
+import { useMobileHistoryView } from '@/hooks/useMobileHistoryView';
+import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
+import { getSongsByIds } from '@/utils/music';
 
 export const MobilePlaylistPage: React.FC = () => {
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
@@ -24,19 +27,19 @@ export const MobilePlaylistPage: React.FC = () => {
   const selectedRowBackground = isLightMode
     ? 'var(--background-dark-transparent)'
     : 'var(--surface-selected)';
-  const [openPlaylistId, setOpenPlaylistId] = useState<string | null>(null);
+  const mobilePageSurface = useMobilePageSurface();
+  const {
+    activeView: openPlaylistId,
+    openView: openPlaylist,
+    closeView: closePlaylist,
+  } = useMobileHistoryView<string>('mobilePlaylistId');
 
   if (openPlaylistId === 'favorites') {
-    return <MobilePlaylistDetailPage isFavorites onBack={() => setOpenPlaylistId(null)} />;
+    return <MobilePlaylistDetailPage isFavorites onBack={closePlaylist} />;
   }
 
   if (openPlaylistId) {
-    return (
-      <MobilePlaylistDetailPage
-        playlistId={openPlaylistId}
-        onBack={() => setOpenPlaylistId(null)}
-      />
-    );
+    return <MobilePlaylistDetailPage playlistId={openPlaylistId} onBack={closePlaylist} />;
   }
 
   return (
@@ -45,10 +48,7 @@ export const MobilePlaylistPage: React.FC = () => {
       padding={[8, 5, 32]}
       width="100%"
       height="100vh"
-      style={{
-        backgroundColor: 'var(--surface-panel-strong)',
-        backdropFilter: 'blur(24px)',
-      }}
+      style={mobilePageSurface}
     >
       <Typography
         variant="h5"
@@ -97,13 +97,9 @@ export const MobilePlaylistPage: React.FC = () => {
           width={[10]}
           height={[10]}
           cursor="pointer"
-          onClick={() => setOpenPlaylistId('favorites')}
+          onClick={() => openPlaylist('favorites')}
         >
-          <ChevronRight
-            size="18px"
-            color="var(--player-text-secondary)"
-            onClick={() => setOpenPlaylistId('favorites')}
-          />
+          <ChevronRight size="18px" color="var(--player-text-secondary)" />
         </RowFlexContainer>
       </RowFlexContainer>
       <Typography
@@ -125,9 +121,7 @@ export const MobilePlaylistPage: React.FC = () => {
               pause();
               return;
             }
-            const songDetails = playlist.songIds
-              .map((songId) => songs.find((song) => song.id === songId))
-              .filter((song): song is (typeof songs)[number] => Boolean(song));
+            const songDetails = getSongsByIds(playlist.songIds, songs);
             if (songDetails.length === 0) return;
             setCurrentPlaylistId(playlist.id);
             setQueue(songDetails);
@@ -214,7 +208,7 @@ export const MobilePlaylistPage: React.FC = () => {
                   cursor="pointer"
                   onClick={(event) => {
                     event.stopPropagation();
-                    setOpenPlaylistId(playlist.id);
+                    openPlaylist(playlist.id);
                   }}
                 >
                   <ChevronRight size="18px" color="var(--player-text-secondary)" />

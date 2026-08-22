@@ -1,8 +1,13 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { ColumnFlexContainer, RowFlexContainer } from '../uiComponents/container/Container';
 import { useResponsive } from '@/hooks/useResponsive';
-import type { WallpaperCategory } from '@/constants/wallpapers';
-import { rusticWallpaperIds, nostalgicWallpaperIds } from '@/constants/wallpapers';
+import {
+  DEFAULT_WALLPAPER_POSITION,
+  getWallpapersByCategory,
+  isWallpaperInCategory,
+  WALLPAPER_CATEGORIES,
+  type WallpaperCategory,
+} from '@/constants/wallpapers';
 import { WallpaperIcon } from 'lucide-react';
 import { Typography } from '../uiComponents/typography/Typography';
 import { Button } from '../uiComponents/button/Button';
@@ -34,9 +39,9 @@ export const WallpaperModal: FC<WallpaperModalProps> = ({ onCancel }) => {
   const [hoveredWallpaperId, setHoveredWallpaperId] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [activeCategory, setActiveCategory] = useState<WallpaperCategory>(
-    rusticWallpaperIds.has(currentWallpaper.id)
+    isWallpaperInCategory(currentWallpaper.id, 'Rustic')
       ? 'Rustic'
-      : nostalgicWallpaperIds.has(currentWallpaper.id)
+      : isWallpaperInCategory(currentWallpaper.id, 'Nostalgic')
         ? 'Nostalgic'
         : 'Nature'
   );
@@ -44,19 +49,13 @@ export const WallpaperModal: FC<WallpaperModalProps> = ({ onCancel }) => {
     useState<WallpaperPosition>(currentWallpaperPosition);
 
   useEffect(() => {
-    setSelectedWallpaperPosition(wallpaperPositions[selectedWallpaper.id] ?? { x: 50, y: 50 });
+    setSelectedWallpaperPosition(
+      wallpaperPositions[selectedWallpaper.id] ?? DEFAULT_WALLPAPER_POSITION
+    );
   }, [selectedWallpaper.id, wallpaperPositions]);
 
-  const categories: WallpaperCategory[] = ['Nature', 'Rustic', 'Nostalgic'];
-
-  const isInCategory = (wallpaperId: string, category: WallpaperCategory) => {
-    if (category === 'Rustic') return rusticWallpaperIds.has(wallpaperId);
-    if (category === 'Nostalgic') return nostalgicWallpaperIds.has(wallpaperId);
-    return !rusticWallpaperIds.has(wallpaperId) && !nostalgicWallpaperIds.has(wallpaperId);
-  };
-
   const categoryWallpapers = useMemo(
-    () => wallpapers.filter((wallpaper) => isInCategory(wallpaper.id, activeCategory)),
+    () => getWallpapersByCategory(wallpapers, activeCategory),
     [activeCategory, wallpapers]
   );
 
@@ -67,7 +66,7 @@ export const WallpaperModal: FC<WallpaperModalProps> = ({ onCancel }) => {
 
   const handleCategoryChange = (category: WallpaperCategory) => {
     setActiveCategory(category);
-    const firstWallpaper = wallpapers.find((wallpaper) => isInCategory(wallpaper.id, category));
+    const firstWallpaper = getWallpapersByCategory(wallpapers, category)[0];
     if (firstWallpaper) setSelectedWallpaper(firstWallpaper);
   };
 
@@ -167,7 +166,7 @@ export const WallpaperModal: FC<WallpaperModalProps> = ({ onCancel }) => {
           padding={[1]}
           borderRadius={[2]}
         >
-          {categories.map((category) => (
+          {WALLPAPER_CATEGORIES.map((category) => (
             <Button
               key={category}
               text={category}

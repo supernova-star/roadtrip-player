@@ -27,11 +27,17 @@ import { MobileNav, MobileNavItem } from '@/components/mobileNav/MobileNav';
 import { MobilePlaylistPage } from '@/components/mobilePlaylistPage/MobilePlaylistPage';
 import { MobileSettingsPage } from '@/components/mobileSettingsPage/MobileSettingsPage';
 import { MobileProfilePage } from '@/components/mobileProfilePage/MobileProfilePage';
+import { useDisplayPreferencesStore } from '@/store/displayPreferencesStore';
 import { usePlayerPreferencesStore } from '@/store/playerPreferencesStore';
+import { CLOCK_DATE_FORMATS } from '@/constants';
+import { formatClockTime } from '@/utils/formatter';
 
 const ClockDisplay: React.FC = () => {
   const { isMobile } = useResponsive();
   const timeSettings = useTimeStore();
+  const showClockCard = useDisplayPreferencesStore((state) => state.showClockCard);
+  const showClockDate = useDisplayPreferencesStore((state) => state.showClockDate);
+  const clockDateFormat = useDisplayPreferencesStore((state) => state.clockDateFormat);
   const [clockDate, setClockDate] = useState(new Date());
 
   useEffect(() => {
@@ -40,18 +46,16 @@ const ClockDisplay: React.FC = () => {
   }, []);
 
   const digitalTimeText = (() => {
-    const hourFormat = timeSettings.timeFormat === '12-hour' ? 'hh' : 'HH';
-    const seconds = timeSettings.showSeconds ? ':ss' : '';
-    const ampm = timeSettings.timeFormat === '12-hour' && timeSettings.showAmPm ? ' aa' : '';
-    return format(clockDate, `${hourFormat}:mm${seconds}${ampm}`);
+    return formatClockTime(clockDate, timeSettings);
   })();
+  const dateText = format(clockDate, CLOCK_DATE_FORMATS[clockDateFormat]);
 
   const clockSizeVariant = useMemo(() => {
     if (isMobile) {
       return timeSettings.clockSize === 'large'
-        ? 'h2'
+        ? 'h4'
         : timeSettings.clockSize === 'medium'
-          ? 'h4'
+          ? 'h5'
           : 'body1';
     }
     return timeSettings.clockSize === 'large'
@@ -64,10 +68,10 @@ const ClockDisplay: React.FC = () => {
   const analogClockScale = useMemo(() => {
     if (isMobile) {
       return timeSettings.clockSize === 'large'
-        ? 0.75
+        ? 0.56
         : timeSettings.clockSize === 'medium'
-          ? 0.6
-          : 0.5;
+          ? 0.46
+          : 0.36;
     }
     return timeSettings.clockSize === 'large'
       ? 1
@@ -83,44 +87,70 @@ const ClockDisplay: React.FC = () => {
         ? 'end'
         : 'center';
 
+  if (!showClockCard) {
+    return null;
+  }
+
   return (
-    <Container>
-      {timeSettings.showAnalogClock ? (
-        <RowFlexContainer
-          justifyContent={clockJustify}
-          alignItems="center"
-          width="100%"
-          margin={isMobile ? [0] : [4, 0]}
-        >
+    <RowFlexContainer
+      justifyContent={clockJustify}
+      alignItems="center"
+      width="100%"
+      margin={isMobile ? [4, 0] : [8, 0]}
+    >
+      <ColumnFlexContainer
+        alignItems="center"
+        gap={showClockDate ? [2] : [0]}
+        padding={isMobile ? [3, 5] : [5, 8]}
+        borderRadius={isMobile ? [5] : [8]}
+        style={{
+          minWidth: isMobile ? 'min(100%, 240px)' : 'min(100%, 360px)',
+          border: '1px solid var(--player-border)',
+          background: 'var(--header-glass-background)',
+          backdropFilter: 'blur(18px) saturate(1.08)',
+          boxShadow: 'var(--header-glass-shadow)',
+        }}
+      >
+        {showClockDate && (
+          <Typography
+            variant="caption"
+            weight="semiBold"
+            color="var(--player-text-secondary)"
+            textAlign="center"
+            sx={{ letterSpacing: '0.12em', textTransform: 'uppercase' }}
+          >
+            {dateText}
+          </Typography>
+        )}
+        {timeSettings.showAnalogClock ? (
           <AnalogClock
             value={clockDate}
             scale={analogClockScale}
             showSeconds={timeSettings.showSeconds}
           />
-        </RowFlexContainer>
-      ) : (
-        <RowFlexContainer
-          justifyContent={clockJustify}
-          alignItems="center"
-          width="100%"
-          margin={isMobile ? [4, 0] : [12, 0]}
-        >
+        ) : (
           <Typography
             variant={clockSizeVariant}
+            weight="bold"
             color="var(--player-text-primary)"
-            sx={{ fontVariantNumeric: 'tabular-nums' }}
+            textAlign="center"
+            sx={{ fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}
           >
             {digitalTimeText}
           </Typography>
-        </RowFlexContainer>
-      )}
-    </Container>
+        )}
+      </ColumnFlexContainer>
+    </RowFlexContainer>
   );
 };
 
 export const Home: React.FC = () => {
   useAudioPlayer();
   const { isMobile } = useResponsive();
+  const homeOverlayIntensity = useDisplayPreferencesStore((state) => state.homeOverlayIntensity);
+  const otherPagesOverlayIntensity = useDisplayPreferencesStore(
+    (state) => state.otherPagesOverlayIntensity
+  );
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPopoverItem, setSelectedPopoverItem] = useState<ViewType | null>(null);
@@ -129,6 +159,7 @@ export const Home: React.FC = () => {
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
   const showMiniPlayer = usePlayerPreferencesStore((state) => state.showMiniPlayer);
   const showQueueShortcut = usePlayerPreferencesStore((state) => state.showQueueShortcut);
+  const showProgressBar = usePlayerPreferencesStore((state) => state.showProgressBar);
 
   const activePlaylist = useMemo(
     () => playlists.find((p) => p.id === currentPlaylistId) ?? playlists[0],
@@ -159,6 +190,13 @@ export const Home: React.FC = () => {
   const handleMobileNavChange = (item: MobileNavItem) => {
     setActiveNavTab(item);
   };
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--page-overlay',
+      `var(--${activeNavTab === 'home' ? 'home-page' : 'other-pages'}-overlay)`
+    );
+  }, [activeNavTab, homeOverlayIntensity, otherPagesOverlayIntensity]);
 
   if (isMobile && activeNavTab !== 'home') {
     const pageComponents: Record<Exclude<MobileNavItem, 'home'>, React.ReactNode> = {
@@ -206,6 +244,7 @@ export const Home: React.FC = () => {
           <Player
             openPlaylistDrawer={() => setOpenDrawer(true)}
             showQueueShortcut={!isMobile || showQueueShortcut}
+            showProgressBar={!isMobile || showProgressBar}
           />
         )}
         {isMobile && <MobileNav active={activeNavTab} onChange={handleMobileNavChange} />}

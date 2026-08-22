@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
@@ -12,6 +12,11 @@ export const GlobalStyles = createGlobalStyle`
   /* --roadtrip-wallpaper: url('/images/roadTrip.png'); */
   --roadtrip-wallpaper: none;
   --roadtrip-wallpaper-position: 50% 50%;
+  --roadtrip-wallpaper-filter: none;
+  --roadtrip-wallpaper-transform: none;
+  --home-page-overlay: transparent;
+  --other-pages-overlay: transparent;
+  --page-overlay: var(--other-pages-overlay);
 }
   body {
     margin: 0;
@@ -33,6 +38,8 @@ export const GlobalStyles = createGlobalStyle`
     background-size: cover;
     background-position: var(--roadtrip-wallpaper-position);
     background-repeat: no-repeat;
+    filter: var(--roadtrip-wallpaper-filter);
+    transform: var(--roadtrip-wallpaper-transform);
 
     pointer-events: none;
   }

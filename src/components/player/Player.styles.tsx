@@ -53,3 +53,21 @@ export const ProgressBar = styled.input`
     background: var(--player-accent);
   }
 `;
+
+export const MobileProgressTrack = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  background: var(--background-dark-selected);
+`;
+
+export const MobileProgressFill = styled.div<{ $progress: number }>`
+  width: ${({ $progress }) => `${$progress}%`};
+  height: 100%;
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(90deg, var(--player-accent), var(--blur-text-accent));
+  transition: width 180ms linear;
+`;

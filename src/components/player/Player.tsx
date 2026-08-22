@@ -6,7 +6,14 @@ import {
   RowFlexContainer,
 } from '@/components/uiComponents/container/Container';
 import { usePlayerStore } from '../../store/playerStore';
-import { ControlButton, PlayButton, ProgressBar, ListButton } from './Player.styles';
+import {
+  ControlButton,
+  PlayButton,
+  ProgressBar,
+  ListButton,
+  MobileProgressTrack,
+  MobileProgressFill,
+} from './Player.styles';
 import { useResponsive } from '@/hooks/useResponsive';
 import { Typography } from '@/components/uiComponents/typography/Typography';
 import { Song } from '@/types/music';
@@ -91,12 +98,12 @@ const ControlSection: FC<ControlSectionProps> = ({
   );
 };
 
-export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcut?: boolean }> = ({
-  openPlaylistDrawer,
-  showQueueShortcut = true,
-}) => {
+export const Player: React.FC<{
+  openPlaylistDrawer: () => void;
+  showQueueShortcut?: boolean;
+  showProgressBar?: boolean;
+}> = ({ openPlaylistDrawer, showQueueShortcut = true, showProgressBar = true }) => {
   const { isMobile } = useResponsive();
-
   const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const currentTime = usePlayerStore((state) => state.currentTime);
@@ -109,6 +116,7 @@ export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcu
   const seek = usePlayerStore((state) => state.seek);
 
   const playerWidth = isMobile ? '100%' : '60vw';
+  const progressPercent = duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
 
   return (
     <RowFlexContainer
@@ -118,12 +126,14 @@ export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcu
       width={playerWidth}
       overflow="hidden"
       sx={{
+        position: 'relative',
         backdropFilter: 'blur(28px)',
         width: playerWidth,
         border: isMobile ? 'none' : '1px solid var(--player-border)',
+        backgroundColor: 'var(--player-surface)',
+        boxShadow: 'var(--player-surface-shadow)',
       }}
     >
-      {/* <RowFlexContainer gap={[4]} data-testid="player-wrapper"> */}
       {currentSong && <CoverImage currentSong={currentSong} isMobile={isMobile} />}
       <ColumnFlexContainer
         gap={[4]}
@@ -135,15 +145,9 @@ export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcu
         <RowFlexContainer
           justifyContent="between"
           alignItems="center"
-          // flexWrap="wrap"
-
           gap={isMobile ? [1] : [4]}
           data-testid="player-song-info-container"
         >
-          {/* <RowFlexContainer gap={[2]} flex={1} minWidth={[0]} data-testid="player-song-info"> */}
-          {/* {currentSong && isMobile && (
-                <CoverImage currentSong={currentSong} isMobile={isMobile} />
-              )} */}
           <ColumnFlexContainer gap={[1]} minWidth={[0]} flex={1} data-testid="player-song-info">
             <Typography
               variant={isMobile ? 'body2' : 'body1'}
@@ -173,7 +177,6 @@ export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcu
               {currentSong?.artist ?? 'Select a song to start the ride'}
             </Typography>
           </ColumnFlexContainer>
-          {/* </RowFlexContainer> */}
           <RowFlexContainer
             data-testid="player-controls"
             alignItems="center"
@@ -218,19 +221,12 @@ export const Player: React.FC<{ openPlaylistDrawer: () => void; showQueueShortcu
             </Typography>
           </RowFlexContainer>
         )}
-        {/* {isMobile && (
-            <ControlSection
-              isPlaying={isPlaying}
-              playPreviousSong={previous}
-              playNextSong={next}
-              playSong={play}
-              pauseSong={pause}
-              isMobile={isMobile}
-            />
-          )} */}
       </ColumnFlexContainer>
-      {/* </RowFlexContainer> */}
+      {isMobile && showProgressBar && (
+        <MobileProgressTrack aria-hidden="true">
+          <MobileProgressFill $progress={progressPercent} />
+        </MobileProgressTrack>
+      )}
     </RowFlexContainer>
-    // </RowFlexContainer>
   );
 };

@@ -13,6 +13,7 @@ import {
 import { Typography } from '../uiComponents/typography/Typography';
 import { Button } from '../uiComponents/button/Button';
 import { Playlist, Song } from '@/types/music';
+import { getSongsByIds } from '@/utils/music';
 import { SongCard } from './songCard/SongCard';
 import {
   DesktopPlaylistViewCard,
@@ -37,19 +38,13 @@ export const PlaylistModal: FC<PlaylistModalProps> = ({ onCancel }) => {
     ? 'var(--background-dark-transparent)'
     : 'var(--background-transparent)';
 
-  const songsById = useMemo(() => {
-    return new Map(songs.map((song) => [song.id, song]));
-  }, []);
-
   const selectedPlaylist = useMemo(
     () => playlists.find((playlist) => playlist.id === selectedPlaylistId) ?? playlists[0],
     [selectedPlaylistId]
   );
 
   const getSongsForPlaylist = (playlist: Playlist): Song[] => {
-    return playlist.songIds
-      .map((songId) => songsById.get(songId))
-      .filter((song): song is Song => Boolean(song));
+    return getSongsByIds(playlist.songIds, songs);
   };
 
   const selectedPlaylistSongs = useMemo<Song[]>(() => {
