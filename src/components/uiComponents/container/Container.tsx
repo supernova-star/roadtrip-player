@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Colors, Spacing } from '@/theme/themeTypes';
-import type { CSSProperties, MouseEventHandler } from 'react';
+import type { CSSProperties, KeyboardEventHandler, MouseEventHandler } from 'react';
 import { forwardRef, type FC } from 'react';
 import type { CSSObject } from 'styled-components';
 import { StyledContainer } from './Container.styles';
@@ -70,9 +70,11 @@ export type StyledContainerProps = {
 export type ContainerProps = StyledContainerProps & {
   role?: Role;
   style?: CSSProperties;
+  tabIndex?: number;
   onClick?: MouseEventHandler<HTMLDivElement>;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
 };
 
 export const Container = forwardRef<HTMLDivElement, React.PropsWithChildren<ContainerProps>>(
