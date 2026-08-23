@@ -1,15 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
 import { Home } from './pages/Home/Home';
 import { Start } from './pages/Start/Start';
+import { Admin } from './pages/Admin/Admin';
+import { AdminRoute } from './pages/Admin/AdminRoute';
+import { NotFound } from './pages/NotFound/NotFound';
 
 interface StartRouteProps {
   hasEnteredHome: boolean;
   onEnterHome: () => void;
 }
 
-const StartRoute: React.FC<StartRouteProps> = ({ hasEnteredHome, onEnterHome }) => {
+const StartRoute: React.FC<StartRouteProps> = ({
+  hasEnteredHome,
+  onEnterHome,
+}) => {
   const navigate = useNavigate();
+
   const handleStart = useCallback(() => {
     onEnterHome();
     navigate('/home', { replace: true });
@@ -36,6 +49,7 @@ const HomeRoute: React.FC<HomeRouteProps> = ({ onEnterHome }) => {
 
 export const App: React.FC = () => {
   const [hasEnteredHome, setHasEnteredHome] = useState(false);
+
   const handleEnterHome = useCallback(() => {
     setHasEnteredHome(true);
   }, []);
@@ -45,10 +59,31 @@ export const App: React.FC = () => {
       <Routes>
         <Route
           path="/"
-          element={<StartRoute hasEnteredHome={hasEnteredHome} onEnterHome={handleEnterHome} />}
+          element={
+            <StartRoute
+              hasEnteredHome={hasEnteredHome}
+              onEnterHome={handleEnterHome}
+            />
+          }
         />
-        <Route path="/home" element={<HomeRoute onEnterHome={handleEnterHome} />} />
-        <Route path="*" element={<Navigate to={hasEnteredHome ? '/home' : '/'} replace />} />
+
+        <Route
+          path="/home"
+          element={<HomeRoute onEnterHome={handleEnterHome} />}
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
+
+        <Route path="/not-found" element={<NotFound />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

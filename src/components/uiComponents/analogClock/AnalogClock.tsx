@@ -22,11 +22,17 @@ export const AnalogClock: React.FC<AnalogClockProps> = ({
   scale = 'medium',
   showSeconds = true,
 }) => {
-  const resolvedScale = typeof scale === 'string' ? clockScaleMap[scale] : scale;
+  const resolvedScale =
+    typeof scale === 'string' ? clockScaleMap[scale] : scale;
   return (
     <>
       <AnalogClockStyles />
-      <div style={{ transform: `scale(${resolvedScale})`, transformOrigin: 'center' }}>
+      <div
+        style={{
+          transform: `scale(${resolvedScale})`,
+          transformOrigin: 'center',
+        }}
+      >
         <Clock
           value={value}
           size={200}

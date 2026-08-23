@@ -37,8 +37,6 @@ import { NowPlayingPage } from '@/components/nowPlaying/NowPlaying';
 import { CLOCK_DATE_FORMATS } from '@/constants';
 import { formatClockTime } from '@/utils/formatter';
 
-// Testing test env
-
 const ClockDisplay: React.FC = () => {
   const { isMobile } = useResponsive();
   const timeSettings = useTimeStore();

@@ -191,7 +191,7 @@ const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, onClic
           {subtitle}
         </Typography>
       </ColumnFlexContainer>
-      <ChevronRight size="20px" color="var(--player-text-primary)" />
+      {onClick && <ChevronRight size="20px" color="var(--player-text-primary)" />}
     </RowFlexContainer>
   );
 };
