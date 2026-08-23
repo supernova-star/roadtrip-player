@@ -35,19 +35,30 @@ export const Header: FC<HeaderProps> = ({
 }) => {
   const { isMobile } = useResponsive();
   const { wallpaper } = useWallpaper();
-  const storedShowHeaderCard = useDisplayPreferencesStore((state) => state.showHeaderCard);
-  const storedShowHeaderNowPlaying = useDisplayPreferencesStore(
-    (state) => state.showHeaderNowPlaying
+  const storedShowHeaderCard = useDisplayPreferencesStore(
+    (state) => state.showHeaderCard,
   );
-  const storedShowHeaderQuote = useDisplayPreferencesStore((state) => state.showHeaderQuote);
-  const storedShowHeaderClock = useDisplayPreferencesStore((state) => state.showHeaderClock);
+  const storedShowHeaderNowPlaying = useDisplayPreferencesStore(
+    (state) => state.showHeaderNowPlaying,
+  );
+  const storedShowHeaderQuote = useDisplayPreferencesStore(
+    (state) => state.showHeaderQuote,
+  );
+  const storedShowHeaderClock = useDisplayPreferencesStore(
+    (state) => state.showHeaderClock,
+  );
   const showHeaderCard = displayOptions?.showHeaderCard ?? storedShowHeaderCard;
-  const showHeaderNowPlaying = displayOptions?.showHeaderNowPlaying ?? storedShowHeaderNowPlaying;
-  const showHeaderQuote = displayOptions?.showHeaderQuote ?? storedShowHeaderQuote;
-  const showHeaderClock = displayOptions?.showHeaderClock ?? storedShowHeaderClock;
+  const showHeaderNowPlaying =
+    displayOptions?.showHeaderNowPlaying ?? storedShowHeaderNowPlaying;
+  const showHeaderQuote =
+    displayOptions?.showHeaderQuote ?? storedShowHeaderQuote;
+  const showHeaderClock =
+    displayOptions?.showHeaderClock ?? storedShowHeaderClock;
   const quote = wallpaperQuotes[wallpaper.id] ?? 'Every road has a story.';
   const playlistTitle = isFavorites ? 'Favorites' : activePlaylist.title;
-  const songCount = isFavorites ? favoriteSongCount : activePlaylist.songIds.length;
+  const songCount = isFavorites
+    ? favoriteSongCount
+    : activePlaylist.songIds.length;
   const [clockDate, setClockDate] = useState(new Date());
 
   useEffect(() => {
@@ -65,7 +76,12 @@ export const Header: FC<HeaderProps> = ({
 
   if (!showHeaderCard) {
     return isMobile ? null : (
-      <RowFlexContainer justifyContent="end" alignItems="start" width="100%" margin={[0]}>
+      <RowFlexContainer
+        justifyContent="end"
+        alignItems="start"
+        width="100%"
+        margin={[0]}
+      >
         <RowFlexContainer
           backgroundColor="var(--surface-selected)"
           padding={[4]}
@@ -128,7 +144,10 @@ export const Header: FC<HeaderProps> = ({
                   flexShrink: 0,
                 }}
               >
-                <CassetteTape size={isMobile ? '18px' : '22px'} color="var(--player-accent)" />
+                <CassetteTape
+                  size={isMobile ? '18px' : '22px'}
+                  color="var(--player-accent)"
+                />
               </RowFlexContainer>
               <ColumnFlexContainer gap={[0]} minWidth={[0]}>
                 <Typography
@@ -149,7 +168,7 @@ export const Header: FC<HeaderProps> = ({
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Music for the road
+                  Music for the road.
                 </Typography>
               </ColumnFlexContainer>
             </RowFlexContainer>
@@ -165,12 +184,19 @@ export const Header: FC<HeaderProps> = ({
                 maxWidth: isMobile ? '100%' : undefined,
               }}
             >
-              <Sparkles size={isMobile ? '13px' : '15px'} color="var(--player-accent)" />
+              <Sparkles
+                size={isMobile ? '13px' : '15px'}
+                color="var(--player-accent)"
+              />
               <Typography
                 variant="caption"
                 weight="semiBold"
                 color="var(--player-accent)"
-                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                sx={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
               >
                 {wallpaper.mood}
               </Typography>
@@ -190,7 +216,10 @@ export const Header: FC<HeaderProps> = ({
                   variant="caption"
                   weight="bold"
                   color="var(--player-text-primary)"
-                  sx={{ fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}
+                  sx={{
+                    fontVariantNumeric: 'tabular-nums',
+                    whiteSpace: 'nowrap',
+                  }}
                 >
                   {headerClockText}
                 </Typography>
@@ -234,7 +263,8 @@ export const Header: FC<HeaderProps> = ({
                 height="1px"
                 width="100%"
                 sx={{
-                  background: 'linear-gradient(90deg, var(--player-accent), transparent)',
+                  background:
+                    'linear-gradient(90deg, var(--player-accent), transparent)',
                   opacity: 0.72,
                 }}
               />
@@ -253,7 +283,10 @@ export const Header: FC<HeaderProps> = ({
                 }}
               >
                 <RowFlexContainer alignItems="center" gap={[2]} minWidth={[0]}>
-                  <ListMusic size={isMobile ? '16px' : '20px'} color="var(--blur-text-accent)" />
+                  <ListMusic
+                    size={isMobile ? '16px' : '20px'}
+                    color="var(--blur-text-accent)"
+                  />
                   <Typography
                     variant={isMobile ? 'body2' : 'subtitle1'}
                     weight="semiBold"
@@ -274,11 +307,18 @@ export const Header: FC<HeaderProps> = ({
                     variant={isMobile ? 'body2' : 'subtitle1'}
                     weight="bold"
                     color="var(--player-text-primary)"
-                    sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {playlistTitle}
                   </Typography>
-                  <Typography variant="caption" color="var(--player-text-secondary)">
+                  <Typography
+                    variant="caption"
+                    color="var(--player-text-secondary)"
+                  >
                     {songCount} songs
                   </Typography>
                 </RowFlexContainer>
