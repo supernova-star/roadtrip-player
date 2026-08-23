@@ -168,7 +168,7 @@ export const Header: FC<HeaderProps> = ({
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Music for the road.
+                  Music for the road
                 </Typography>
               </ColumnFlexContainer>
             </RowFlexContainer>
