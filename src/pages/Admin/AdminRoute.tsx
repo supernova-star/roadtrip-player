@@ -1,3 +1,4 @@
+import { AuthenticationLoading } from '@/admin/components/authenticationLoading/AuthenticationLoading';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -26,7 +27,7 @@ export const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   }, []);
 
   if (isChecking) {
-    return null;
+    return <AuthenticationLoading />;
   }
 
   if (!isAuthenticated) {

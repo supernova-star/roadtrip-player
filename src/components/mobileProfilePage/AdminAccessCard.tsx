@@ -28,22 +28,6 @@ export const AdminAccessCard: React.FC<AdminAccessCardProps> = ({
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
-  // const env = import.meta.env as Record<string, string | undefined>;
-  // const expectedPassword = env.VITE_ADMIN_PASSWORD ?? env.ADMIN_PASSWORD ?? '';
-
-  // const handleGoClick = () => {
-  //   const matches = password === expectedPassword;
-
-  //   if (!matches) {
-  //     onPasswordChange('');
-  //     setErrorMessage('Password does not match.');
-  //     return;
-  //   }
-
-  //   setErrorMessage('');
-  //   navigate('/admin', { replace: true });
-  // };
-
   const handleGoClick = async () => {
     setErrorMessage('');
 
@@ -84,7 +68,7 @@ export const AdminAccessCard: React.FC<AdminAccessCardProps> = ({
         role="button"
         style={{
           borderRadius: '12px',
-          border: '1px solid rgba(255, 190, 140, 0.35)',
+          border: '1px solid var(--player-border)',
           background: `linear-gradient(135deg, ${percentToHex(accent, 34)} 0%, ${percentToHex(accent, 22)} 100%)`,
           boxShadow:
             '0 0 0 1px rgba(255,255,255,0.04), 0 8px 20px rgba(0,0,0,0.12)',

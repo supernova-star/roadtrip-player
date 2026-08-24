@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { usePlayerStore } from '../store/playerStore';
 
+const getResolvedAudioUrl = (audioUrl: string) =>
+  new URL(audioUrl, window.location.href).href;
+
 export function useAudioPlayer() {
   const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -13,6 +16,7 @@ export function useAudioPlayer() {
   const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
   const setDuration = usePlayerStore((state) => state.setDuration);
   const previous = usePlayerStore((state) => state.previous);
+  const setIsBuffering = usePlayerStore((state) => state.setIsBuffering);
 
   const audioRef = useRef<HTMLAudioElement>(new Audio());
 
@@ -36,23 +40,48 @@ export function useAudioPlayer() {
     }
     if (!currentSong) {
       audio.pause();
+      setIsBuffering(false);
       return;
     }
 
-    if (audio.src !== currentSong.audioUrl) {
-      audio.src = currentSong.audioUrl;
-      audio.load();
+    const audioUrl = getResolvedAudioUrl(currentSong.audioUrl);
+    if (audio.src !== audioUrl) {
+      audio.src = audioUrl;
       setCurrentTime(0);
+      setDuration(currentSong.duration ?? 0);
     }
+  }, [currentSong, setCurrentTime, setDuration, setIsBuffering]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
     if (isPlaying) {
-      audio.play().catch(() => {
-        // Autoplay may be blocked; maintain state and allow user interactions later.
-      });
+      const startPlayback = () => {
+        audio
+          .play()
+          .then(() => {
+            setIsBuffering(false);
+          })
+          .catch(() => {
+            setIsBuffering(false);
+            // Autoplay may be blocked; maintain state and allow user interactions later.
+          });
+      };
+
+      if (audio.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        startPlayback();
+      } else {
+        setIsBuffering(true);
+        audio.addEventListener('canplay', startPlayback, { once: true });
+      }
+
+      return () => {
+        audio.removeEventListener('canplay', startPlayback);
+      };
     } else {
       audio.pause();
+      setIsBuffering(false);
     }
-  }, [currentSong, isPlaying, setCurrentTime]);
+  }, [currentSong, isPlaying, setIsBuffering]);
 
   useEffect(() => {
     if (!('mediaSession' in navigator)) {
@@ -89,33 +118,56 @@ export function useAudioPlayer() {
       setDuration(audio.duration || 0);
     };
 
+    const handleBuffering = () => {
+      if (usePlayerStore.getState().isPlaying) {
+        setIsBuffering(true);
+      }
+    };
+
+    const handlePlaybackReady = () => {
+      setIsBuffering(false);
+    };
+
     const handleEnded = () => {
       const hasNext = queue.length > 0 && currentIndex < queue.length - 1;
       if (hasNext) {
         next();
-        play();
       } else {
+        setIsBuffering(false);
         pause();
       }
     };
 
+    audio.addEventListener('loadstart', handleBuffering);
+    audio.addEventListener('waiting', handleBuffering);
+    audio.addEventListener('stalled', handleBuffering);
+    audio.addEventListener('canplay', handlePlaybackReady);
+    audio.addEventListener('playing', handlePlaybackReady);
+    audio.addEventListener('pause', handlePlaybackReady);
+    audio.addEventListener('error', handlePlaybackReady);
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
     audio.addEventListener('ended', handleEnded);
 
     return () => {
+      audio.removeEventListener('loadstart', handleBuffering);
+      audio.removeEventListener('waiting', handleBuffering);
+      audio.removeEventListener('stalled', handleBuffering);
+      audio.removeEventListener('canplay', handlePlaybackReady);
+      audio.removeEventListener('playing', handlePlaybackReady);
+      audio.removeEventListener('pause', handlePlaybackReady);
+      audio.removeEventListener('error', handlePlaybackReady);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       audio.removeEventListener('ended', handleEnded);
     };
   }, [
     currentIndex,
-    currentSong,
     queue.length,
     next,
     pause,
-    play,
     setCurrentTime,
     setDuration,
+    setIsBuffering,
   ]);
 }

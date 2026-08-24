@@ -20,14 +20,14 @@ export const colorPalette = {
   text: '#fff8ef',
   secondaryText: '#d8cfbf',
   white: '#ffffff',
-  muted: '#6f6b61',
   border: '#d8cfbf',
-  border2: '#68212399',
   accent: '#bc6c38',
-  accentTransparent: percentToHex('#ffffff', 70),
   borderGray: '#d8cfbf',
   divider: '#d8cfbf',
   cardShadow: '0 4px 12px rgba(0,0,0,0.08)',
+
+  adminRadialBackground:
+    'radial-gradient(circle at 50% 42%, rgba(188, 108, 56, 0.16), transparent 34%), linear-gradient(145deg, rgba(23, 19, 15, 0.98), rgba(55, 22, 30, 0.96))',
 } as const;
 
 export type Colors = keyof typeof colorPalette;
