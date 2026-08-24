@@ -1,11 +1,14 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface WallpaperState {
   wallpaperId: string;
   wallpaperPositions: Record<string, WallpaperPosition>;
   setWallpaper: (wallpaperId: string) => void;
-  setWallpaperPosition: (wallpaperId: string, position: WallpaperPosition) => void;
+  setWallpaperPosition: (
+    wallpaperId: string,
+    position: WallpaperPosition,
+  ) => void;
 }
 
 export interface WallpaperPosition {
@@ -14,27 +17,30 @@ export interface WallpaperPosition {
 }
 
 export const useWallpaperStore = create<WallpaperState>()(
-  persist(
-    (set) => ({
-      wallpaperId: 'road-trip',
-      wallpaperPositions: {},
+  devtools(
+    persist(
+      (set) => ({
+        wallpaperId: 'road-trip',
+        wallpaperPositions: {},
 
-      setWallpaper: (wallpaperId) => {
-        set({
-          wallpaperId,
-        });
+        setWallpaper: (wallpaperId) => {
+          set({
+            wallpaperId,
+          });
+        },
+        setWallpaperPosition: (wallpaperId, position) => {
+          set((state) => ({
+            wallpaperPositions: {
+              ...state.wallpaperPositions,
+              [wallpaperId]: position,
+            },
+          }));
+        },
+      }),
+      {
+        name: 'roadtrip-wallpaper',
       },
-      setWallpaperPosition: (wallpaperId, position) => {
-        set((state) => ({
-          wallpaperPositions: {
-            ...state.wallpaperPositions,
-            [wallpaperId]: position,
-          },
-        }));
-      },
-    }),
-    {
-      name: 'roadtrip-wallpaper',
-    }
-  )
+    ),
+    { name: 'wallpaper-store' },
+  ),
 );
