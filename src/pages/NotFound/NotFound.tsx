@@ -7,7 +7,6 @@ import {
   RowFlexContainer,
 } from '@/components/uiComponents/container/Container';
 import { Typography } from '@/components/uiComponents/typography/Typography';
-import { colorPalette } from '@/theme/colors';
 
 export const NotFound: React.FC = () => {
   const navigate = useNavigate();

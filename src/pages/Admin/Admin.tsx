@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SongSearchWorkspace } from '@/admin/components/songSearchWorkspace/SongSearchWorkspace';
+import { AdminShell } from '@/admin/components/AdminShell';
 
 export const Admin = () => {
   const navigate = useNavigate();
 
-  return <SongSearchWorkspace onGoHome={() => navigate('/home')} />;
+  return <AdminShell onGoHome={() => navigate('/home')} />;
 };
