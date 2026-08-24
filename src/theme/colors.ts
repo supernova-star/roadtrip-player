@@ -31,6 +31,7 @@ export const colorPalette = {
   adminBrown: '#593a28',
   adminDarkBrown: '#352319',
   adminYellow: '#d7a638',
+  adminDanger: '#a94a36',
   adminMuted: '#856f60',
   adminBorder: '#e7dbcd',
   adminShadow: '0 16px 42px rgba(89, 58, 40, 0.1)',
