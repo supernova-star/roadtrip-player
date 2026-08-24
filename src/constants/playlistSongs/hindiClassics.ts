@@ -115,4 +115,13 @@ export const hindiClassicsSongs: Song[] = [
     audioUrl: 'https://aac.saavncdn.com/428/7edad71239e21349090a1dd1f9cc27b1_sar_160.mp4',
     duration: 264,
   },
+  {
+    id: 'hindi-test-1',
+    title: 'Casette Test Song',
+    artist: 'Casette',
+    album: 'Test',
+    coverUrl: 'https://example.com/test.jpg',
+    audioUrl: 'https://example.com/test.mp3',
+    duration: 120,
+  },
 ];
