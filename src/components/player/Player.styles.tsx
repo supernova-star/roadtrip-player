@@ -1,4 +1,11 @@
-import styled, { css } from 'styled-components';
+import { Loader2 } from 'lucide-react';
+import styled, { css, keyframes } from 'styled-components';
+
+const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 const ButtonCss = css<{ $isMobile: boolean }>`
   width: ${({ theme, $isMobile }) => ($isMobile ? theme.spacing(12) : theme.spacing(12))};
@@ -36,6 +43,10 @@ export const PlayButton = styled.button`
   color: var(--player-background);
 `;
 
+export const LoadingSpinner = styled(Loader2)`
+  animation: ${spin} 0.8s linear infinite;
+`;
+
 export const ProgressBar = styled.input`
   flex: 1;
   min-width: 0;
@@ -68,6 +79,10 @@ export const MobileProgressFill = styled.div<{ $progress: number }>`
   width: ${({ $progress }) => `${$progress}%`};
   height: 100%;
   border-radius: 0 999px 999px 0;
-  background: linear-gradient(90deg, var(--player-accent), var(--blur-text-accent));
+  background: linear-gradient(
+    90deg,
+    var(--player-accent),
+    var(--blur-text-accent)
+  );
   transition: width 180ms linear;
 `;

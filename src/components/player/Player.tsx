@@ -13,13 +13,17 @@ import {
   ListButton,
   MobileProgressTrack,
   MobileProgressFill,
+  LoadingSpinner,
 } from './Player.styles';
 import { useResponsive } from '@/hooks/useResponsive';
 import { Typography } from '@/components/uiComponents/typography/Typography';
 import { Song } from '@/types/music';
 import { formatTime } from '@/utils/formatter';
 
-const CoverImage: FC<{ currentSong: Song; isMobile: boolean }> = ({ currentSong, isMobile }) => {
+const CoverImage: FC<{ currentSong: Song; isMobile: boolean }> = ({
+  currentSong,
+  isMobile,
+}) => {
   return (
     <Container
       width={isMobile ? [12] : [22]}
@@ -47,6 +51,7 @@ const CoverImage: FC<{ currentSong: Song; isMobile: boolean }> = ({ currentSong,
 
 type ControlSectionProps = {
   isPlaying: boolean;
+  isBuffering: boolean;
   playPreviousSong: () => void;
   playNextSong: () => void;
   playSong: () => void;
@@ -57,6 +62,7 @@ type ControlSectionProps = {
 
 const ControlSection: FC<ControlSectionProps> = ({
   isPlaying,
+  isBuffering,
   playPreviousSong,
   playNextSong,
   playSong,
@@ -80,17 +86,25 @@ const ControlSection: FC<ControlSectionProps> = ({
       <PlayButton
         type="button"
         onClick={isPlaying ? pauseSong : playSong}
-        aria-label="Play/Pause"
+        aria-label={isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'}
+        aria-busy={isBuffering}
         $isMobile={isMobile}
       >
-        {isPlaying ? (
+        {isBuffering ? (
+          <LoadingSpinner size={16} color="var(--player-background)" />
+        ) : isPlaying ? (
           <Pause size={16} color="var(--player-background)" />
         ) : (
           <Play size={16} color="var(--player-background)" />
         )}
       </PlayButton>
       {showPreviousNextButtons && (
-        <ControlButton type="button" onClick={playNextSong} aria-label="Next" $isMobile={isMobile}>
+        <ControlButton
+          type="button"
+          onClick={playNextSong}
+          aria-label="Next"
+          $isMobile={isMobile}
+        >
           <SkipForward size={16} />
         </ControlButton>
       )}
@@ -103,10 +117,16 @@ export const Player: React.FC<{
   openNowPlaying: () => void;
   showQueueShortcut?: boolean;
   showProgressBar?: boolean;
-}> = ({ openPlaylistDrawer, openNowPlaying, showQueueShortcut = true, showProgressBar = true }) => {
+}> = ({
+  openPlaylistDrawer,
+  openNowPlaying,
+  showQueueShortcut = true,
+  showProgressBar = true,
+}) => {
   const { isMobile } = useResponsive();
   const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isBuffering = usePlayerStore((state) => state.isBuffering);
   const currentTime = usePlayerStore((state) => state.currentTime);
   const duration = usePlayerStore((state) => state.duration);
 
@@ -117,7 +137,8 @@ export const Player: React.FC<{
   const seek = usePlayerStore((state) => state.seek);
 
   const playerWidth = isMobile ? '100%' : '60vw';
-  const progressPercent = duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
+  const progressPercent =
+    duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
 
   return (
     <RowFlexContainer
@@ -137,7 +158,9 @@ export const Player: React.FC<{
         cursor: currentSong ? 'pointer' : 'default',
       }}
     >
-      {currentSong && <CoverImage currentSong={currentSong} isMobile={isMobile} />}
+      {currentSong && (
+        <CoverImage currentSong={currentSong} isMobile={isMobile} />
+      )}
       <ColumnFlexContainer
         gap={[4]}
         width="100%"
@@ -151,7 +174,12 @@ export const Player: React.FC<{
           gap={isMobile ? [1] : [4]}
           data-testid="player-song-info-container"
         >
-          <ColumnFlexContainer gap={[1]} minWidth={[0]} flex={1} data-testid="player-song-info">
+          <ColumnFlexContainer
+            gap={[1]}
+            minWidth={[0]}
+            flex={1}
+            data-testid="player-song-info"
+          >
             <Typography
               variant={isMobile ? 'body2' : 'body1'}
               weight="bold"
@@ -188,6 +216,7 @@ export const Player: React.FC<{
           >
             <ControlSection
               isPlaying={isPlaying}
+              isBuffering={isBuffering}
               playPreviousSong={previous}
               playNextSong={next}
               playSong={play}
@@ -214,7 +243,11 @@ export const Player: React.FC<{
             gap={[1, 2]}
             onClick={(event) => event.stopPropagation()}
           >
-            <Typography variant="caption" weight="semiBold" color="var(--player-text-secondary)">
+            <Typography
+              variant="caption"
+              weight="semiBold"
+              color="var(--player-text-secondary)"
+            >
               {formatTime(currentTime)}
             </Typography>
             <ProgressBar
@@ -224,7 +257,11 @@ export const Player: React.FC<{
               value={Math.min(currentTime, duration || 0)}
               onChange={(event) => seek(Number(event.target.value))}
             />
-            <Typography variant="caption" weight="semiBold" color="var(--player-text-secondary)">
+            <Typography
+              variant="caption"
+              weight="semiBold"
+              color="var(--player-text-secondary)"
+            >
               {formatTime(duration)}
             </Typography>
           </RowFlexContainer>

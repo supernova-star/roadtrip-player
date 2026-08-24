@@ -1,5 +1,13 @@
 import React from 'react';
-import { ChevronDown, Heart, ListMusic, Pause, Play, SkipBack, SkipForward } from 'lucide-react';
+import {
+  ChevronDown,
+  Heart,
+  ListMusic,
+  Pause,
+  Play,
+  SkipBack,
+  SkipForward,
+} from 'lucide-react';
 import {
   ColumnFlexContainer,
   Container,
@@ -11,20 +19,24 @@ import { usePlayerStore } from '@/store/playerStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
 import { playlists } from '@/constants/playlists';
 import { formatTime } from '@/utils/formatter';
-import { ProgressBar } from '@/components/player/Player.styles';
+import { LoadingSpinner, ProgressBar } from '@/components/player/Player.styles';
 
 export type NowPlayingPageProps = {
   onBack: () => void;
   onQueue: () => void;
 };
 
-export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue }) => {
+export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({
+  onBack,
+  onQueue,
+}) => {
   const { wallpaper, wallpaperPosition, isLightMode } = useWallpaper();
   const currentSong = usePlayerStore((state) => state.currentSong);
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
   const currentTime = usePlayerStore((state) => state.currentTime);
   const duration = usePlayerStore((state) => state.duration);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isBuffering = usePlayerStore((state) => state.isBuffering);
   const play = usePlayerStore((state) => state.play);
   const pause = usePlayerStore((state) => state.pause);
   const next = usePlayerStore((state) => state.next);
@@ -33,10 +45,14 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
   const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
 
   const playlist = playlists.find((item) => item.id === currentPlaylistId);
-  const playlistTitle = currentPlaylistId === 'favorites' ? 'Favorites' : playlist?.title;
+  const playlistTitle =
+    currentPlaylistId === 'favorites' ? 'Favorites' : playlist?.title;
   const playlistSongCount =
-    currentPlaylistId === 'favorites' ? favoriteSongIds.length : (playlist?.songIds.length ?? 0);
-  const progress = duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
+    currentPlaylistId === 'favorites'
+      ? favoriteSongIds.length
+      : (playlist?.songIds.length ?? 0);
+  const progress =
+    duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
 
   return (
     <Container
@@ -137,21 +153,37 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
                   <img
                     src={currentSong.coverUrl}
                     alt={currentSong.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
                   />
                 </Container>
                 <ColumnFlexContainer gap={[1]} width="100%">
-                  <RowFlexContainer alignItems="start" justifyContent="between" gap={[3]}>
+                  <RowFlexContainer
+                    alignItems="start"
+                    justifyContent="between"
+                    gap={[3]}
+                  >
                     <ColumnFlexContainer gap={[1]} minWidth={[0]}>
                       <Typography
                         variant="h6"
                         weight="bold"
                         color="var(--player-text-primary)"
-                        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        sx={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
                         {currentSong.title}
                       </Typography>
-                      <Typography variant="body2" color="var(--player-text-secondary)">
+                      <Typography
+                        variant="body2"
+                        color="var(--player-text-secondary)"
+                      >
                         {currentSong.artist}
                       </Typography>
                     </ColumnFlexContainer>
@@ -181,15 +213,25 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
                     }}
                   />
                   <RowFlexContainer justifyContent="between">
-                    <Typography variant="caption" color="var(--player-text-secondary)">
+                    <Typography
+                      variant="caption"
+                      color="var(--player-text-secondary)"
+                    >
                       {formatTime(currentTime)}
                     </Typography>
-                    <Typography variant="caption" color="var(--player-text-secondary)">
+                    <Typography
+                      variant="caption"
+                      color="var(--player-text-secondary)"
+                    >
                       {formatTime(duration)}
                     </Typography>
                   </RowFlexContainer>
                 </ColumnFlexContainer>
-                <RowFlexContainer alignItems="center" justifyContent="between" padding={[2, 0]}>
+                <RowFlexContainer
+                  alignItems="center"
+                  justifyContent="between"
+                  padding={[2, 0]}
+                >
                   <RowFlexContainer
                     role="button"
                     width={[5]}
@@ -203,6 +245,10 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
                   </RowFlexContainer>
                   <RowFlexContainer
                     role="button"
+                    aria-label={
+                      isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'
+                    }
+                    aria-busy={isBuffering}
                     width={[10]}
                     height={[10]}
                     alignItems="center"
@@ -210,7 +256,13 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
                     cursor="pointer"
                     onClick={isPlaying ? pause : play}
                   >
-                    {isPlaying ? <Pause size="40px" /> : <Play size="40px" />}
+                    {isBuffering ? (
+                      <LoadingSpinner size="40px" />
+                    ) : isPlaying ? (
+                      <Pause size="40px" />
+                    ) : (
+                      <Play size="40px" />
+                    )}
                   </RowFlexContainer>
                   <RowFlexContainer
                     role="button"
@@ -239,7 +291,11 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({ onBack, onQueue 
             </>
           ) : (
             <ColumnFlexContainer alignItems="center" gap={[2]}>
-              <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
+              <Typography
+                variant="h5"
+                weight="bold"
+                color="var(--player-text-primary)"
+              >
                 Nothing playing
               </Typography>
               <Typography variant="body2" color="var(--player-text-secondary)">
