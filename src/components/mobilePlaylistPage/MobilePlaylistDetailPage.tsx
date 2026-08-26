@@ -139,7 +139,9 @@ export const MobilePlaylistDetailPage: React.FC<
     <ColumnFlexContainer
       width="100%"
       height="100vh"
-      padding={[0, 0, 32]}
+      sx={{
+        padding: '0px 0px 72px',
+      }}
       style={mobilePageSurface}
     >
       <ColumnFlexContainer
