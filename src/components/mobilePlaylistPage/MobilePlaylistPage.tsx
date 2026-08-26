@@ -84,10 +84,12 @@ export const MobilePlaylistPage: React.FC = () => {
   return (
     <ColumnFlexContainer
       gap={[4]}
-      padding={[8, 5, 37]}
       width="100%"
       height="100vh"
       style={mobilePageSurface}
+      sx={{
+        padding: '32px 20px 72px',
+      }}
     >
       <Typography
         variant="h5"
@@ -336,7 +338,7 @@ export const MobilePlaylistPage: React.FC = () => {
               key={playlist.id}
               alignItems="center"
               justifyContent="between"
-              gap={[3]}
+              gap={[2]}
               padding={[3]}
               borderRadius={[3]}
               cursor="pointer"

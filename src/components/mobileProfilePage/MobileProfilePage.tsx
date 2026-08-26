@@ -21,7 +21,9 @@ import { ProfileTextButton } from './ProfileTextButton';
 export const MobileProfilePage: React.FC = () => {
   const userName = useUserProfileStore((state) => state.userName);
   const setUserName = useUserProfileStore((state) => state.setUserName);
-  const favoriteSongCount = useFavoritesStore((state) => state.favoriteSongIds.length);
+  const favoriteSongCount = useFavoritesStore(
+    (state) => state.favoriteSongIds.length,
+  );
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
   const isAdmin = useUserProfileStore((state) => state.isAdmin);
   const { isLightMode, wallpaper } = useWallpaper();
@@ -31,10 +33,14 @@ export const MobileProfilePage: React.FC = () => {
 
   const displayName = userName?.trim() || 'Listener';
   const [isEditingName, setIsEditingName] = useState(false);
-  const [draftName, setDraftName] = useState(displayName === 'Listener' ? '' : displayName);
+  const [draftName, setDraftName] = useState(
+    displayName === 'Listener' ? '' : displayName,
+  );
   const trimmedDraftName = draftName.trim();
   const initial = displayName.charAt(0).toUpperCase();
-  const currentPlaylist = playlists.find((playlist) => playlist.id === currentPlaylistId);
+  const currentPlaylist = playlists.find(
+    (playlist) => playlist.id === currentPlaylistId,
+  );
   const currentPlaylistSongCount = currentPlaylist?.songIds.length ?? 0;
 
   const startEditingName = () => {
@@ -56,7 +62,9 @@ export const MobileProfilePage: React.FC = () => {
   return (
     <ColumnFlexContainer
       gap={[5]}
-      padding={[8, 5, 24]}
+      sx={{
+        padding: '32px 20px 65px',
+      }}
       width="100%"
       height="100vh"
       style={mobilePageSurface}
@@ -110,16 +118,25 @@ export const MobileProfilePage: React.FC = () => {
                 }}
               />
               <RowFlexContainer gap={[2]} alignItems="center">
-                <ProfileTextButton disabled={!trimmedDraftName} onClick={saveName}>
+                <ProfileTextButton
+                  disabled={!trimmedDraftName}
+                  onClick={saveName}
+                >
                   Save
                 </ProfileTextButton>
-                <ProfileTextButton onClick={cancelEditingName}>Cancel</ProfileTextButton>
+                <ProfileTextButton onClick={cancelEditingName}>
+                  Cancel
+                </ProfileTextButton>
               </RowFlexContainer>
             </>
           ) : (
             <>
               <RowFlexContainer alignItems="center" gap={[2]}>
-                <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
+                <Typography
+                  variant="h5"
+                  weight="bold"
+                  color="var(--player-text-primary)"
+                >
                   Hi, {displayName}
                 </Typography>
                 <RowFlexContainer
@@ -145,29 +162,40 @@ export const MobileProfilePage: React.FC = () => {
           )}
         </ColumnFlexContainer>
       </RowFlexContainer>
+      <ColumnFlexContainer
+        gap={[5]}
+        flex={1}
+        overflow="auto"
+        hideScrollbar
+        padding={[0, 0, 4]}
+      >
+        <ProfileLibrarySection
+          favoriteSongCount={favoriteSongCount}
+          accent={wallpaper.theme.accent}
+          isLightMode={isLightMode}
+        />
 
-      <ProfileLibrarySection
-        favoriteSongCount={favoriteSongCount}
-        accent={wallpaper.theme.accent}
-        isLightMode={isLightMode}
-      />
+        <CurrentPlaylistCard
+          accent={wallpaper.theme.accent}
+          isLightMode={isLightMode}
+          currentPlaylistTitle={
+            currentPlaylist?.title ?? 'No playlist selected'
+          }
+          currentPlaylistSongCount={currentPlaylistSongCount}
+        />
 
-      <CurrentPlaylistCard
-        accent={wallpaper.theme.accent}
-        isLightMode={isLightMode}
-        currentPlaylistTitle={currentPlaylist?.title ?? 'No playlist selected'}
-        currentPlaylistSongCount={currentPlaylistSongCount}
-      />
-
-      <AppInfoCard
-        accent={wallpaper.theme.accent}
-        isLightMode={isLightMode}
-        isAdmin={isAdmin}
-        showAdminPasswordInput={showAdminPasswordInput}
-        adminPassword={adminPassword}
-        onToggleAdmin={() => setShowAdminPasswordInput((currentValue) => !currentValue)}
-        onPasswordChange={setAdminPassword}
-      />
+        <AppInfoCard
+          accent={wallpaper.theme.accent}
+          isLightMode={isLightMode}
+          isAdmin={isAdmin}
+          showAdminPasswordInput={showAdminPasswordInput}
+          adminPassword={adminPassword}
+          onToggleAdmin={() =>
+            setShowAdminPasswordInput((currentValue) => !currentValue)
+          }
+          onPasswordChange={setAdminPassword}
+        />
+      </ColumnFlexContainer>
     </ColumnFlexContainer>
   );
 };

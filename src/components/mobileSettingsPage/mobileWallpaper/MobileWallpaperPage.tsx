@@ -24,6 +24,8 @@ import {
   useWallpaperStore,
   type WallpaperPosition,
 } from '@/store/wallpaperStore';
+import { ActionButton } from './ActionButton';
+import { MobileWallpaperPreview } from './MobileWallpaperPreview';
 
 type MobileWallpaperPageProps = {
   onBack: () => void;
@@ -99,6 +101,9 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({
       gap={[5]}
       padding={[6, 5, 37]}
       width="100%"
+      sx={{
+        padding: '24px 20px 72px',
+      }}
       height="100vh"
       style={mobilePageSurface}
     >
@@ -291,177 +296,6 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({
           fill
         />
       </RowFlexContainer>
-    </ColumnFlexContainer>
-  );
-};
-
-type ActionButtonProps = {
-  icon: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-  primary?: boolean;
-  fill?: boolean;
-};
-
-const ActionButton: React.FC<ActionButtonProps> = ({
-  icon,
-  label,
-  onClick,
-  disabled,
-  primary,
-  fill,
-}) => (
-  <RowFlexContainer
-    alignItems="center"
-    justifyContent="center"
-    gap={[2]}
-    padding={[3]}
-    flex={fill ? 1 : undefined}
-    cursor={disabled ? 'notAllowed' : 'pointer'}
-    onClick={disabled ? undefined : onClick}
-    style={{
-      borderRadius: '10px',
-      backgroundColor: primary
-        ? 'var(--player-accent)'
-        : 'var(--background-dark-transparent)',
-      border: primary
-        ? '1px solid var(--player-accent)'
-        : '1px solid var(--player-border)',
-      opacity: disabled ? 0.55 : 1,
-      flexShrink: 0,
-    }}
-  >
-    <span
-      style={{
-        color: primary ? 'var(--player-background)' : 'var(--player-accent)',
-        display: 'flex',
-      }}
-    >
-      {icon}
-    </span>
-    <Typography
-      variant="body2"
-      weight="semiBold"
-      color={primary ? 'var(--player-background)' : 'var(--player-accent)'}
-    >
-      {label}
-    </Typography>
-  </RowFlexContainer>
-);
-
-type MobileWallpaperPreviewProps = {
-  wallpaper: (typeof import('@/constants/wallpapers').wallpapers)[number];
-  position: WallpaperPosition;
-  onBack: () => void;
-  onPositionChange: (position: WallpaperPosition) => void;
-  onApply: () => void;
-  isApplyDisabled: boolean;
-};
-
-const MobileWallpaperPreview: React.FC<MobileWallpaperPreviewProps> = ({
-  wallpaper,
-  position,
-  onBack,
-  onPositionChange,
-  onApply,
-  isApplyDisabled,
-}) => {
-  const mobilePageSurface = useMobilePageSurface();
-
-  return (
-    <ColumnFlexContainer
-      gap={[5]}
-      padding={[6, 5, 32]}
-      width="100%"
-      height="100vh"
-      style={mobilePageSurface}
-    >
-      <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
-        <RowFlexContainer
-          alignItems="center"
-          justifyContent="center"
-          width={[10]}
-          height={[10]}
-          cursor="pointer"
-          onClick={onBack}
-          style={{
-            borderRadius: '999px',
-            backgroundColor: 'var(--background-dark-transparent)',
-          }}
-        >
-          <ChevronLeft size="20px" color="var(--player-text-primary)" />
-        </RowFlexContainer>
-        <ColumnFlexContainer gap={[1]}>
-          <Typography
-            variant="h5"
-            weight="bold"
-            color="var(--player-text-primary)"
-          >
-            Preview
-          </Typography>
-          <Typography variant="caption" color="var(--player-text-secondary)">
-            {wallpaper.name}
-          </Typography>
-        </ColumnFlexContainer>
-      </RowFlexContainer>
-
-      <div
-        role="img"
-        aria-label={`${wallpaper.name} wallpaper preview`}
-        style={{
-          width: 'min(100%, 220px)',
-          height: 'min(48vh, 360px)',
-          minHeight: '260px',
-          alignSelf: 'center',
-          borderRadius: '16px',
-          border: '2px solid var(--player-border)',
-          backgroundImage: `url(${wallpaper.src})`,
-          backgroundSize: 'cover',
-          backgroundPosition: `${position.x}% ${position.y}%`,
-          boxShadow: 'var(--surface-shadow)',
-        }}
-      />
-
-      <ColumnFlexContainer
-        gap={[2]}
-        padding={[4]}
-        borderRadius={[3]}
-        style={{
-          backgroundColor: 'var(--background-dark-transparent)',
-          border: '1px solid var(--player-border)',
-        }}
-      >
-        <Typography
-          variant="body2"
-          weight="semiBold"
-          color="var(--player-text-primary)"
-        >
-          Adjust image position
-        </Typography>
-        <Typography variant="caption" color="var(--player-text-secondary)">
-          Drag to choose the part of the image that appears behind the player.
-        </Typography>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={position.x}
-          aria-label="Wallpaper horizontal position"
-          onChange={(event) =>
-            onPositionChange({ ...position, x: Number(event.target.value) })
-          }
-          style={{ width: '100%', accentColor: 'var(--player-accent)' }}
-        />
-      </ColumnFlexContainer>
-
-      <ActionButton
-        icon={<MousePointerClick size="16px" />}
-        label="Apply Wallpaper"
-        onClick={onApply}
-        disabled={isApplyDisabled}
-        primary
-      />
     </ColumnFlexContainer>
   );
 };

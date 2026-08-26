@@ -19,15 +19,19 @@ export const ProfileTextButton: React.FC<ProfileTextButtonProps> = ({
     cursor={disabled ? 'notAllowed' : 'pointer'}
     onClick={disabled ? undefined : onClick}
     style={{
-      borderRadius: '8px',
-      backgroundColor: disabled ? 'var(--background-dark-transparent)' : 'var(--player-accent)',
+      borderRadius: '4px',
+      backgroundColor: disabled
+        ? 'var(--background-dark-transparent)'
+        : 'var(--player-accent)',
       opacity: disabled ? 0.54 : 1,
     }}
   >
     <Typography
       variant="caption"
       weight="semiBold"
-      color={disabled ? 'var(--player-text-secondary)' : 'var(--player-background)'}
+      color={
+        disabled ? 'var(--player-text-secondary)' : 'var(--player-background)'
+      }
     >
       {children}
     </Typography>

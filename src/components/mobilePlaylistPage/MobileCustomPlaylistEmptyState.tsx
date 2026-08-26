@@ -22,6 +22,7 @@ export const MobileCustomPlaylistEmptyState: React.FC<
     height="100%"
     minHeight="0px"
     padding={[8, 5]}
+    margin={[0, 0, 4]}
     borderRadius={[4]}
     sx={{
       border: '1px solid var(--player-border)',
