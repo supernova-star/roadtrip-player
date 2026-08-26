@@ -1,5 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { Check, ChevronLeft, Eye, Image, MousePointerClick } from 'lucide-react';
+import {
+  Check,
+  ChevronLeft,
+  Eye,
+  Image,
+  MousePointerClick,
+} from 'lucide-react';
 import {
   ColumnFlexContainer,
   RowFlexContainer,
@@ -14,36 +20,52 @@ import {
 } from '@/constants/wallpapers';
 import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
-import { useWallpaperStore, type WallpaperPosition } from '@/store/wallpaperStore';
+import {
+  useWallpaperStore,
+  type WallpaperPosition,
+} from '@/store/wallpaperStore';
 
 type MobileWallpaperPageProps = {
   onBack: () => void;
 };
 
-export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack }) => {
-  const { wallpaper, wallpaperPosition, wallpapers, setWallpaper, setWallpaperPosition } =
-    useWallpaper();
+export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({
+  onBack,
+}) => {
+  const {
+    wallpaper,
+    wallpaperPosition,
+    wallpapers,
+    setWallpaper,
+    setWallpaperPosition,
+  } = useWallpaper();
   const mobilePageSurface = useMobilePageSurface();
-  const wallpaperPositions = useWallpaperStore((state) => state.wallpaperPositions);
+  const wallpaperPositions = useWallpaperStore(
+    (state) => state.wallpaperPositions,
+  );
   const [selectedWallpaperId, setSelectedWallpaperId] = useState(wallpaper.id);
   const [selectedWallpaperPosition, setSelectedWallpaperPosition] =
     useState<WallpaperPosition>(wallpaperPosition);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<WallpaperCategory>(() => {
-    if (isWallpaperInCategory(wallpaper.id, 'Rustic')) return 'Rustic';
-    if (isWallpaperInCategory(wallpaper.id, 'Nostalgic')) return 'Nostalgic';
-    return 'Nature';
-  });
+  const [activeCategory, setActiveCategory] = useState<WallpaperCategory>(
+    () => {
+      if (isWallpaperInCategory(wallpaper.id, 'Rustic')) return 'Rustic';
+      if (isWallpaperInCategory(wallpaper.id, 'Nostalgic')) return 'Nostalgic';
+      return 'Nature';
+    },
+  );
 
   const categoryWallpapers = useMemo(
     () => getWallpapersByCategory(wallpapers, activeCategory),
-    [activeCategory, wallpapers]
+    [activeCategory, wallpapers],
   );
-  const selectedWallpaper = wallpapers.find((item) => item.id === selectedWallpaperId) ?? wallpaper;
+  const selectedWallpaper =
+    wallpapers.find((item) => item.id === selectedWallpaperId) ?? wallpaper;
   const isPositionUnchanged =
     selectedWallpaperPosition.x === wallpaperPosition.x &&
     selectedWallpaperPosition.y === wallpaperPosition.y;
-  const isApplyDisabled = selectedWallpaperId === wallpaper.id && isPositionUnchanged;
+  const isApplyDisabled =
+    selectedWallpaperId === wallpaper.id && isPositionUnchanged;
 
   const handleApply = () => {
     if (isApplyDisabled) return;
@@ -54,7 +76,9 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
 
   const selectWallpaper = (wallpaperId: string) => {
     setSelectedWallpaperId(wallpaperId);
-    setSelectedWallpaperPosition(wallpaperPositions[wallpaperId] ?? DEFAULT_WALLPAPER_POSITION);
+    setSelectedWallpaperPosition(
+      wallpaperPositions[wallpaperId] ?? DEFAULT_WALLPAPER_POSITION,
+    );
   };
 
   if (isPreviewOpen) {
@@ -73,7 +97,7 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
   return (
     <ColumnFlexContainer
       gap={[5]}
-      padding={[6, 5, 32]}
+      padding={[6, 5, 37]}
       width="100%"
       height="100vh"
       style={mobilePageSurface}
@@ -95,7 +119,11 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
           <ChevronLeft size="20px" color="var(--player-text-primary)" />
         </RowFlexContainer>
         <ColumnFlexContainer gap={[1]}>
-          <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
+          <Typography
+            variant="h5"
+            weight="bold"
+            color="var(--player-text-primary)"
+          >
             Wallpaper
           </Typography>
           <Typography variant="caption" color="var(--player-text-secondary)">
@@ -116,7 +144,9 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
               borderRadius={[3]}
               cursor="pointer"
               backgroundColor={
-                isActive ? 'var(--surface-selected)' : 'var(--background-dark-transparent)'
+                isActive
+                  ? 'var(--surface-selected)'
+                  : 'var(--background-dark-transparent)'
               }
               onClick={() => setActiveCategory(category)}
               style={{
@@ -126,7 +156,11 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
               <Typography
                 variant="caption"
                 weight="semiBold"
-                color={isActive ? 'var(--player-accent)' : 'var(--player-text-secondary)'}
+                color={
+                  isActive
+                    ? 'var(--player-accent)'
+                    : 'var(--player-text-secondary)'
+                }
               >
                 {category}
               </Typography>
@@ -135,8 +169,18 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
         })}
       </RowFlexContainer>
 
-      <ColumnFlexContainer gap={[3]} flex={1} minHeight="0px" overflow="auto" hideScrollbar>
-        <Typography variant="body2" weight="semiBold" color="var(--player-text-secondary)">
+      <ColumnFlexContainer
+        gap={[3]}
+        flex={1}
+        minHeight="0px"
+        overflow="auto"
+        hideScrollbar
+      >
+        <Typography
+          variant="body2"
+          weight="semiBold"
+          color="var(--player-text-secondary)"
+        >
           {activeCategory}
         </Typography>
         <div
@@ -157,7 +201,8 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
                 aria-label={`Use ${item.name} wallpaper`}
                 onClick={() => selectWallpaper(item.id)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') selectWallpaper(item.id);
+                  if (event.key === 'Enter' || event.key === ' ')
+                    selectWallpaper(item.id);
                 }}
                 style={{ cursor: 'pointer', minWidth: 0 }}
               >
@@ -176,7 +221,12 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
                   <img
                     src={item.src}
                     alt=""
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
                   />
                   {isSelected && (
                     <RowFlexContainer
@@ -192,17 +242,29 @@ export const MobileWallpaperPage: React.FC<MobileWallpaperPageProps> = ({ onBack
                         backgroundColor: 'var(--player-accent)',
                       }}
                     >
-                      <Check size="14px" color="var(--player-background)" strokeWidth={3} />
+                      <Check
+                        size="14px"
+                        color="var(--player-background)"
+                        strokeWidth={3}
+                      />
                     </RowFlexContainer>
                   )}
                 </div>
-                <RowFlexContainer alignItems="center" gap={[2]} padding={[2, 1, 0]}>
+                <RowFlexContainer
+                  alignItems="center"
+                  gap={[2]}
+                  padding={[2, 1, 0]}
+                >
                   <Image size="14px" color="var(--player-accent)" />
                   <Typography
                     variant="caption"
                     weight="semiBold"
                     color="var(--player-text-primary)"
-                    sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {item.name}
                   </Typography>
@@ -260,8 +322,12 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     onClick={disabled ? undefined : onClick}
     style={{
       borderRadius: '10px',
-      backgroundColor: primary ? 'var(--player-accent)' : 'var(--background-dark-transparent)',
-      border: primary ? '1px solid var(--player-accent)' : '1px solid var(--player-border)',
+      backgroundColor: primary
+        ? 'var(--player-accent)'
+        : 'var(--background-dark-transparent)',
+      border: primary
+        ? '1px solid var(--player-accent)'
+        : '1px solid var(--player-border)',
       opacity: disabled ? 0.55 : 1,
       flexShrink: 0,
     }}
@@ -319,12 +385,19 @@ const MobileWallpaperPreview: React.FC<MobileWallpaperPreviewProps> = ({
           height={[10]}
           cursor="pointer"
           onClick={onBack}
-          style={{ borderRadius: '999px', backgroundColor: 'var(--background-dark-transparent)' }}
+          style={{
+            borderRadius: '999px',
+            backgroundColor: 'var(--background-dark-transparent)',
+          }}
         >
           <ChevronLeft size="20px" color="var(--player-text-primary)" />
         </RowFlexContainer>
         <ColumnFlexContainer gap={[1]}>
-          <Typography variant="h5" weight="bold" color="var(--player-text-primary)">
+          <Typography
+            variant="h5"
+            weight="bold"
+            color="var(--player-text-primary)"
+          >
             Preview
           </Typography>
           <Typography variant="caption" color="var(--player-text-secondary)">
@@ -359,7 +432,11 @@ const MobileWallpaperPreview: React.FC<MobileWallpaperPreviewProps> = ({
           border: '1px solid var(--player-border)',
         }}
       >
-        <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+        <Typography
+          variant="body2"
+          weight="semiBold"
+          color="var(--player-text-primary)"
+        >
           Adjust image position
         </Typography>
         <Typography variant="caption" color="var(--player-text-secondary)">
@@ -371,7 +448,9 @@ const MobileWallpaperPreview: React.FC<MobileWallpaperPreviewProps> = ({
           max="100"
           value={position.x}
           aria-label="Wallpaper horizontal position"
-          onChange={(event) => onPositionChange({ ...position, x: Number(event.target.value) })}
+          onChange={(event) =>
+            onPositionChange({ ...position, x: Number(event.target.value) })
+          }
           style={{ width: '100%', accentColor: 'var(--player-accent)' }}
         />
       </ColumnFlexContainer>

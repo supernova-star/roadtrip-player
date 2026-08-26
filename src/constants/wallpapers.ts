@@ -39,6 +39,22 @@ export const wallpapers: Wallpaper[] = [
       textDisabled: '#77656A',
     },
   },
+  {
+    id: 'autumn-trail',
+    name: 'Autumn Trail',
+    mood: 'Warm and Adventurous',
+    src: wallpaperUrl('autumn-trail'),
+    theme: {
+      mode: 'dark',
+      playerBackground: '#211B15',
+      playerBorder: '#5A4633',
+      accent: '#D98A32',
+      blurTextAccent: '#E3A45C',
+      textPrimary: '#F5EFE4',
+      textSecondary: '#C8BFAF',
+      textDisabled: '#81776A',
+    },
+  },
 
   {
     id: 'purple-night',
@@ -452,7 +468,11 @@ export const wallpapers: Wallpaper[] = [
 
 export type WallpaperCategory = 'Nature' | 'Rustic' | 'Nostalgic';
 
-export const WALLPAPER_CATEGORIES: WallpaperCategory[] = ['Nature', 'Rustic', 'Nostalgic'];
+export const WALLPAPER_CATEGORIES: WallpaperCategory[] = [
+  'Nature',
+  'Rustic',
+  'Nostalgic',
+];
 export const DEFAULT_WALLPAPER_POSITION = { x: 50, y: 50 };
 
 export const rusticWallpaperIds = new Set([
@@ -473,16 +493,25 @@ export const nostalgicWallpaperIds = new Set([
   'banaras',
 ]);
 
-export const isWallpaperInCategory = (wallpaperId: string, category: WallpaperCategory) => {
+export const isWallpaperInCategory = (
+  wallpaperId: string,
+  category: WallpaperCategory,
+) => {
   if (category === 'Rustic') return rusticWallpaperIds.has(wallpaperId);
   if (category === 'Nostalgic') return nostalgicWallpaperIds.has(wallpaperId);
-  return !rusticWallpaperIds.has(wallpaperId) && !nostalgicWallpaperIds.has(wallpaperId);
+  return (
+    !rusticWallpaperIds.has(wallpaperId) &&
+    !nostalgicWallpaperIds.has(wallpaperId)
+  );
 };
 
 export const getWallpapersByCategory = <T extends { id: string }>(
   wallpaperList: T[],
-  category: WallpaperCategory
-) => wallpaperList.filter((wallpaper) => isWallpaperInCategory(wallpaper.id, category));
+  category: WallpaperCategory,
+) =>
+  wallpaperList.filter((wallpaper) =>
+    isWallpaperInCategory(wallpaper.id, category),
+  );
 
 export const wallpaperQuotes: Record<string, string> = {
   'road-trip': 'The road is always better with a good song.',

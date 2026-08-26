@@ -1,7 +1,13 @@
 export const APP_NAME = 'Roadtrip Player';
 
-export const PERCENTAGE_OPTIONS = Array.from({ length: 11 }, (_, index) => index * 10);
-export const MOBILE_BLUR_OPTIONS = Array.from({ length: 10 }, (_, index) => (index + 1) * 10);
+export const PERCENTAGE_OPTIONS = Array.from(
+  { length: 11 },
+  (_, index) => index * 10,
+);
+export const MOBILE_BLUR_OPTIONS = Array.from(
+  { length: 11 },
+  (_, index) => index * 10,
+);
 
 export const CLOCK_DATE_FORMATS = {
   long: 'do MMMM yyyy',

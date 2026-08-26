@@ -20,7 +20,8 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
     </Typography>
     <ColumnFlexContainer
       style={{
-        overflow: 'hidden',
+        overflow: 'auto',
+        flex: 1,
         borderRadius: '12px',
         backgroundColor: 'var(--background-dark-transparent)',
         border: '1px solid var(--player-border)',

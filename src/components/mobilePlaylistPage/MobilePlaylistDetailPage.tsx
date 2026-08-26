@@ -1,5 +1,13 @@
 import React, { useMemo } from 'react';
-import { ChevronLeft, ListMusic, Play, Pause, Heart, BarChart2 } from 'lucide-react';
+import {
+  ChevronLeft,
+  ListMusic,
+  Play,
+  Pause,
+  Heart,
+  BarChart2,
+  Trash2,
+} from 'lucide-react';
 import {
   ColumnFlexContainer,
   RowFlexContainer,
@@ -9,6 +17,7 @@ import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
 import { usePlayerStore } from '@/store/playerStore';
 import { useFavoritesStore } from '@/store/favoritesStore';
+import { useCustomPlaylistsStore } from '@/store/customPlaylistsStore';
 import { formatTime, formatTotalDuration } from '@/utils/formatter';
 import { useMobilePageSurface } from '@/hooks/useMobilePageSurface';
 import { useWallpaper } from '@/hooks/useWallpaper';
@@ -19,39 +28,53 @@ type MobilePlaylistDetailPageProps = {
   onBack: () => void;
 };
 
-export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> = ({
-  playlistId,
-  isFavorites = false,
-  onBack,
-}) => {
+export const MobilePlaylistDetailPage: React.FC<
+  MobilePlaylistDetailPageProps
+> = ({ playlistId, isFavorites = false, onBack }) => {
   const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const setQueue = usePlayerStore((state) => state.setQueue);
   const playSong = usePlayerStore((state) => state.playSong);
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const pause = usePlayerStore((state) => state.pause);
-  const setCurrentPlaylistId = usePlayerStore((state) => state.setCurrentPlaylistId);
+  const setCurrentPlaylistId = usePlayerStore(
+    (state) => state.setCurrentPlaylistId,
+  );
   const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+  const customPlaylists = useCustomPlaylistsStore(
+    (state) => state.customPlaylists,
+  );
+  const deleteCustomPlaylist = useCustomPlaylistsStore(
+    (state) => state.deleteCustomPlaylist,
+  );
   const { isLightMode } = useWallpaper();
   const mobilePageSurface = useMobilePageSurface();
   const selectedRowBackground = isLightMode
     ? 'var(--background-dark-transparent)'
     : 'var(--surface-selected)';
 
-  const playlist = isFavorites ? null : playlists.find((item) => item.id === playlistId);
+  const customPlaylist = isFavorites
+    ? undefined
+    : customPlaylists.find((item) => item.id === playlistId);
+  const playlist = isFavorites
+    ? null
+    : (playlists.find((item) => item.id === playlistId) ?? customPlaylist);
 
   const songDetails = useMemo(
     () =>
       (isFavorites ? favoriteSongIds : (playlist?.songIds ?? []))
         .map((songId) => songs.find((song) => song.id === songId))
         .filter((song): song is (typeof songs)[number] => Boolean(song)),
-    [isFavorites, favoriteSongIds, playlist?.songIds]
+    [isFavorites, favoriteSongIds, playlist?.songIds],
   );
 
   const totalDuration = useMemo(
-    () => formatTotalDuration(songDetails.reduce((acc, song) => acc + (song.duration || 0), 0)),
-    [songDetails]
+    () =>
+      formatTotalDuration(
+        songDetails.reduce((acc, song) => acc + (song.duration || 0), 0),
+      ),
+    [songDetails],
   );
 
   const handleSelectSong = (songId: string) => {
@@ -76,7 +99,9 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
   };
 
   const isPlaylistPlaying =
-    isPlaying && !!currentSong && songDetails.some((song) => song.id === currentSong.id);
+    isPlaying &&
+    !!currentSong &&
+    songDetails.some((song) => song.id === currentSong.id);
 
   const handlePlayAllClick = () => {
     if (isPlaylistPlaying) {
@@ -91,28 +116,79 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
     toggleFavorite(songId);
   };
 
+  const handleDelete = () => {
+    if (
+      !customPlaylist ||
+      !window.confirm(`Delete "${customPlaylist.title}"?`)
+    ) {
+      return;
+    }
+
+    deleteCustomPlaylist(customPlaylist.id);
+    onBack();
+  };
+
   if (!isFavorites && !playlist) return null;
 
   const title = isFavorites ? 'Favorites' : playlist?.title;
-  const description = isFavorites ? 'Songs you have liked.' : playlist?.description;
+  const description = isFavorites
+    ? 'Songs you have liked.'
+    : playlist?.description;
 
   return (
-    <ColumnFlexContainer width="100%" height="100vh" padding={[0, 0, 32]} style={mobilePageSurface}>
-      <ColumnFlexContainer gap={[4]} padding={[6, 5, 4]} style={{ flexShrink: 0 }}>
-        <RowFlexContainer
-          alignItems="center"
-          justifyContent="center"
-          width={[10]}
-          height={[10]}
-          cursor="pointer"
-          style={{
-            borderRadius: '999px',
-            backgroundColor: 'var(--background-dark-transparent)',
-            flexShrink: 0,
-          }}
-          onClick={onBack}
-        >
-          <ChevronLeft size="20px" color="var(--player-text-primary)" />
+    <ColumnFlexContainer
+      width="100%"
+      height="100vh"
+      padding={[0, 0, 32]}
+      style={mobilePageSurface}
+    >
+      <ColumnFlexContainer
+        gap={[4]}
+        padding={[6, 5, 4]}
+        style={{ flexShrink: 0 }}
+      >
+        <RowFlexContainer alignItems="center" justifyContent="between">
+          <RowFlexContainer
+            alignItems="center"
+            justifyContent="center"
+            width={[10]}
+            height={[10]}
+            cursor="pointer"
+            style={{
+              borderRadius: '999px',
+              backgroundColor: 'var(--background-dark-transparent)',
+              flexShrink: 0,
+            }}
+            onClick={onBack}
+          >
+            <ChevronLeft size="20px" color="var(--player-text-primary)" />
+          </RowFlexContainer>
+          {customPlaylist && (
+            <RowFlexContainer
+              role="button"
+              tabIndex={0}
+              alignItems="center"
+              justifyContent="center"
+              width={[10]}
+              height={[10]}
+              cursor="pointer"
+              aria-label={`Delete ${customPlaylist.title}`}
+              onClick={handleDelete}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleDelete();
+                }
+              }}
+              style={{
+                borderRadius: '999px',
+                backgroundColor: 'var(--background-dark-transparent)',
+                flexShrink: 0,
+              }}
+            >
+              <Trash2 size="18px" color="var(--player-text-secondary)" />
+            </RowFlexContainer>
+          )}
         </RowFlexContainer>
 
         <RowFlexContainer gap={[4]} alignItems="start">
@@ -131,15 +207,26 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
             <ListMusic size="40px" color="var(--player-accent)" />
           </RowFlexContainer>
           <ColumnFlexContainer gap={[1]} minWidth={[0]}>
-            <Typography variant="h6" weight="bold" color="var(--player-text-primary)">
+            <Typography
+              variant="h6"
+              weight="bold"
+              color="var(--player-text-primary)"
+            >
               {title}
             </Typography>
             {description && (
-              <Typography variant="caption" color="var(--player-text-secondary)">
+              <Typography
+                variant="caption"
+                color="var(--player-text-secondary)"
+              >
                 {description}
               </Typography>
             )}
-            <Typography variant="caption" weight="semiBold" color="var(--player-text-secondary)">
+            <Typography
+              variant="caption"
+              weight="semiBold"
+              color="var(--player-text-secondary)"
+            >
               {songDetails.length} songs • {totalDuration}
             </Typography>
           </ColumnFlexContainer>
@@ -161,11 +248,23 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
           onClick={songDetails.length === 0 ? undefined : handlePlayAllClick}
         >
           {isPlaylistPlaying ? (
-            <Pause size="16px" color="var(--player-accent)" fill="var(--player-accent)" />
+            <Pause
+              size="16px"
+              color="var(--player-accent)"
+              fill="var(--player-accent)"
+            />
           ) : (
-            <Play size="16px" color="var(--player-accent)" fill="var(--player-accent)" />
+            <Play
+              size="16px"
+              color="var(--player-accent)"
+              fill="var(--player-accent)"
+            />
           )}
-          <Typography variant="body2" weight="semiBold" color="var(--player-accent)">
+          <Typography
+            variant="body2"
+            weight="semiBold"
+            color="var(--player-accent)"
+          >
             {isPlaylistPlaying ? 'Pause' : 'Play All'}
           </Typography>
         </RowFlexContainer>
@@ -188,10 +287,18 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
             padding={[8, 5]}
           >
             <Heart size="40px" color="var(--player-text-secondary)" />
-            <Typography variant="body1" weight="semiBold" color="var(--player-text-primary)">
+            <Typography
+              variant="body1"
+              weight="semiBold"
+              color="var(--player-text-primary)"
+            >
               No favorites yet
             </Typography>
-            <Typography variant="caption" color="var(--player-text-secondary)" textAlign="center">
+            <Typography
+              variant="caption"
+              color="var(--player-text-secondary)"
+              textAlign="center"
+            >
               Tap the heart icon on any song to add it here.
             </Typography>
           </ColumnFlexContainer>
@@ -210,10 +317,17 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
               padding={[2, 2]}
               borderRadius={[3]}
               cursor="pointer"
-              backgroundColor={isCurrentSong ? selectedRowBackground : 'transparent'}
+              backgroundColor={
+                isCurrentSong ? selectedRowBackground : 'transparent'
+              }
               onClick={() => handleSelectSong(song.id)}
             >
-              <RowFlexContainer alignItems="center" gap={[2]} flex={1} minWidth={[0]}>
+              <RowFlexContainer
+                alignItems="center"
+                gap={[2]}
+                flex={1}
+                minWidth={[0]}
+              >
                 <RowFlexContainer
                   alignItems="center"
                   justifyContent="center"
@@ -223,7 +337,10 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
                   {isCurrentlyPlaying ? (
                     <BarChart2 size="16px" color="var(--player-accent)" />
                   ) : (
-                    <Typography variant="caption" color="var(--player-text-secondary)">
+                    <Typography
+                      variant="caption"
+                      color="var(--player-text-secondary)"
+                    >
                       {index + 1}
                     </Typography>
                   )}
@@ -244,21 +361,33 @@ export const MobilePlaylistDetailPage: React.FC<MobilePlaylistDetailPageProps> =
                     variant="body2"
                     weight="semiBold"
                     color="var(--player-text-primary)"
-                    sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {song.title}
                   </Typography>
                   <Typography
                     variant="caption"
                     color="var(--player-text-secondary)"
-                    sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {song.artist}
                   </Typography>
                 </ColumnFlexContainer>
               </RowFlexContainer>
 
-              <RowFlexContainer alignItems="center" gap={[3]} style={{ flexShrink: 0 }}>
+              <RowFlexContainer
+                alignItems="center"
+                gap={[3]}
+                style={{ flexShrink: 0 }}
+              >
                 <Typography
                   variant="caption"
                   weight="semiBold"
