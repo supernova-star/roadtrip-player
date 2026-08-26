@@ -7,6 +7,7 @@ type SearchSong = {
   album: string;
   imageUrl: string;
   audioUrl: string;
+  duration?: number;
 };
 
 const getRecord = (value: unknown): Record<string, unknown> | null =>
@@ -17,6 +18,17 @@ const getRecord = (value: unknown): Record<string, unknown> | null =>
 const getString = (...values: unknown[]): string => {
   const value = values.find((candidate) => typeof candidate === 'string');
   return typeof value === 'string' ? value : '';
+};
+
+const getDuration = (...values: unknown[]): number | undefined => {
+  const value = values.find(
+    (candidate) =>
+      (typeof candidate === 'number' || typeof candidate === 'string') &&
+      Number.isFinite(Number(candidate)) &&
+      Number(candidate) > 0,
+  );
+
+  return value === undefined ? undefined : Number(value);
 };
 
 const getArtistNames = (...values: unknown[]): string => {
@@ -116,6 +128,7 @@ const transformResults = async (payload: unknown): Promise<SearchSong[]> => {
         album: getString(song?.album, moreInfo?.album),
         imageUrl: getString(song?.image, moreInfo?.image),
         audioUrl: await getAudioUrl(moreInfo, song?.audio_url),
+        duration: getDuration(song?.duration, moreInfo?.duration),
       };
     }),
   );

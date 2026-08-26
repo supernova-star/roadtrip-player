@@ -6,8 +6,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Prithibi Ta Naki Chhoto Hote Hote',
     artist: 'Crosswinds',
     album: 'Aabar Bachhor Kuri Pore, Vol. 1',
-    coverUrl: 'https://c.saavncdn.com/228/Aabar-Bachhor-Kuri-Pore-Vol-1-Bengali-2012-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/228/2a7e1e49d7965a2f4f0093ef7a3f8b25_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/228/Aabar-Bachhor-Kuri-Pore-Vol-1-Bengali-2012-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/228/2a7e1e49d7965a2f4f0093ef7a3f8b25_160.mp4',
     duration: 364,
   },
   {
@@ -15,8 +17,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Ishq',
     artist: 'Amir Ameer, Faheem Abdullah, Rauhan Malik',
     album: 'Lost;Found',
-    coverUrl: 'https://c.saavncdn.com/306/Lost-Found-Hindi-2024-20240517153134-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/306/14006318885e9fbbd00964ceba480111_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/306/Lost-Found-Hindi-2024-20240517153134-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/306/14006318885e9fbbd00964ceba480111_160.mp4',
     duration: 224,
   },
   {
@@ -24,8 +28,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Tere Ishk Mein',
     artist: 'Irshad Kamil, A.R. Rahman, Arijit Singh',
     album: 'Tere Ishk Mein (From &quot;Tere Ishk Mein&quot;)',
-    coverUrl: 'https://c.saavncdn.com/153/Tere-Ishk-Mein-From-Tere-Ishk-Mein-Hindi-2025-20251022231003-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/153/98aaa5a3dc0da0a4a34430ae103eee12_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/153/Tere-Ishk-Mein-From-Tere-Ishk-Mein-Hindi-2025-20251022231003-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/153/98aaa5a3dc0da0a4a34430ae103eee12_160.mp4',
     duration: 350,
   },
   {
@@ -33,8 +39,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Zara Zara',
     artist: 'Bombay Jayashri',
     album: 'Rehnaa Hai Terre Dil Mein',
-    coverUrl: 'https://c.saavncdn.com/724/Rehnaa-Hai-Terre-Dil-Mein-Hindi-2001-20220429143424-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/724/94ef89173720daf48d90c535f0e8c622_sar_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/724/Rehnaa-Hai-Terre-Dil-Mein-Hindi-2001-20220429143424-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/724/94ef89173720daf48d90c535f0e8c622_sar_160.mp4',
     duration: 298,
   },
   {
@@ -42,8 +50,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Tujhko',
     artist: 'Arijit Singh, Sunidhi Chauhan, Amitabh Bhattacharya, Pritam',
     album: 'Jag Se Laaj (From “Cocktail 2”)',
-    coverUrl: 'https://c.saavncdn.com/258/Jag-Se-Laaj-From-Cocktail-2-Hindi-2026-20260619203112-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/258/8baa3713731d2cdfba8aeb2357c30751_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/258/Jag-Se-Laaj-From-Cocktail-2-Hindi-2026-20260619203112-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/258/8baa3713731d2cdfba8aeb2357c30751_160.mp4',
     duration: 342,
   },
   {
@@ -51,8 +61,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Toh Phir Aao - New Version',
     artist: 'Mithoon, Pritam, Sayeed Quadri, Subodhh Sharma',
     album: 'Awarapan 2',
-    coverUrl: 'https://c.saavncdn.com/820/Awarapan-2-Hindi-2026-20260811181221-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/820/6a5acecaa1f6bafec527673fa4ca8a6e_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/820/Awarapan-2-Hindi-2026-20260811181221-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/820/6a5acecaa1f6bafec527673fa4ca8a6e_160.mp4',
     duration: 291,
   },
   {
@@ -60,8 +72,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Bheegi Bheegi',
     artist: 'Pritam, James',
     album: 'Gangster',
-    coverUrl: 'https://c.saavncdn.com/810/Gangster-Hindi-2026-20260327190823-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/810/fbfd780335f325ab7d24ea26fde97d06_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/810/Gangster-Hindi-2026-20260327190823-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/810/fbfd780335f325ab7d24ea26fde97d06_160.mp4',
     duration: 345,
   },
   {
@@ -69,8 +83,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Khat',
     artist: 'Navjot Ahuja',
     album: 'Khat',
-    coverUrl: 'https://c.saavncdn.com/479/Khat-Hindi-2025-20251130113423-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/479/c99d6d328734f0f034f08a7afc40fe30_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/479/Khat-Hindi-2025-20251130113423-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/479/c99d6d328734f0f034f08a7afc40fe30_160.mp4',
     duration: 296,
   },
   {
@@ -78,8 +94,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Jo Tum Mere Ho',
     artist: 'Anuv Jain',
     album: 'Jo Tum Mere Ho',
-    coverUrl: 'https://c.saavncdn.com/401/Jo-Tum-Mere-Ho-Hindi-2024-20240731053953-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/401/1e4444c13f76ac543c19b01d7ea0423a_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/401/Jo-Tum-Mere-Ho-Hindi-2024-20240731053953-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/401/1e4444c13f76ac543c19b01d7ea0423a_160.mp4',
     duration: 252,
   },
   {
@@ -87,8 +105,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Saiyaara',
     artist: 'Tanishk Bagchi, Faheem Abdullah, Arslan Nizami, Irshad Kamil',
     album: 'Saiyaara',
-    coverUrl: 'https://c.saavncdn.com/598/Saiyaara-Hindi-2025-20250703061754-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/598/7323a0d8686f6c1b9c21f098c23a9557_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/598/Saiyaara-Hindi-2025-20250703061754-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/598/7323a0d8686f6c1b9c21f098c23a9557_160.mp4',
     duration: 370,
   },
   {
@@ -96,8 +116,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Tera Mera Rishta - New Version',
     artist: 'Mithoon, Pritam, Sayeed Quadri, Saaj Bhatt, Subodhh Sharma',
     album: 'Awarapan 2',
-    coverUrl: 'https://c.saavncdn.com/820/Awarapan-2-Hindi-2026-20260811181221-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/820/20c352e29d54066d5691f1a1a15e4578_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/820/Awarapan-2-Hindi-2026-20260811181221-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/820/20c352e29d54066d5691f1a1a15e4578_160.mp4',
     duration: 365,
   },
   {
@@ -105,8 +127,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Jaise Mera Tu',
     artist: 'Sachin-Jigar, Arijit Singh, Priya Saraiya',
     album: 'Happy Ending',
-    coverUrl: 'https://c.saavncdn.com/100/Happy-Ending-Hindi-2025-20250930143441-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/100/e0b3bafb5e23d7eaaa5ba17f02ff8934_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/100/Happy-Ending-Hindi-2025-20250930143441-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/100/e0b3bafb5e23d7eaaa5ba17f02ff8934_160.mp4',
     duration: 256,
   },
   {
@@ -114,8 +138,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Stay King',
     artist: 'Andreas Tilliander',
     album: 'Showtime',
-    coverUrl: 'https://c.saavncdn.com/864/Showtime-English-2010-20240515174917-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/864/11542b8a98913013fb4ba4e3590ed3f7_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/864/Showtime-English-2010-20240515174917-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/864/11542b8a98913013fb4ba4e3590ed3f7_160.mp4',
     duration: 340,
   },
   {
@@ -123,17 +149,20 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Nightfall',
     artist: 'Yasuharu Takanashi',
     album: 'NARUTO SHIPPUDEN ORIGINAL SOUNDTRACK',
-    coverUrl: 'https://c.saavncdn.com/465/NARUTO-SHIPPUDEN-ORIGINAL-SOUNDTRACK-Unknown-2007-20210907160145-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/465/455eff6783cf4ac7aa42ac8298deedcd_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/465/NARUTO-SHIPPUDEN-ORIGINAL-SOUNDTRACK-Unknown-2007-20210907160145-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/465/455eff6783cf4ac7aa42ac8298deedcd_160.mp4',
     duration: 100,
   },
   {
     id: 'monsoon-mixtape-15',
     title: 'Kabhi Na Kabhi To Miloge',
-    artist: 'Chirantan Bhatt, Najam Sheraz, Aditya Narayan, Suzanne D\'Mello',
+    artist: "Chirantan Bhatt, Najam Sheraz, Aditya Narayan, Suzanne D'Mello",
     album: 'Shaapit',
     coverUrl: 'https://c.saavncdn.com/575/Shaapit-2010-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/575/1d3fb21c9ea77066d0a5dbe228769af3_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/575/1d3fb21c9ea77066d0a5dbe228769af3_160.mp4',
     duration: 377,
   },
   {
@@ -141,8 +170,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Bulbuli',
     artist: 'Ritu Raj &amp; Nandita',
     album: 'Bulbuli',
-    coverUrl: 'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
     duration: 336,
   },
   {
@@ -150,8 +181,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Moner Manush',
     artist: 'Anupam Roy, Satyaki Banerjee, Babul Supriyo',
     album: 'Coke Studio S4',
-    coverUrl: 'https://c.saavncdn.com/637/Coke-Studio-S4-Hindi-2023-20260604103913-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/637/64b554d8af75a1bac1651897ec5f913d_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/637/Coke-Studio-S4-Hindi-2023-20260604103913-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/637/64b554d8af75a1bac1651897ec5f913d_160.mp4',
     duration: 515,
   },
   {
@@ -159,8 +192,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'long distance relationship quotes',
     artist: 'Sinart',
     album: 'fall in love',
-    coverUrl: 'https://c.saavncdn.com/985/fall-in-love-Unknown-2025-20250418011730-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/985/fe488ac5c7279491c07fdcc1b789fef5_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/985/fall-in-love-Unknown-2025-20250418011730-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/985/fe488ac5c7279491c07fdcc1b789fef5_160.mp4',
     duration: 148,
   },
   {
@@ -168,8 +203,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Mon Amar Kemon Kemon Kore',
     artist: 'Snigdhajit Bhowmik',
     album: 'Mon Amar Kemon Kemon Kore',
-    coverUrl: 'https://c.saavncdn.com/033/Mon-Amar-Kemon-Kemon-Kore-Bengali-2022-20221213162440-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/033/41106fd8f67ddc1bf91b2ec0bfb9358e_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/033/Mon-Amar-Kemon-Kemon-Kore-Bengali-2022-20221213162440-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/033/41106fd8f67ddc1bf91b2ec0bfb9358e_160.mp4',
     duration: 305,
   },
   {
@@ -177,8 +214,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Amake Aamar Moto Thaakte Dao',
     artist: 'Anupam Roy',
     album: 'Autograph (Original Motion Picture Soundtrack)',
-    coverUrl: 'https://c.saavncdn.com/750/Autograph-Original-Motion-Picture-Soundtrack-Bengali-2010-20240513234202-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/750/637777b4d46558463e284a36fe4e87ce_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/750/Autograph-Original-Motion-Picture-Soundtrack-Bengali-2010-20240513234202-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/750/637777b4d46558463e284a36fe4e87ce_160.mp4',
     duration: 321,
   },
   {
@@ -186,8 +225,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Teri Deewani',
     artist: 'Kailash Kher, Paresh Kamath, Naresh Kamath',
     album: 'Best of Me Kailash Kher',
-    coverUrl: 'https://c.saavncdn.com/364/Best-of-Me-Kailash-Kher-Hindi-2013-20200715065511-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/364/48520ff8b9b3d460975eb963de561de4_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/364/Best-of-Me-Kailash-Kher-Hindi-2013-20200715065511-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/364/48520ff8b9b3d460975eb963de561de4_160.mp4',
     duration: 320,
   },
   {
@@ -195,8 +236,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Faasla',
     artist: 'Madhur Sharma, Ravator',
     album: 'Faasla',
-    coverUrl: 'https://c.saavncdn.com/334/Faasla-Hindi-2024-20240408123131-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/334/f614d84275e2e3b6ba48c326c02d914e_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/334/Faasla-Hindi-2024-20240408123131-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/334/f614d84275e2e3b6ba48c326c02d914e_160.mp4',
     duration: 212,
   },
   {
@@ -204,8 +247,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Tera Mera Rishta 2.0',
     artist: 'Emrose PERCUSSION',
     album: 'Tera Mera Rishta 2.0',
-    coverUrl: 'https://c.saavncdn.com/893/Tera-Mera-Rishta-2-0-Instrumental-2023-20260511173201-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/893/01bb0ce34b717befb55d96e6362f760d_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/893/Tera-Mera-Rishta-2-0-Instrumental-2023-20260511173201-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/893/01bb0ce34b717befb55d96e6362f760d_160.mp4',
     duration: 187,
   },
   {
@@ -213,8 +258,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Benche Thakar Gaan',
     artist: 'Anupam Roy',
     album: 'Autograph (Original Motion Picture Soundtrack)',
-    coverUrl: 'https://c.saavncdn.com/750/Autograph-Original-Motion-Picture-Soundtrack-Bengali-2010-20240513234202-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/750/321a6551130e8da35273a5a86df20155_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/750/Autograph-Original-Motion-Picture-Soundtrack-Bengali-2010-20240513234202-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/750/321a6551130e8da35273a5a86df20155_160.mp4',
     duration: 253,
   },
   {
@@ -222,8 +269,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Neel Rang Bhison Priyo - Sedino Chhilo',
     artist: 'Rupam Islam',
     album: 'Godfrey Philips India',
-    coverUrl: 'https://c.saavncdn.com/095/Godfrey-Philips-India-Bengali-2002-20201008164042-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/095/7b99c06f5e17c91fd7e1a13374a32baf_sar_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/095/Godfrey-Philips-India-Bengali-2002-20201008164042-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/095/7b99c06f5e17c91fd7e1a13374a32baf_sar_160.mp4',
     duration: 370,
   },
   {
@@ -231,8 +280,10 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Ekla Ghor',
     artist: 'Rupam Islam, Fossils (Band)',
     album: 'Fossils, Vol. 1',
-    coverUrl: 'https://c.saavncdn.com/408/Fossils-Vol-1-Bengali-2001-20231120235711-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/408/e759bdce45913992049543ad1c12d703_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/408/Fossils-Vol-1-Bengali-2001-20231120235711-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/408/e759bdce45913992049543ad1c12d703_160.mp4',
     duration: 387,
   },
   {
@@ -240,8 +291,21 @@ export const monsoonMixtapeSongs: Song[] = [
     title: 'Prithibi Ta Naki Chhoto Hote Hote',
     artist: 'Crosswinds',
     album: 'Aabar Bachhor Kuri Pore, Vol. 1',
-    coverUrl: 'https://c.saavncdn.com/228/Aabar-Bachhor-Kuri-Pore-Vol-1-Bengali-2012-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/228/2a7e1e49d7965a2f4f0093ef7a3f8b25_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/228/Aabar-Bachhor-Kuri-Pore-Vol-1-Bengali-2012-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/228/2a7e1e49d7965a2f4f0093ef7a3f8b25_160.mp4',
     duration: 364,
+  },
+  {
+    id: 'monsoon-mixtape-28',
+    title: 'Maza Pyaar Karne Mein (feat. Kumar Sanu)',
+    artist: 'King, Kumar Sanu, Aditya Dev',
+    album: 'Raja Hindustani',
+    coverUrl:
+      'https://c.saavncdn.com/989/Raja-Hindustani-Hindi-2026-20260219140453-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/989/7920a33d1aff2eb012d0e9286acd1f4c_160.mp4',
+    duration: 212,
   },
 ];

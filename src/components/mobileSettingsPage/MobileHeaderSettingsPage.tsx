@@ -74,7 +74,7 @@ export const MobileHeaderSettingsPage: React.FC<
   return (
     <ColumnFlexContainer
       gap={[5]}
-      padding={[6, 5, 23]}
+      padding={[6, 5, 37]}
       width="100%"
       height="100vh"
       style={mobilePageSurface}

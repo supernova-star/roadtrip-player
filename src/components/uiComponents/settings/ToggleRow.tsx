@@ -28,12 +28,16 @@ export const ToggleRow: React.FC<ToggleRowProps> = ({
     alignItems="center"
     gap={[3]}
     padding={[3, 4]}
-    minHeight="70px"
+    minHeight="80px"
     style={{ opacity: disabled ? 0.5 : 1 }}
   >
     <IconTile>{icon}</IconTile>
     <ColumnFlexContainer gap={[1]} flex={1} minWidth={[0]}>
-      <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+      <Typography
+        variant="body2"
+        weight="semiBold"
+        color="var(--player-text-primary)"
+      >
         {title}
       </Typography>
       <Typography variant="caption" color="var(--player-text-secondary)">

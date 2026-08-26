@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export const useMobileHistoryView = <View extends string>(historyKey: string) => {
+export const useMobileHistoryView = <View extends string>(
+  historyKey: string,
+) => {
   const [activeView, setActiveView] = useState<View | null>(null);
 
   useEffect(() => {
@@ -19,6 +21,15 @@ export const useMobileHistoryView = <View extends string>(historyKey: string) =>
     setActiveView(view);
   };
 
+  const replaceView = (view: View) => {
+    window.history.replaceState(
+      { [historyKey]: view },
+      '',
+      window.location.href,
+    );
+    setActiveView(view);
+  };
+
   const closeView = () => {
     window.history.back();
   };
@@ -26,6 +37,7 @@ export const useMobileHistoryView = <View extends string>(historyKey: string) =>
   return {
     activeView,
     openView,
+    replaceView,
     closeView,
     setActiveView,
   };
