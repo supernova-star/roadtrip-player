@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface FavoritesState {
   favoriteSongIds: string[];
@@ -11,39 +11,46 @@ interface FavoritesState {
 }
 
 export const useFavoritesStore = create<FavoritesState>()(
-  persist(
-    (set, get) => ({
-      favoriteSongIds: [],
+  devtools(
+    persist(
+      (set, get) => ({
+        favoriteSongIds: [],
 
-      addFavorite: (songId) => {
-        set((state) =>
-          state.favoriteSongIds.includes(songId)
-            ? state
-            : { favoriteSongIds: [...state.favoriteSongIds, songId] }
-        );
+        addFavorite: (songId) => {
+          set((state) =>
+            state.favoriteSongIds.includes(songId)
+              ? state
+              : { favoriteSongIds: [...state.favoriteSongIds, songId] },
+          );
+        },
+
+        removeFavorite: (songId) => {
+          set((state) => ({
+            favoriteSongIds: state.favoriteSongIds.filter(
+              (id) => id !== songId,
+            ),
+          }));
+        },
+
+        toggleFavorite: (songId) => {
+          const { favoriteSongIds } = get();
+          if (favoriteSongIds.includes(songId)) {
+            set({
+              favoriteSongIds: favoriteSongIds.filter((id) => id !== songId),
+            });
+          } else {
+            set({ favoriteSongIds: [...favoriteSongIds, songId] });
+          }
+        },
+
+        isFavorite: (songId) => get().favoriteSongIds.includes(songId),
+
+        clearFavorites: () => set({ favoriteSongIds: [] }),
+      }),
+      {
+        name: 'roadtrip-favorites',
       },
-
-      removeFavorite: (songId) => {
-        set((state) => ({
-          favoriteSongIds: state.favoriteSongIds.filter((id) => id !== songId),
-        }));
-      },
-
-      toggleFavorite: (songId) => {
-        const { favoriteSongIds } = get();
-        if (favoriteSongIds.includes(songId)) {
-          set({ favoriteSongIds: favoriteSongIds.filter((id) => id !== songId) });
-        } else {
-          set({ favoriteSongIds: [...favoriteSongIds, songId] });
-        }
-      },
-
-      isFavorite: (songId) => get().favoriteSongIds.includes(songId),
-
-      clearFavorites: () => set({ favoriteSongIds: [] }),
-    }),
-    {
-      name: 'roadtrip-favorites',
-    }
-  )
+    ),
+    { name: 'favorites-store' },
+  ),
 );

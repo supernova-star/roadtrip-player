@@ -1,12 +1,17 @@
 import React from 'react';
 import type { Colors, Spacing } from '@/theme/themeTypes';
-import type { CSSProperties, MouseEventHandler } from 'react';
+import type {
+  CSSProperties,
+  KeyboardEventHandler,
+  MouseEventHandler,
+} from 'react';
 import { forwardRef, type FC } from 'react';
 import type { CSSObject } from 'styled-components';
 import { StyledContainer } from './Container.styles';
 
 export type FlexDirections = 'row' | 'rowReverse' | 'column' | 'columnReverse';
-export type JustifyContent = 'center' | 'start' | 'end' | 'between' | 'around' | 'evenly';
+export type JustifyContent =
+  'center' | 'start' | 'end' | 'between' | 'around' | 'evenly';
 export type Align = 'center' | 'start' | 'end' | 'stretch' | 'baseline';
 export type Wrap = 'wrap' | 'nowrap' | 'wrapReverse';
 export type Position = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky';
@@ -29,7 +34,8 @@ export type Role =
   | 'tabpanel'
   | 'textbox'
   | 'tree'
-  | 'treeitem';
+  | 'treeitem'
+  | 'tablist';
 
 export type StyledContainerProps = {
   padding?: Spacing;
@@ -70,28 +76,32 @@ export type StyledContainerProps = {
 export type ContainerProps = StyledContainerProps & {
   role?: Role;
   style?: CSSProperties;
+  tabIndex?: number;
   onClick?: MouseEventHandler<HTMLDivElement>;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
 };
 
-export const Container = forwardRef<HTMLDivElement, React.PropsWithChildren<ContainerProps>>(
-  ({ children, ...props }, ref) => {
-    return (
-      <StyledContainer ref={ref} data-testid="container-wrapper" {...props}>
-        {children}
-      </StyledContainer>
-    );
-  }
-);
-
-export const RowFlexContainer = forwardRef<HTMLDivElement, React.PropsWithChildren<ContainerProps>>(
-  ({ children, ...props }, ref) => (
-    <Container ref={ref} display="flex" flexDirection="row" {...props}>
+export const Container = forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<ContainerProps>
+>(({ children, ...props }, ref) => {
+  return (
+    <StyledContainer ref={ref} data-testid="container-wrapper" {...props}>
       {children}
-    </Container>
-  )
-);
+    </StyledContainer>
+  );
+});
+
+export const RowFlexContainer = forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<ContainerProps>
+>(({ children, ...props }, ref) => (
+  <Container ref={ref} display="flex" flexDirection="row" {...props}>
+    {children}
+  </Container>
+));
 
 export const ColumnFlexContainer = forwardRef<
   HTMLDivElement,
@@ -102,6 +112,10 @@ export const ColumnFlexContainer = forwardRef<
   </Container>
 ));
 
-export const Divider: FC<React.PropsWithChildren<StyledContainerProps>> = (props) => {
-  return <Container height="1px" width="100%" backgroundColor="divider" {...props} />;
+export const Divider: FC<React.PropsWithChildren<StyledContainerProps>> = (
+  props,
+) => {
+  return (
+    <Container height="1px" width="100%" backgroundColor="divider" {...props} />
+  );
 };

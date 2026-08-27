@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface PlayerPreferencesState {
   showMiniPlayer: boolean;
@@ -11,17 +11,20 @@ interface PlayerPreferencesState {
 }
 
 export const usePlayerPreferencesStore = create<PlayerPreferencesState>()(
-  persist(
-    (set) => ({
-      showMiniPlayer: true,
-      showQueueShortcut: true,
-      showProgressBar: true,
-      setShowMiniPlayer: (showMiniPlayer) => set({ showMiniPlayer }),
-      setShowQueueShortcut: (showQueueShortcut) => set({ showQueueShortcut }),
-      setShowProgressBar: (showProgressBar) => set({ showProgressBar }),
-    }),
-    {
-      name: 'roadtrip-player-preferences',
-    }
-  )
+  devtools(
+    persist(
+      (set) => ({
+        showMiniPlayer: true,
+        showQueueShortcut: true,
+        showProgressBar: true,
+        setShowMiniPlayer: (showMiniPlayer) => set({ showMiniPlayer }),
+        setShowQueueShortcut: (showQueueShortcut) => set({ showQueueShortcut }),
+        setShowProgressBar: (showProgressBar) => set({ showProgressBar }),
+      }),
+      {
+        name: 'roadtrip-player-preferences',
+      },
+    ),
+    { name: 'player-preferences-store' },
+  ),
 );

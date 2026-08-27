@@ -35,6 +35,18 @@ export const playlists: Playlist[] = [
     songIds: createSongIds('monsoon-mixtape', 27),
   },
   {
+    id: 'late-night',
+    title: 'Late Night',
+    description: 'Soft, late-night favorites for quiet drives.',
+    songIds: createSongIds('late-night', 15),
+  },
+  {
+    id: 'old-bengali-classics',
+    title: 'Old Bengali Classics',
+    description: 'Timeless Bengali songs for reflective evenings.',
+    songIds: createSongIds('old-bengali-classics', 12),
+  },
+  {
     id: 'hindi-classics',
     title: '90s Hindi Classics',
     description: 'Bollywood hits for the road.',

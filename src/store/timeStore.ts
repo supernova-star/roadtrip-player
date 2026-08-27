@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 export type TimeFormat = '12-hour' | '24-hour';
 export type ClockSize = 'small' | 'medium' | 'large';
@@ -28,13 +28,16 @@ const defaultSettings: TimeSettings = {
 };
 
 export const useTimeStore = create<TimeState>()(
-  persist(
-    (set) => ({
-      ...defaultSettings,
-      applySettings: (settings) => set(settings),
-    }),
-    {
-      name: 'roadtrip-time-settings',
-    }
-  )
+  devtools(
+    persist(
+      (set) => ({
+        ...defaultSettings,
+        applySettings: (settings) => set(settings),
+      }),
+      {
+        name: 'roadtrip-time-settings',
+      },
+    ),
+    { name: 'time-store' },
+  ),
 );

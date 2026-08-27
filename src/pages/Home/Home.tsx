@@ -14,7 +14,10 @@ import { useResponsive } from '@/hooks/useResponsive';
 import Popover from '@/components/uiComponents/popover/Popover';
 import { SettingsPopover } from '@/components/settingsPopover/SettingsPopover';
 import { Modal } from '@/components/uiComponents/modal/Modal';
-import { WallpaperModal, ViewType } from '@/components/wallpaperModal/WallpaperModal';
+import {
+  WallpaperModal,
+  ViewType,
+} from '@/components/wallpaperModal/WallpaperModal';
 import { TimeModal } from '@/components/timeModal/TimeModal';
 import { useTimeStore } from '@/store/timeStore';
 import { AnalogClock } from '@/components/uiComponents/analogClock/AnalogClock';
@@ -37,9 +40,15 @@ import { formatClockTime } from '@/utils/formatter';
 const ClockDisplay: React.FC = () => {
   const { isMobile } = useResponsive();
   const timeSettings = useTimeStore();
-  const showClockCard = useDisplayPreferencesStore((state) => state.showClockCard);
-  const showClockDate = useDisplayPreferencesStore((state) => state.showClockDate);
-  const clockDateFormat = useDisplayPreferencesStore((state) => state.clockDateFormat);
+  const showClockCard = useDisplayPreferencesStore(
+    (state) => state.showClockCard,
+  );
+  const showClockDate = useDisplayPreferencesStore(
+    (state) => state.showClockDate,
+  );
+  const clockDateFormat = useDisplayPreferencesStore(
+    (state) => state.clockDateFormat,
+  );
   const [clockDate, setClockDate] = useState(new Date());
 
   useEffect(() => {
@@ -149,30 +158,43 @@ const ClockDisplay: React.FC = () => {
 export const Home: React.FC = () => {
   useAudioPlayer();
   const { isMobile } = useResponsive();
-  const homeOverlayIntensity = useDisplayPreferencesStore((state) => state.homeOverlayIntensity);
+  const homeOverlayIntensity = useDisplayPreferencesStore(
+    (state) => state.homeOverlayIntensity,
+  );
   const otherPagesOverlayIntensity = useDisplayPreferencesStore(
-    (state) => state.otherPagesOverlayIntensity
+    (state) => state.otherPagesOverlayIntensity,
   );
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedPopoverItem, setSelectedPopoverItem] = useState<ViewType | null>(null);
+  const [selectedPopoverItem, setSelectedPopoverItem] =
+    useState<ViewType | null>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [drawerView, setDrawerView] = useState<'playlist' | 'nowPlaying'>('playlist');
+  const [drawerView, setDrawerView] = useState<'playlist' | 'nowPlaying'>(
+    'playlist',
+  );
   const [showBackToNowPlaying, setShowBackToNowPlaying] = useState(false);
   const [activeNavTab, setActiveNavTab] = useState<MobileNavItem>('home');
   const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
-  const showMiniPlayer = usePlayerPreferencesStore((state) => state.showMiniPlayer);
-  const showQueueShortcut = usePlayerPreferencesStore((state) => state.showQueueShortcut);
-  const showProgressBar = usePlayerPreferencesStore((state) => state.showProgressBar);
-  const favoriteSongCount = useFavoritesStore((state) => state.favoriteSongIds.length);
+  const showMiniPlayer = usePlayerPreferencesStore(
+    (state) => state.showMiniPlayer,
+  );
+  const showQueueShortcut = usePlayerPreferencesStore(
+    (state) => state.showQueueShortcut,
+  );
+  const showProgressBar = usePlayerPreferencesStore(
+    (state) => state.showProgressBar,
+  );
+  const favoriteSongCount = useFavoritesStore(
+    (state) => state.favoriteSongIds.length,
+  );
 
   const activePlaylist = useMemo(
     () => playlists.find((p) => p.id === currentPlaylistId) ?? playlists[0],
-    [currentPlaylistId]
+    [currentPlaylistId],
   );
   const playlistSongs = useMemo(
     () => songs.filter((song) => activePlaylist.songIds.includes(song.id)),
-    [activePlaylist.songIds]
+    [activePlaylist.songIds],
   );
 
   const setQueue = usePlayerStore((state) => state.setQueue);
@@ -199,12 +221,15 @@ export const Home: React.FC = () => {
   useEffect(() => {
     document.documentElement.style.setProperty(
       '--page-overlay',
-      `var(--${activeNavTab === 'home' ? 'home-page' : 'other-pages'}-overlay)`
+      `var(--${activeNavTab === 'home' ? 'home-page' : 'other-pages'}-overlay)`,
     );
   }, [activeNavTab, homeOverlayIntensity, otherPagesOverlayIntensity]);
 
   if (isMobile && activeNavTab !== 'home') {
-    const pageComponents: Record<Exclude<MobileNavItem, 'home'>, React.ReactNode> = {
+    const pageComponents: Record<
+      Exclude<MobileNavItem, 'home'>,
+      React.ReactNode
+    > = {
       library: <MobilePlaylistPage />,
       settings: <MobileSettingsPage />,
       profile: <MobileProfilePage />,
@@ -265,7 +290,9 @@ export const Home: React.FC = () => {
             showProgressBar={!isMobile || showProgressBar}
           />
         )}
-        {isMobile && <MobileNav active={activeNavTab} onChange={handleMobileNavChange} />}
+        {isMobile && (
+          <MobileNav active={activeNavTab} onChange={handleMobileNavChange} />
+        )}
       </ColumnFlexContainer>
 
       <Popover
@@ -325,7 +352,9 @@ export const Home: React.FC = () => {
             <WallpaperModal onCancel={() => setIsModalOpen(false)} />
           )}
 
-          {selectedPopoverItem === 'time' && <TimeModal onCancel={() => setIsModalOpen(false)} />}
+          {selectedPopoverItem === 'time' && (
+            <TimeModal onCancel={() => setIsModalOpen(false)} />
+          )}
 
           {selectedPopoverItem === 'playlist' && (
             <PlaylistModal onCancel={() => setIsModalOpen(false)} />

@@ -1,3 +1,21 @@
 node_modules/
 dist/
 .DS_Store
+.env
+.vercel
+.env*
+
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel/
+
+# Vite
+.vite/
+
+# Local npm cache
+.tmp-npm-cache/

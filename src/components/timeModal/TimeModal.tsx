@@ -75,7 +75,13 @@ const ClockPreview: FC<ClockPreviewProps> = ({
     >
       {!showAnalogClock && (
         <Typography
-          variant={clockSize === 'large' ? 'h5' : clockSize === 'medium' ? 'subtitle1' : 'caption'}
+          variant={
+            clockSize === 'large'
+              ? 'h5'
+              : clockSize === 'medium'
+                ? 'subtitle1'
+                : 'caption'
+          }
           color="var(--player-text-primary)"
         >
           {formattedDigitalTime}
@@ -84,7 +90,9 @@ const ClockPreview: FC<ClockPreviewProps> = ({
       {showAnalogClock && (
         <AnalogClock
           value={currentTime}
-          scale={clockSize === 'large' ? 0.65 : clockSize === 'medium' ? 0.5 : 0.45}
+          scale={
+            clockSize === 'large' ? 0.65 : clockSize === 'medium' ? 0.5 : 0.45
+          }
           showSeconds={showSeconds}
         />
       )}
@@ -97,11 +105,17 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
   const { wallpaper: currentWallpaper, isLightMode } = useWallpaper();
   const stored = useTimeStore();
 
-  const [selectedTimeFormat, setSelectedTimeFormat] = useState<TimeFormat>(stored.timeFormat);
+  const [selectedTimeFormat, setSelectedTimeFormat] = useState<TimeFormat>(
+    stored.timeFormat,
+  );
   const [showAmPm, setShowAmPm] = useState(stored.showAmPm);
   const [clockSize, setClockSize] = useState<ClockSize>(stored.clockSize);
-  const [clockPosition, setClockPosition] = useState<ClockPosition>(stored.clockPosition);
-  const [showAnalogClock, setShowAnalogClock] = useState(stored.showAnalogClock);
+  const [clockPosition, setClockPosition] = useState<ClockPosition>(
+    stored.clockPosition,
+  );
+  const [showAnalogClock, setShowAnalogClock] = useState(
+    stored.showAnalogClock,
+  );
   const [showSeconds, setShowSeconds] = useState(stored.showSeconds);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +154,9 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
     clockPosition === stored.clockPosition &&
     showAnalogClock === stored.showAnalogClock;
 
-  const handleAnalogClockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAnalogClockChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setShowAnalogClock(event.target.checked);
   };
 
@@ -198,15 +214,26 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
           >
             TIME & CLOCK SETTINGS
           </Typography>
-          <Typography variant={isMobile ? 'legal' : 'caption'} color="var(--player-text-secondary)">
+          <Typography
+            variant={isMobile ? 'legal' : 'caption'}
+            color="var(--player-text-secondary)"
+          >
             Adjust time and clock settings.
           </Typography>
         </ColumnFlexContainer>
       </RowFlexContainer>
-      <Container display="flex" flexDirection={isMobile ? 'column' : 'row'} gap={[3]}>
+      <Container
+        display="flex"
+        flexDirection={isMobile ? 'column' : 'row'}
+        gap={[3]}
+      >
         <ColumnFlexContainer gap={[3]} width={isMobile ? '100%' : '40%'}>
           <ColumnFlexContainer gap={[2]}>
-            <Typography variant="caption" weight="regular" color="var(--player-text-secondary)">
+            <Typography
+              variant="caption"
+              weight="regular"
+              color="var(--player-text-secondary)"
+            >
               TIME FORMAT
             </Typography>
             <RowFlexContainer alignItems="center" gap={[2]}>
@@ -215,7 +242,9 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
                 justifyContent="center"
                 borderRadius={[1]}
                 backgroundColor={
-                  selectedTimeFormat === '12-hour' ? 'var(--background-selected)' : undefined
+                  selectedTimeFormat === '12-hour'
+                    ? 'var(--background-selected)'
+                    : undefined
                 }
                 padding={[2, 1]}
                 onClick={() => setSelectedTimeFormat('12-hour')}
@@ -226,7 +255,11 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
                   },
                 }}
               >
-                <Typography variant="body2" color="var(--player-text-primary)" weight="semiBold">
+                <Typography
+                  variant="body2"
+                  color="var(--player-text-primary)"
+                  weight="semiBold"
+                >
                   12-Hour
                 </Typography>
               </RowFlexContainer>
@@ -236,7 +269,9 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
                 borderRadius={[1]}
                 padding={[2, 1]}
                 backgroundColor={
-                  selectedTimeFormat === '24-hour' ? 'var(--background-selected)' : undefined
+                  selectedTimeFormat === '24-hour'
+                    ? 'var(--background-selected)'
+                    : undefined
                 }
                 onClick={() => setSelectedTimeFormat('24-hour')}
                 sx={{
@@ -246,7 +281,11 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
                   },
                 }}
               >
-                <Typography variant="body2" color="var(--player-text-primary)" weight="semiBold">
+                <Typography
+                  variant="body2"
+                  color="var(--player-text-primary)"
+                  weight="semiBold"
+                >
                   24-Hour
                 </Typography>
               </RowFlexContainer>
@@ -259,10 +298,18 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
               alignItems="center"
             >
               <ColumnFlexContainer flex={1}>
-                <Typography variant="caption" weight="semiBold" color="var(--player-text-primary)">
+                <Typography
+                  variant="caption"
+                  weight="semiBold"
+                  color="var(--player-text-primary)"
+                >
                   Show AM/PM
                 </Typography>
-                <Typography variant="legal" weight="regular" color="var(--player-text-secondary)">
+                <Typography
+                  variant="legal"
+                  weight="regular"
+                  color="var(--player-text-secondary)"
+                >
                   Display AM or PM with time.
                 </Typography>
               </ColumnFlexContainer>
@@ -276,7 +323,11 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
           </ColumnFlexContainer>
 
           <ColumnFlexContainer gap={[2]}>
-            <Typography variant="caption" weight="regular" color="var(--player-text-secondary)">
+            <Typography
+              variant="caption"
+              weight="regular"
+              color="var(--player-text-secondary)"
+            >
               TIME APPEARANCE
             </Typography>
             <RowFlexContainer
@@ -286,10 +337,18 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
               alignItems="center"
               justifyContent="between"
             >
-              <Typography variant="caption" weight="semiBold" color="var(--player-text-primary)">
+              <Typography
+                variant="caption"
+                weight="semiBold"
+                color="var(--player-text-primary)"
+              >
                 Show Seconds
               </Typography>
-              <Switch size="small" checked={showSeconds} onChange={handleSecondsChange} />
+              <Switch
+                size="small"
+                checked={showSeconds}
+                onChange={handleSecondsChange}
+              />
             </RowFlexContainer>
 
             <RowFlexContainer
@@ -299,7 +358,11 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
               alignItems="center"
               justifyContent="between"
             >
-              <Typography variant="caption" weight="semiBold" color="var(--player-text-primary)">
+              <Typography
+                variant="caption"
+                weight="semiBold"
+                color="var(--player-text-primary)"
+              >
                 Clock Size
               </Typography>
               <Dropdown
@@ -328,7 +391,11 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
               alignItems="center"
               justifyContent="between"
             >
-              <Typography variant="caption" weight="semiBold" color="var(--player-text-primary)">
+              <Typography
+                variant="caption"
+                weight="semiBold"
+                color="var(--player-text-primary)"
+              >
                 Clock Position
               </Typography>
               <Dropdown
@@ -352,8 +419,16 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
           </ColumnFlexContainer>
         </ColumnFlexContainer>
 
-        <ColumnFlexContainer gap={[2]} width={isMobile ? '100%' : '40%'} flex={1}>
-          <Typography variant="caption" weight="semiBold" color="var(--player-accent)">
+        <ColumnFlexContainer
+          gap={[2]}
+          width={isMobile ? '100%' : '40%'}
+          flex={1}
+        >
+          <Typography
+            variant="caption"
+            weight="semiBold"
+            color="var(--player-accent)"
+          >
             PREVIEW
           </Typography>
 
@@ -364,10 +439,18 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
             alignItems="center"
             justifyContent="between"
           >
-            <Typography variant="caption" weight="semiBold" color="var(--player-text-primary)">
+            <Typography
+              variant="caption"
+              weight="semiBold"
+              color="var(--player-text-primary)"
+            >
               Show Analog Clock
             </Typography>
-            <Switch size="small" checked={showAnalogClock} onChange={handleAnalogClockChange} />
+            <Switch
+              size="small"
+              checked={showAnalogClock}
+              onChange={handleAnalogClockChange}
+            />
           </RowFlexContainer>
           <ClockPreview
             showAnalogClock={showAnalogClock}
@@ -378,13 +461,24 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
             timeFormat={selectedTimeFormat}
             rowBackground={rowBackground}
           />
-          <RowFlexContainer width="100%" justifyContent="end" gap={[2]} margin={[2, 0, 0]}>
+          <RowFlexContainer
+            width="100%"
+            justifyContent="end"
+            gap={[2]}
+            margin={[2, 0, 0]}
+          >
             <Button
               text="Cancel"
               size="small"
               variant="outlined"
-              textOptions={{ textColor: 'var(--player-text-primary)', textVariant: 'button' }}
-              buttonStyles={{ bgColor: 'var(--player-border)', borderRadius: [2] }}
+              textOptions={{
+                textColor: 'var(--player-text-primary)',
+                textVariant: 'button',
+              }}
+              buttonStyles={{
+                bgColor: 'var(--player-border)',
+                borderRadius: [2],
+              }}
               onClick={onCancel}
             />
             <Button
@@ -398,7 +492,10 @@ export const TimeModal: FC<TimeModalProps> = ({ onCancel }) => {
                 textVariant: 'button',
                 textWeight: 'semiBold',
               }}
-              buttonStyles={{ bgColor: 'var(--player-border)', borderRadius: [2] }}
+              buttonStyles={{
+                bgColor: 'var(--player-border)',
+                borderRadius: [2],
+              }}
               disabled={isApplyDisabled}
               onClick={handleApply}
             />

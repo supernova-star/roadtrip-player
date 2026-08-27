@@ -20,14 +20,24 @@ export const colorPalette = {
   text: '#fff8ef',
   secondaryText: '#d8cfbf',
   white: '#ffffff',
-  muted: '#6f6b61',
   border: '#d8cfbf',
-  border2: '#68212399',
   accent: '#bc6c38',
-  accentTransparent: percentToHex('#ffffff', 70),
   borderGray: '#d8cfbf',
   divider: '#d8cfbf',
   cardShadow: '0 4px 12px rgba(0,0,0,0.08)',
+
+  adminBackground: '#f8f5ef',
+  adminSurface: '#ffffff',
+  adminBrown: '#593a28',
+  adminDarkBrown: '#352319',
+  adminYellow: '#d7a638',
+  adminDanger: '#a94a36',
+  adminMuted: '#856f60',
+  adminBorder: '#e7dbcd',
+  adminShadow: '0 16px 42px rgba(89, 58, 40, 0.1)',
+
+  adminRadialBackground:
+    'radial-gradient(circle at 50% 42%, rgba(188, 108, 56, 0.16), transparent 34%), linear-gradient(145deg, rgba(23, 19, 15, 0.98), rgba(55, 22, 30, 0.96))',
 } as const;
 
 export type Colors = keyof typeof colorPalette;

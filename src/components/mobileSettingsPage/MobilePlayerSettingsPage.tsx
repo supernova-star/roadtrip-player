@@ -65,10 +65,12 @@ const MobilePlayerSettingsContent: React.FC<MobilePlayerSettingsPageProps> = ({
   return (
     <ColumnFlexContainer
       gap={[5]}
-      padding={[6, 5, 23]}
       width="100%"
       height="100vh"
       style={mobilePageSurface}
+      sx={{
+        padding: '24px 20px 72px',
+      }}
     >
       <MobileSettingsHeader
         title="Player"

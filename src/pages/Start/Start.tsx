@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Home } from 'lucide-react';
 import { Input } from '@mui/material';
 import { Button } from '../../components/uiComponents/button/Button';
@@ -14,12 +14,32 @@ type StartProps = {
 const redirectDelayMs = 3000;
 
 export const Start: FC<StartProps> = ({ onButtonClick }) => {
-  const { userName, setUserName } = useUserProfileStore((state) => state);
+  const { userName, setUserName, isAdmin, setIsAdmin } = useUserProfileStore((state) => state);
   const displayName = userName?.trim();
+  const adminTapTimesRef = useRef<number[]>([]);
 
   const [user, setUser] = useState('');
   const enteredUserName = user.trim();
   const isUserNameEmpty = enteredUserName.length === 0;
+
+  const handleLogoTap = () => {
+    if (isAdmin) {
+      return;
+    }
+
+    const now = Date.now();
+    const recentTaps = adminTapTimesRef.current.filter(
+      (timestamp) => now - timestamp <= redirectDelayMs
+    );
+    const updatedTaps = [...recentTaps, now].slice(-5);
+
+    adminTapTimesRef.current = updatedTaps;
+
+    if (updatedTaps.length >= 5) {
+      setIsAdmin(true);
+      adminTapTimesRef.current = [];
+    }
+  };
 
   useEffect(() => {
     if (!displayName) {
@@ -66,8 +86,20 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
         }}
       >
         <Container
+          onClick={handleLogoTap}
+          aria-label="Casette logo admin trigger"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              handleLogoTap();
+            }
+          }}
           sx={{
             filter: 'drop-shadow(0 12px 24px rgba(6, 7, 18, 0.34))',
+            cursor: 'pointer',
+            outline: 'none',
           }}
         >
           <img
@@ -75,7 +107,7 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
             alt="Casette logo"
             width={126}
             height={126}
-            style={{ display: 'block' }}
+            style={{ display: 'block', pointerEvents: 'none' }}
           />
         </Container>
         <Typography
