@@ -11,9 +11,11 @@ import {
   hindiClassicsSongs,
   himeshSongs,
   kkSongs,
+  lateNightSongs,
   mastiSongs,
   monsoonMixtapeSongs,
   nostalgiaSongs,
+  oldBengaliClassicsSongs,
   romanceSongs,
 } from '@/constants/songs';
 import type { Song } from '@/types/music';
@@ -31,6 +33,8 @@ const playlistSongsById: Record<string, Song[]> = {
   'coke-studio-bangla': cokeStudioBanglaSongs,
   'coke-studio-india': cokeStudioIndiaSongs,
   'monsoon-mixtape': monsoonMixtapeSongs,
+  'late-night': lateNightSongs,
+  'old-bengali-classics': oldBengaliClassicsSongs,
   'hindi-classics': hindiClassicsSongs,
   barbershop: barbershopSongs,
   romance: romanceSongs,

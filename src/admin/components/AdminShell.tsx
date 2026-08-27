@@ -15,24 +15,29 @@ export const AdminShell = ({ onGoHome }: AdminShellProps) => {
 
   return (
     <ColumnFlexContainer
-      minHeight="100%"
+      height="100dvh"
       flex={1}
       backgroundColor="adminBackground"
-      sx={{ color: 'adminDarkBrown' }}
+      sx={{ color: 'adminDarkBrown', overflow: 'hidden' }}
     >
       <ColumnFlexContainer
         maxWidth="760px"
-        minHeight="100vh"
+        height="100dvh"
         flex={1}
         backgroundColor="adminSurface"
-        sx={{ mx: 'auto' }}
+        sx={{ mx: 'auto', minHeight: 0 }}
       >
         <AdminHeader onGoHome={onGoHome} />
         <ColumnFlexContainer
-          padding={[5, 5, 22]}
+          padding={[0, 5, 22]}
           flex={1}
           data-testid="admin-shell-content"
-          sx={{ pb: 12, '@media (min-width: 600px)': { px: 4 } }}
+          sx={{
+            minHeight: 0,
+            overflow: 'hidden',
+            pb: 12,
+            '@media (min-width: 600px)': { px: 4 },
+          }}
         >
           {activeView === 'dashboard' ? (
             <AdminDashboard onSearchSongs={() => setActiveView('search')} />

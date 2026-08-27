@@ -99,11 +99,13 @@ export const MobilePlaylistPage: React.FC = () => {
       >
         Playlists
       </Typography>
+
+      {/* FAVOURITES */}
       <RowFlexContainer
         alignItems="center"
         justifyContent="between"
         gap={[3]}
-        padding={[3]}
+        padding={[3, 0]}
         borderRadius={[3]}
         cursor="pointer"
         onClick={() => openPlaylist('favorites')}
@@ -151,6 +153,8 @@ export const MobilePlaylistPage: React.FC = () => {
           <ChevronRight size="18px" color="var(--player-text-secondary)" />
         </RowFlexContainer>
       </RowFlexContainer>
+
+      {/* TAB LIST BEGINS HERE */}
       <RowFlexContainer
         role="tablist"
         gap={[1]}
