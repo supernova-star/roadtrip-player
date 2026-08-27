@@ -4,6 +4,8 @@ export type AdminCartPlaylistId =
   | 'coke-studio-bangla'
   | 'coke-studio-india'
   | 'monsoon-mixtape'
+  | 'late-night'
+  | 'old-bengali-classics'
   | 'hindi-classics'
   | 'barbershop'
   | 'romance'
@@ -44,6 +46,14 @@ export const adminCartPlaylistSongFileById = {
   'monsoon-mixtape': {
     filePath: 'src/constants/playlistSongs/monsoon-mixtape.ts',
     songsExport: 'monsoonMixtapeSongs',
+  },
+  'late-night': {
+    filePath: 'src/constants/playlistSongs/late-night.ts',
+    songsExport: 'lateNightSongs',
+  },
+  'old-bengali-classics': {
+    filePath: 'src/constants/playlistSongs/old-bengali-classics.ts',
+    songsExport: 'oldBengaliClassicsSongs',
   },
   'hindi-classics': {
     filePath: 'src/constants/playlistSongs/hindiClassics.ts',

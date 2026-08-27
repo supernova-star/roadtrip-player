@@ -199,4 +199,15 @@ export const nostalgiaSongs: Song[] = [
       'https://aac.saavncdn.com/824/66088954cfa3e24eee11bb9134341524_160.mp4',
     duration: 286,
   },
+  {
+    id: 'nostalgia-19',
+    title: 'Pehle to nahi tum aise the',
+    artist: 'Shayan Ali Khan',
+    album: 'Pehle to nahi tum aise the',
+    coverUrl:
+      'https://c.saavncdn.com/846/Pehle-to-nahi-tum-aise-the-Bhojpuri-2026-20260720014903-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/846/bcf0bc7d756c4d1a8031bc8db6eeac8d_160.mp4',
+    duration: 272,
+  },
 ];

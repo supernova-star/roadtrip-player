@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, Trash2 } from 'lucide-react';
+import { Pause, Play, Search, ShoppingCart, Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { Avatar, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Button } from '@/components/uiComponents/button/Button';
@@ -12,8 +12,13 @@ import {
   useAdminSearchStore,
 } from '@/store/adminSearchStore';
 import { useAdminCartStore } from '@/store/adminCartStore';
+import { SongDetailsModal } from './SongDetailsModal';
+import { AdminMiniPlayer } from './AdminMiniPlayer';
 import { colorPalette } from '@/theme/colors';
-import { isSongAlreadyInCasetteLibrary } from '@/utils/adminSongLibrary';
+import {
+  getSongPlaylistMembership,
+  isSongAlreadyInCasetteLibrary,
+} from '@/utils/adminSongLibrary';
 
 type SearchResponse = {
   results: AdminSearchSong[];
@@ -27,14 +32,34 @@ export const AdminSongSearch = () => {
   const cartSongs = useAdminCartStore((state) => state.songs);
   const addSong = useAdminCartStore((state) => state.addSong);
   const removeSong = useAdminCartStore((state) => state.removeSong);
+  const [selectedSong, setSelectedSong] = useState<AdminSearchSong | null>(
+    null,
+  );
+  const [previewSong, setPreviewSong] = useState<AdminSearchSong | null>(null);
+  const [isPreviewPlaying, setIsPreviewPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isSongInCart = (songId: string) =>
     cartSongs.some((cartSong) => cartSong.id === songId);
   const getCartItemId = (songId: string) =>
     cartSongs.find((cartSong) => cartSong.id === songId)?.cartItemId;
+  const handlePlaySong = (song: AdminSearchSong) => {
+    if (previewSong?.id === song.id) {
+      setIsPreviewPlaying((playing) => !playing);
+      return;
+    }
+
+    setPreviewSong(song);
+    setIsPreviewPlaying(true);
+  };
+  const handlePreviewEnded = () => setIsPreviewPlaying(false);
+  const getPlaylistMembership = (song: Pick<AdminSearchSong, 'title'>) =>
+    getSongPlaylistMembership(song);
   const alreadyInCasetteCount =
     results?.filter(isSongAlreadyInCasetteLibrary).length ?? 0;
+  const selectedSongMembership = selectedSong
+    ? getPlaylistMembership(selectedSong)
+    : null;
 
   const handleSearch = async () => {
     const searchQuery = query.trim();
@@ -73,7 +98,31 @@ export const AdminSongSearch = () => {
   };
 
   return (
-    <ColumnFlexContainer gap={[6]} flex={1}>
+    <ColumnFlexContainer
+      gap={[6]}
+      flex={1}
+      minHeight="0px"
+      data-testid="SEARCH"
+      sx={{ minHeight: 0, overflow: 'hidden' }}
+    >
+      <ColumnFlexContainer
+        position="fixed"
+        bottom="68px"
+        left="0px"
+        right="0px"
+        width="100%"
+        padding={[0, 0, 1]}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ zIndex: 11 }}
+      >
+        <AdminMiniPlayer
+          song={previewSong}
+          isPlaying={isPreviewPlaying}
+          onTogglePlay={() => setIsPreviewPlaying((playing) => !playing)}
+          onEnded={handlePreviewEnded}
+        />
+      </ColumnFlexContainer>
       <ColumnFlexContainer gap={[1]}>
         <Typography variant="h4" weight="bold" color="adminDarkBrown">
           Search Songs
@@ -181,23 +230,37 @@ export const AdminSongSearch = () => {
       )}
 
       {!isLoading && !error && results && results.length > 0 && (
-        <ColumnFlexContainer gap={[2]}>
+        <ColumnFlexContainer gap={[2]} flex={1} minHeight="0px">
           <Typography variant="caption" weight="bold" color="adminBrown">
             {results.length} {results.length === 1 ? 'result' : 'results'} ·{' '}
             {alreadyInCasetteCount} already in Casette
           </Typography>
+
+          <SongDetailsModal
+            song={selectedSong}
+            onClose={() => setSelectedSong(null)}
+            inPlaylistAlready={Boolean(selectedSongMembership)}
+            playlistName={selectedSongMembership?.playlist.title}
+            playlistId={selectedSongMembership?.playlistId}
+            localSongId={selectedSongMembership?.matchedSongId}
+          />
+
           <ColumnFlexContainer
             borderRadius={[2]}
             backgroundColor="adminSurface"
             sx={{
               border: `1px solid ${colorPalette.adminBorder}`,
-              maxHeight: 492,
+              minHeight: 0,
+              flex: 1,
               overflow: 'auto',
+              // paddingBottom: previewSong ? '140px' : 0,
+              marginBottom: previewSong ? '70px' : 0,
             }}
           >
             {results.map((song, index) => {
-              const isInLibrary = isSongAlreadyInCasetteLibrary(song);
               const isInCart = isSongInCart(song.id);
+              const isSelected = selectedSong?.id === song.id;
+              const playlistMembership = getPlaylistMembership(song);
 
               return (
                 <RowFlexContainer
@@ -205,11 +268,19 @@ export const AdminSongSearch = () => {
                   alignItems="center"
                   gap={[3]}
                   padding={[3]}
+                  onClick={() => setSelectedSong(song)}
                   sx={{
+                    cursor: 'pointer',
                     borderBottom:
                       index === results.length - 1
                         ? 0
                         : `1px solid ${colorPalette.adminBorder}`,
+                    backgroundColor: isSelected
+                      ? `${colorPalette.adminYellow}22`
+                      : 'transparent',
+                    borderLeft: isSelected
+                      ? `3px solid ${colorPalette.adminYellow}`
+                      : '3px solid transparent',
                   }}
                 >
                   <Avatar
@@ -230,24 +301,52 @@ export const AdminSongSearch = () => {
                     <Typography noWrap variant="caption" color="adminMuted">
                       {song.artist}
                     </Typography>
+                    <Typography variant="caption" color="adminBrown">
+                      {playlistMembership
+                        ? `In ${playlistMembership.playlist.title}`
+                        : 'Not in any playlist'}
+                    </Typography>
                   </ColumnFlexContainer>
                   <IconButton
                     aria-label={
-                      isInLibrary
-                        ? `${song.title} is already in the Casette library`
-                        : isInCart
-                          ? `Remove ${song.title} from cart`
-                          : `Add ${song.title} to cart`
+                      previewSong?.id === song.id && isPreviewPlaying
+                        ? `Pause ${song.title}`
+                        : `Play ${song.title}`
                     }
                     title={
-                      isInLibrary
-                        ? 'Already in Casette library'
-                        : isInCart
-                          ? 'Remove from cart'
-                          : 'Add to cart'
+                      previewSong?.id === song.id && isPreviewPlaying
+                        ? 'Pause preview'
+                        : 'Play preview'
                     }
-                    disabled={isInLibrary}
-                    onClick={() => {
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handlePlaySong(song);
+                    }}
+                    sx={{
+                      color: colorPalette.adminDarkBrown,
+                      bgcolor: colorPalette.adminBackground,
+                      border: `1px solid ${colorPalette.adminBorder}`,
+                      '&:hover': {
+                        bgcolor: colorPalette.adminBackground,
+                        borderColor: colorPalette.adminYellow,
+                      },
+                    }}
+                  >
+                    {previewSong?.id === song.id && isPreviewPlaying ? (
+                      <Pause size={18} />
+                    ) : (
+                      <Play size={18} />
+                    )}
+                  </IconButton>
+                  <IconButton
+                    aria-label={
+                      isInCart
+                        ? `Remove ${song.title} from cart`
+                        : `Add ${song.title} to cart`
+                    }
+                    title={isInCart ? 'Remove from cart' : 'Add to cart'}
+                    onClick={(event) => {
+                      event.stopPropagation();
                       const cartItemId = getCartItemId(song.id);
 
                       if (cartItemId) {
@@ -269,13 +368,6 @@ export const AdminSongSearch = () => {
                           ? colorPalette.adminDanger
                           : colorPalette.adminBorder
                       }`,
-                      '&.Mui-disabled': {
-                        color: `${colorPalette.adminMuted}66`,
-                        bgcolor: colorPalette.adminSurface,
-                        borderColor: colorPalette.adminBorder,
-                        borderStyle: 'dashed',
-                        opacity: 1,
-                      },
                       '&:hover': {
                         bgcolor: isInCart
                           ? colorPalette.adminDanger
@@ -286,7 +378,7 @@ export const AdminSongSearch = () => {
                       },
                     }}
                   >
-                    {isInCart && !isInLibrary ? (
+                    {isInCart ? (
                       <Trash2 size={18} />
                     ) : (
                       <ShoppingCart size={18} />

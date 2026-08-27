@@ -12,6 +12,8 @@ import { cokeStudioPakistanSongs } from './playlistSongs/coke-studio-pakistan';
 import { cokeStudioBanglaSongs } from './playlistSongs/coke-studio-bangla';
 import { cokeStudioIndiaSongs } from './playlistSongs/coke-studio-india';
 import { monsoonMixtapeSongs } from './playlistSongs/monsoon-mixtape';
+import { lateNightSongs } from './playlistSongs/late-night';
+import { oldBengaliClassicsSongs } from './playlistSongs/old-bengali-classics';
 
 export { hindiClassicsSongs } from './playlistSongs/hindiClassics';
 export { barbershopSongs } from './playlistSongs/barbershop';
@@ -27,6 +29,8 @@ export { cokeStudioPakistanSongs } from './playlistSongs/coke-studio-pakistan';
 export { cokeStudioBanglaSongs } from './playlistSongs/coke-studio-bangla';
 export { cokeStudioIndiaSongs } from './playlistSongs/coke-studio-india';
 export { monsoonMixtapeSongs } from './playlistSongs/monsoon-mixtape';
+export { lateNightSongs } from './playlistSongs/late-night';
+export { oldBengaliClassicsSongs } from './playlistSongs/old-bengali-classics';
 
 export const songs = [
   ...hindiClassicsSongs,
@@ -43,4 +47,6 @@ export const songs = [
   ...cokeStudioBanglaSongs,
   ...cokeStudioIndiaSongs,
   ...monsoonMixtapeSongs,
+  ...lateNightSongs,
+  ...oldBengaliClassicsSongs,
 ];
