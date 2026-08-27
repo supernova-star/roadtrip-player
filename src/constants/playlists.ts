@@ -38,7 +38,7 @@ export const playlists: Playlist[] = [
     id: 'late-night',
     title: 'Late Night',
     description: 'Soft, late-night favorites for quiet drives.',
-    songIds: createSongIds('late-night', 15),
+    songIds: createSongIds('late-night', 12),
   },
   {
     id: 'old-bengali-classics',
