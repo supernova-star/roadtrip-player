@@ -364,4 +364,15 @@ export const mastiSongs: Song[] = [
       'https://aac.saavncdn.com/546/d1e5276fd54b681ede567b454169b577_160.mp4',
     duration: 156,
   },
+  {
+    id: 'masti-34',
+    title: 'Fairytale',
+    artist: 'Alexander Rybak',
+    album: 'Fairytales',
+    coverUrl:
+      'https://c.saavncdn.com/521/Fairytales-English-2009-20211028184904-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/521/065dc479aa900e9728404d5aa801e61f_160.mp4',
+    duration: 183,
+  },
 ];
