@@ -822,4 +822,37 @@ export const romanceSongs: Song[] = [
       'https://aac.saavncdn.com/965/8096f607c4add40e4571a0cf80d64ebb_160.mp4',
     duration: 270,
   },
+  {
+    id: 'romance-76',
+    title: 'Tu Bin Bataye',
+    artist: 'A.R. Rahman, Madhushree, Naresh Iyer',
+    album: 'Rang De Basanti',
+    coverUrl:
+      'https://c.saavncdn.com/825/Rang-De-Basanti-Hindi-2005-20190516125130-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/825/1c58d6771e100615d57d13987af3ae48_160.mp4',
+    duration: 355,
+  },
+  {
+    id: 'romance-77',
+    title: 'Aankhon Mein Base Ho Tum',
+    artist: 'Maya Govind, Anu Malik, Alka Yagnik, Abhijeet',
+    album: 'Takkar',
+    coverUrl:
+      'https://c.saavncdn.com/476/Takkar-Hindi-1995-20240408221331-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/476/c8b35171b57dbbcd83a8721c9c0fa424_160.mp4',
+    duration: 335,
+  },
+  {
+    id: 'romance-78',
+    title: 'Tum Pe Hum Toh - Female Version',
+    artist: 'Jyotica Tangri',
+    album: 'Bole Chudiyan',
+    coverUrl:
+      'https://c.saavncdn.com/351/Bole-Chudiyan-Hindi-2021-20210512005712-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/351/4a1a85ea69618060018710190de5db05_160.mp4',
+    duration: 295,
+  },
 ];

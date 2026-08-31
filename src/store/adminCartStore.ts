@@ -2,21 +2,20 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import {
   barbershopSongs,
-  bhojpuriSongs,
   cokeStudioBanglaSongs,
   cokeStudioIndiaSongs,
   cokeStudioPakistanSongs,
-  dhurandharSongs,
   heartbreakSongs,
   hindiClassicsSongs,
   himeshSongs,
   kkSongs,
   lateNightSongs,
+  kumarSanuSongs,
   mastiSongs,
   monsoonMixtapeSongs,
-  nostalgiaSongs,
   oldBengaliClassicsSongs,
   romanceSongs,
+  shaamKaSafarSongs,
 } from '@/constants/songs';
 import type { Song } from '@/types/music';
 import type { AdminSearchSong } from './adminSearchStore';
@@ -28,7 +27,8 @@ export type AdminCartSong = AdminSearchSong & {
 };
 
 const playlistSongsById: Record<string, Song[]> = {
-  dhurandhar: dhurandharSongs,
+  'shaam-ka-safar': shaamKaSafarSongs,
+  'kumar-sanu-hits': kumarSanuSongs,
   'coke-studio-pakistan': cokeStudioPakistanSongs,
   'coke-studio-bangla': cokeStudioBanglaSongs,
   'coke-studio-india': cokeStudioIndiaSongs,
@@ -40,8 +40,6 @@ const playlistSongsById: Record<string, Song[]> = {
   romance: romanceSongs,
   heartbreak: heartbreakSongs,
   masti: mastiSongs,
-  nostalgia: nostalgiaSongs,
-  'bhojpuri-reels': bhojpuriSongs,
   'himesh-hot-hits': himeshSongs,
   'kk-best': kkSongs,
 };

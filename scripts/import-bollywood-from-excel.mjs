@@ -319,14 +319,12 @@ async function main() {
     "import { romanceSongs } from './playlistSongs/romanceSongs';",
     "import { heartbreakSongs } from './playlistSongs/heartbreakSongs';",
     "import { mastiSongs } from './playlistSongs/mastiSongs';",
-    "import { nostalgiaSongs } from './playlistSongs/nostalgiaSongs';",
     '',
     "export { romanceSongs } from './playlistSongs/romanceSongs';",
     "export { heartbreakSongs } from './playlistSongs/heartbreakSongs';",
     "export { mastiSongs } from './playlistSongs/mastiSongs';",
-    "export { nostalgiaSongs } from './playlistSongs/nostalgiaSongs';",
     '',
-    'export const songs = [...romanceSongs, ...heartbreakSongs, ...mastiSongs, ...nostalgiaSongs];',
+    'export const songs = [...romanceSongs, ...heartbreakSongs, ...mastiSongs];',
     '',
   ].join('\n');
 
@@ -343,11 +341,6 @@ async function main() {
   fs.writeFileSync(
     path.join(ROOT, 'src/constants/playlistSongs/mastiSongs.ts'),
     createPlaylistSongsFile('mastiSongs', categorySongs.masti),
-    'utf8'
-  );
-  fs.writeFileSync(
-    path.join(ROOT, 'src/constants/playlistSongs/nostalgiaSongs.ts'),
-    createPlaylistSongsFile('nostalgiaSongs', categorySongs.nostalgia),
     'utf8'
   );
   fs.writeFileSync(

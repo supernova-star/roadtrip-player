@@ -13,17 +13,6 @@ export const monsoonMixtapeSongs: Song[] = [
     duration: 364,
   },
   {
-    id: 'monsoon-mixtape-2',
-    title: 'Ishq',
-    artist: 'Amir Ameer, Faheem Abdullah, Rauhan Malik',
-    album: 'Lost;Found',
-    coverUrl:
-      'https://c.saavncdn.com/306/Lost-Found-Hindi-2024-20240517153134-500x500.jpg',
-    audioUrl:
-      'https://aac.saavncdn.com/306/14006318885e9fbbd00964ceba480111_160.mp4',
-    duration: 224,
-  },
-  {
     id: 'monsoon-mixtape-3',
     title: 'Tere Ishk Mein',
     artist: 'Irshad Kamil, A.R. Rahman, Arijit Singh',

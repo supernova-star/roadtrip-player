@@ -6,8 +6,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Noya Daman',
     artist: 'Trissha Chatterjee',
     album: 'Noya Daman',
-    coverUrl: 'https://c.saavncdn.com/803/Noya-Daman-Bengali-2021-20251010095204-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/803/6faf47f36efbf9c9326a198f4c4fb320_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/803/Noya-Daman-Bengali-2021-20251010095204-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/803/6faf47f36efbf9c9326a198f4c4fb320_160.mp4',
     duration: 166,
   },
   {
@@ -15,8 +17,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Bulbuli',
     artist: 'Ritu Raj &amp; Nandita',
     album: 'Bulbuli',
-    coverUrl: 'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
     duration: 336,
   },
   {
@@ -24,8 +28,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Deora',
     artist: 'Pritom Hasan, Ghaashphoring Choir, Islam Uddin Palakar',
     album: 'Deora',
-    coverUrl: 'https://c.saavncdn.com/794/Deora-Bengali-2025-20250925153141-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/794/b3f9bf492f2c53a5cc52f4b4c14a40b8_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/794/Deora-Bengali-2025-20250925153141-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/794/b3f9bf492f2c53a5cc52f4b4c14a40b8_160.mp4',
     duration: 221,
   },
   {
@@ -33,8 +39,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Bhober Pagol',
     artist: 'Nigar Sumi &amp; Jalali Set',
     album: 'Bhober Pagol',
-    coverUrl: 'https://c.saavncdn.com/748/Bhober-Pagol-English-2022-20220907052126-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/748/60be08c866789c29e5c9bdcfc85efdf3_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/748/Bhober-Pagol-English-2022-20220907052126-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/748/60be08c866789c29e5c9bdcfc85efdf3_160.mp4',
     duration: 316,
   },
   {
@@ -42,8 +50,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Murir Tin',
     artist: 'Towfique, Riad Hasan, Pollob',
     album: 'Murir Tin',
-    coverUrl: 'https://c.saavncdn.com/356/Murir-Tin-Bengali-2025-20250925152600-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/356/570292946180e3efd05f83c2b81f7ea9_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/356/Murir-Tin-Bengali-2025-20250925152600-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/356/570292946180e3efd05f83c2b81f7ea9_160.mp4',
     duration: 342,
   },
   {
@@ -51,8 +61,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Ghum Ghum',
     artist: 'Sapna Choudhary, Kavita Shobu',
     album: 'Ghum Ghum',
-    coverUrl: 'https://c.saavncdn.com/712/Ghum-Ghum-Haryanvi-2023-20230921105128-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/712/dd609ea3a5295d767636ff04e3cc9b13_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/712/Ghum-Ghum-Haryanvi-2023-20230921105128-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/712/dd609ea3a5295d767636ff04e3cc9b13_160.mp4',
     duration: 175,
   },
   {
@@ -60,8 +72,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Benche Thakar Gaan',
     artist: 'Anupam Roy',
     album: 'Durbine Chokh Rakhbo Na',
-    coverUrl: 'https://c.saavncdn.com/656/Durbine-Chokh-Rakhbo-Na-Bengali-2012-20230728002807-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/656/34e43dc645089c774d002af82d0a3547_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/656/Durbine-Chokh-Rakhbo-Na-Bengali-2012-20230728002807-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/656/34e43dc645089c774d002af82d0a3547_160.mp4',
     duration: 240,
   },
   {
@@ -69,8 +83,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Chiltey Roud',
     artist: 'Arnob &amp; Ripon',
     album: 'Chiltey Roud',
-    coverUrl: 'https://c.saavncdn.com/144/Chiltey-Roud-English-2022-20220909195512-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/144/910765587ab299d68c5cbf56b4effaec_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/144/Chiltey-Roud-English-2022-20220909195512-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/144/910765587ab299d68c5cbf56b4effaec_160.mp4',
     duration: 370,
   },
   {
@@ -78,8 +94,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Shondhatara',
     artist: 'Arnob, Sunidhi Nayak, Adit Rahman',
     album: 'Shondhatara',
-    coverUrl: 'https://c.saavncdn.com/841/Shondhatara-Bengali-2025-20250925153141-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/841/d35995318cec363a7ef0a9776d8d70a6_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/841/Shondhatara-Bengali-2025-20250925153141-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/841/d35995318cec363a7ef0a9776d8d70a6_160.mp4',
     duration: 434,
   },
   {
@@ -87,8 +105,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Bulbuli',
     artist: 'Ritu Raj &amp; Nandita',
     album: 'Bulbuli',
-    coverUrl: 'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/652/Bulbuli-English-2022-20220907052115-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/652/5bb94a3d7d28a325ab78a9293d281440_160.mp4',
     duration: 336,
   },
   {
@@ -96,8 +116,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Doyal',
     artist: 'F A Sumon',
     album: 'Rongila Re',
-    coverUrl: 'https://c.saavncdn.com/127/Rongila-Re-English-2022-20220807214958-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/127/773f311afcd1a9bbf3f461b3a70dacd8_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/127/Rongila-Re-English-2022-20220807214958-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/127/773f311afcd1a9bbf3f461b3a70dacd8_160.mp4',
     duration: 321,
   },
   {
@@ -105,8 +127,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Kotha Koiyo Na',
     artist: 'Arpita Das',
     album: 'Kotha Koiyo Na',
-    coverUrl: 'https://c.saavncdn.com/088/Kotha-Koiyo-Na-Bengali-2024-20240628095005-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/088/712e72aa7f48bf2014cef5a581a0281f_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/088/Kotha-Koiyo-Na-Bengali-2024-20240628095005-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/088/712e72aa7f48bf2014cef5a581a0281f_160.mp4',
     duration: 322,
   },
   {
@@ -114,8 +138,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Prarthona',
     artist: 'Momtaz, Mizan',
     album: 'Prarthona',
-    coverUrl: 'https://c.saavncdn.com/601/Prarthona-Bengali-2025-20250910134631-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/601/349d3ef7ff1846aaab2637c3da4ae5fb_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/601/Prarthona-Bengali-2025-20250910134631-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/601/349d3ef7ff1846aaab2637c3da4ae5fb_160.mp4',
     duration: 350,
   },
   {
@@ -123,8 +149,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Chand Mama',
     artist: 'Pritom Hasan, Dola Rahman',
     album: 'Borbaad (Original Motion Picture Soundtrack)',
-    coverUrl: 'https://c.saavncdn.com/619/Borbaad-Original-Motion-Picture-Soundtrack-Bengali-2025-20251228200652-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/619/472ed648796dd830d195cc45ba2cb6a6_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/619/Borbaad-Original-Motion-Picture-Soundtrack-Bengali-2025-20251228200652-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/619/472ed648796dd830d195cc45ba2cb6a6_160.mp4',
     duration: 184,
   },
   {
@@ -132,8 +160,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Amar Nishithraater Badaldhara',
     artist: 'Sutapa Chakravarty',
     album: 'Rabi Thakurer Barshar Gaan',
-    coverUrl: 'https://c.saavncdn.com/372/Rabi-Thakurer-Barshar-Gaan-Bengali-2019-20260807163601-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/372/7a8945c24e650d83a95009e1fc845842_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/372/Rabi-Thakurer-Barshar-Gaan-Bengali-2019-20260807163601-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/372/7a8945c24e650d83a95009e1fc845842_160.mp4',
     duration: 265,
   },
   {
@@ -141,8 +171,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Anjali Anjali',
     artist: 'S. P. Balasubrahmanyam, K. S. Chithra',
     album: 'Love Notes of A. R. Rahman',
-    coverUrl: 'https://c.saavncdn.com/505/Love-Notes-of-A-R-Rahman-Tamil-2017-20201124145944-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/505/97b346dfd5db62937cda03c4a50218ba_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/505/Love-Notes-of-A-R-Rahman-Tamil-2017-20201124145944-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/505/97b346dfd5db62937cda03c4a50218ba_160.mp4',
     duration: 483,
   },
   {
@@ -150,8 +182,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Meye',
     artist: 'Ayub Bachchu',
     album: 'Mixed Album Super Hit Vol. 1',
-    coverUrl: 'https://c.saavncdn.com/469/Mixed-Album-Super-Hit-Vol-1-Bengali-2022-20221114122730-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/469/66a49f3272ca354fe289732872c83286_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/469/Mixed-Album-Super-Hit-Vol-1-Bengali-2022-20221114122730-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/469/66a49f3272ca354fe289732872c83286_160.mp4',
     duration: 353,
   },
   {
@@ -159,8 +193,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Rongila Re',
     artist: 'F A Sumon',
     album: 'Rongila Re',
-    coverUrl: 'https://c.saavncdn.com/127/Rongila-Re-English-2022-20220807214958-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/127/2f0888bf3c16f7964459ae599875c0e0_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/127/Rongila-Re-English-2022-20220807214958-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/127/2f0888bf3c16f7964459ae599875c0e0_160.mp4',
     duration: 266,
   },
   {
@@ -168,8 +204,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Patar Bashori | Coke Studio Bangla',
     artist: 'Ishaan, Sunidhi Nayak, Adit Rahman',
     album: 'Patar Bashori | Coke Studio Bangla',
-    coverUrl: 'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
     duration: 209,
   },
   {
@@ -177,8 +215,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Patar Bashori | Coke Studio Bangla',
     artist: 'Ishaan, Sunidhi Nayak, Adit Rahman',
     album: 'Patar Bashori | Coke Studio Bangla',
-    coverUrl: 'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
     duration: 209,
   },
   {
@@ -186,8 +226,10 @@ export const cokeStudioBanglaSongs: Song[] = [
     title: 'Patar Bashori | Coke Studio Bangla',
     artist: 'Ishaan, Sunidhi Nayak, Adit Rahman',
     album: 'Patar Bashori | Coke Studio Bangla',
-    coverUrl: 'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/202/Patar-Bashori-Coke-Studio-Bangla-Bengali-2026-20260724054459-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/202/cd62c2dd073f0a6958be7f4877b59ec4_160.mp4',
     duration: 209,
   },
 ];
