@@ -8,6 +8,7 @@ import {
   SkipBack,
   SkipForward,
 } from 'lucide-react';
+import styled from 'styled-components';
 import {
   ColumnFlexContainer,
   Container,
@@ -20,6 +21,41 @@ import { useFavoritesStore } from '@/store/favoritesStore';
 import { playlists } from '@/constants/playlists';
 import { formatTime } from '@/utils/formatter';
 import { LoadingSpinner, ProgressBar } from '@/components/player/Player.styles';
+
+const IconButton = styled.button<{ $primary?: boolean }>`
+  width: ${({ $primary }) => ($primary ? '72px' : '48px')};
+  height: ${({ $primary }) => ($primary ? '72px' : '48px')};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1px solid
+    ${({ $primary }) =>
+      $primary ? 'var(--player-text-primary)' : 'var(--player-border)'};
+  border-radius: 50%;
+  color: ${({ $primary }) =>
+    $primary ? 'var(--player-background)' : 'var(--player-text-primary)'};
+  background: ${({ $primary }) =>
+    $primary
+      ? 'var(--player-text-primary)'
+      : 'var(--background-dark-transparent)'};
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: ${({ $primary }) =>
+      $primary ? 'var(--player-accent)' : 'var(--background-dark-selected)'};
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--player-accent);
+    outline-offset: 3px;
+  }
+`;
 
 export type NowPlayingPageProps = {
   onBack: () => void;
@@ -43,6 +79,7 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({
   const previous = usePlayerStore((state) => state.previous);
   const seek = usePlayerStore((state) => state.seek);
   const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
 
   const playlist = playlists.find((item) => item.id === currentPlaylistId);
   const playlistTitle =
@@ -53,6 +90,9 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({
       : (playlist?.songIds.length ?? 0);
   const progress =
     duration > 0 ? Math.min((currentTime / duration) * 100, 100) : 0;
+  const isFavorite = Boolean(
+    currentSong && favoriteSongIds.includes(currentSong.id),
+  );
 
   return (
     <Container
@@ -187,14 +227,22 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({
                         {currentSong.artist}
                       </Typography>
                     </ColumnFlexContainer>
-                    <RowFlexContainer
-                      height={[6]}
-                      width={[6]}
-                      justifyContent="center"
-                      alignItems="center"
+                    <IconButton
+                      type="button"
+                      aria-label={
+                        isFavorite
+                          ? 'Remove from favorites'
+                          : 'Add to favorites'
+                      }
+                      aria-pressed={isFavorite}
+                      onClick={() => toggleFavorite(currentSong.id)}
                     >
-                      <Heart size="24px" color="var(--player-accent)" />
-                    </RowFlexContainer>
+                      <Heart
+                        size="22px"
+                        color="var(--player-accent)"
+                        fill={isFavorite ? 'var(--player-accent)' : 'none'}
+                      />
+                    </IconButton>
                   </RowFlexContainer>
                 </ColumnFlexContainer>
               </ColumnFlexContainer>
@@ -232,60 +280,40 @@ export const NowPlayingPage: React.FC<NowPlayingPageProps> = ({
                   justifyContent="between"
                   padding={[2, 0]}
                 >
-                  <RowFlexContainer
-                    role="button"
-                    width={[5]}
-                    height={[5]}
-                    alignItems="center"
-                    justifyContent="center"
-                    cursor="pointer"
+                  <IconButton
+                    type="button"
+                    aria-label="Previous"
                     onClick={previous}
                   >
-                    <SkipBack size="20px" />
-                  </RowFlexContainer>
-                  <RowFlexContainer
-                    role="button"
+                    <SkipBack size="22px" />
+                  </IconButton>
+                  <IconButton
+                    type="button"
+                    $primary
                     aria-label={
                       isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'
                     }
                     aria-busy={isBuffering}
-                    width={[10]}
-                    height={[10]}
-                    alignItems="center"
-                    justifyContent="center"
-                    cursor="pointer"
                     onClick={isPlaying ? pause : play}
                   >
                     {isBuffering ? (
-                      <LoadingSpinner size="40px" />
+                      <LoadingSpinner size="30px" />
                     ) : isPlaying ? (
-                      <Pause size="40px" />
+                      <Pause size="30px" />
                     ) : (
-                      <Play size="40px" />
+                      <Play size="30px" />
                     )}
-                  </RowFlexContainer>
-                  <RowFlexContainer
-                    role="button"
-                    width={[5]}
-                    height={[5]}
-                    alignItems="center"
-                    justifyContent="center"
-                    cursor="pointer"
-                    onClick={next}
-                  >
-                    <SkipForward size="20px" />
-                  </RowFlexContainer>
-                  <RowFlexContainer
-                    role="button"
-                    width={[5]}
-                    height={[5]}
-                    alignItems="center"
-                    justifyContent="center"
-                    cursor="pointer"
+                  </IconButton>
+                  <IconButton type="button" aria-label="Next" onClick={next}>
+                    <SkipForward size="22px" />
+                  </IconButton>
+                  <IconButton
+                    type="button"
+                    aria-label="Open queue"
                     onClick={onQueue}
                   >
-                    <ListMusic size="20px" />
-                  </RowFlexContainer>
+                    <ListMusic size="22px" />
+                  </IconButton>
                 </RowFlexContainer>
               </ColumnFlexContainer>
             </>

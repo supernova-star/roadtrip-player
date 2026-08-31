@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { usePlayerStore } from '../store/playerStore';
+import { getCachedAudioUrl } from '../utils/audioPlaylistCache';
 
 const getResolvedAudioUrl = (audioUrl: string) =>
   new URL(audioUrl, window.location.href).href;
@@ -10,6 +11,7 @@ export function useAudioPlayer() {
   const currentTime = usePlayerStore((state) => state.currentTime);
   const queue = usePlayerStore((state) => state.queue);
   const currentIndex = usePlayerStore((state) => state.currentIndex);
+  const currentPlaylistId = usePlayerStore((state) => state.currentPlaylistId);
   const play = usePlayerStore((state) => state.play);
   const pause = usePlayerStore((state) => state.pause);
   const next = usePlayerStore((state) => state.next);
@@ -22,6 +24,8 @@ export function useAudioPlayer() {
 
   useEffect(() => {
     const audio = audioRef.current;
+    let cachedAudioUrl: string | null = null;
+    let isCurrent = true;
     if ('mediaSession' in navigator && currentSong) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
@@ -44,13 +48,39 @@ export function useAudioPlayer() {
       return;
     }
 
-    const audioUrl = getResolvedAudioUrl(currentSong.audioUrl);
-    if (audio.src !== audioUrl) {
-      audio.src = audioUrl;
-      setCurrentTime(0);
-      setDuration(currentSong.duration ?? 0);
-    }
-  }, [currentSong, setCurrentTime, setDuration, setIsBuffering]);
+    const setAudioSource = (audioUrl: string) => {
+      if (audio.src !== audioUrl) {
+        audio.src = audioUrl;
+        setCurrentTime(0);
+        setDuration(currentSong.duration ?? 0);
+      }
+    };
+
+    setAudioSource(getResolvedAudioUrl(currentSong.audioUrl));
+    void getCachedAudioUrl(currentPlaylistId, currentSong.id).then(
+      (audioUrl) => {
+        if (!isCurrent || !audioUrl) {
+          return;
+        }
+
+        cachedAudioUrl = audioUrl;
+        setAudioSource(audioUrl);
+      },
+    );
+
+    return () => {
+      isCurrent = false;
+      if (cachedAudioUrl) {
+        URL.revokeObjectURL(cachedAudioUrl);
+      }
+    };
+  }, [
+    currentPlaylistId,
+    currentSong,
+    setCurrentTime,
+    setDuration,
+    setIsBuffering,
+  ]);
 
   useEffect(() => {
     const audio = audioRef.current;

@@ -306,13 +306,6 @@ export const shaamKaSafarSongs: Song[] = [
   },
   {
     id: 'shaam-ka-safar-31',
-    title: 'Aahatein',
-    artist: 'Harshit Shankar',
-    album: 'Aahatein',
-    audioUrl: '',
-  },
-  {
-    id: 'shaam-ka-safar-32',
     title: 'Paro',
     artist: "Aditya Rikhari, UNPLG'd",
     album: 'Paro',

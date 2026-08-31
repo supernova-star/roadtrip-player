@@ -2,10 +2,14 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { Home } from 'lucide-react';
 import { Input } from '@mui/material';
 import { Button } from '../../components/uiComponents/button/Button';
-import { ColumnFlexContainer, Container } from '../../components/uiComponents/container/Container';
+import {
+  ColumnFlexContainer,
+  Container,
+} from '../../components/uiComponents/container/Container';
 import { Typography } from '../../components/uiComponents/typography/Typography';
 import { useUserProfileStore } from '../../store/userProfileStore';
 import { wallpaperUrl } from '../../utils/formatter';
+import { upsertUserPresence } from '@/lib/userPresence';
 
 type StartProps = {
   onButtonClick: () => void;
@@ -14,7 +18,9 @@ type StartProps = {
 const redirectDelayMs = 3000;
 
 export const Start: FC<StartProps> = ({ onButtonClick }) => {
-  const { userName, setUserName, isAdmin, setIsAdmin } = useUserProfileStore((state) => state);
+  const { userName, setUserName, isAdmin, setIsAdmin } = useUserProfileStore(
+    (state) => state,
+  );
   const displayName = userName?.trim();
   const adminTapTimesRef = useRef<number[]>([]);
 
@@ -29,7 +35,7 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
 
     const now = Date.now();
     const recentTaps = adminTapTimesRef.current.filter(
-      (timestamp) => now - timestamp <= redirectDelayMs
+      (timestamp) => now - timestamp <= redirectDelayMs,
     );
     const updatedTaps = [...recentTaps, now].slice(-5);
 
@@ -52,6 +58,12 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
 
     return () => window.clearTimeout(redirectTimer);
   }, [displayName, onButtonClick]);
+
+  const saveUserName = async () => {
+    setUserName(enteredUserName);
+    await upsertUserPresence(enteredUserName);
+    onButtonClick();
+  };
 
   return (
     <Container
@@ -219,7 +231,8 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
                   borderRadius: '999px',
                   transformOrigin: 'left center',
                   animation: `redirectProgress ${redirectDelayMs}ms ease-out forwards`,
-                  background: 'linear-gradient(90deg, #ff9d53 0%, #ffd29a 100%)',
+                  background:
+                    'linear-gradient(90deg, #ff9d53 0%, #ffd29a 100%)',
                   '@keyframes redirectProgress': {
                     '0%': { transform: 'scaleX(0)' },
                     '100%': { transform: 'scaleX(1)' },
@@ -303,10 +316,7 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
             <Button
               text="Start Listening"
               disabled={isUserNameEmpty}
-              onClick={() => {
-                setUserName(enteredUserName);
-                onButtonClick();
-              }}
+              onClick={saveUserName}
               iconOptions={{ icon: Home, iconColor: '#241a14' }}
               size="large"
               textOptions={{ textColor: '#241a14', textWeight: 'bold' }}
@@ -318,7 +328,8 @@ export const Start: FC<StartProps> = ({ onButtonClick }) => {
                 background: 'linear-gradient(180deg, #ffd09a 0%, #ffaf63 100%)',
                 boxShadow: '0 14px 26px rgba(19, 13, 12, 0.24)',
                 '&:hover': {
-                  background: 'linear-gradient(180deg, #ffdaa8 0%, #ffb872 100%)',
+                  background:
+                    'linear-gradient(180deg, #ffdaa8 0%, #ffb872 100%)',
                 },
                 '&.Mui-disabled': {
                   background: 'rgba(255, 238, 217, 0.34)',

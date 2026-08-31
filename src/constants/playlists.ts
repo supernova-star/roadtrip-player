@@ -83,12 +83,6 @@ export const playlists: Playlist[] = [
     songIds: createSongIds('masti', 34),
   },
   {
-    id: 'nostalgia',
-    title: 'Nostalgia',
-    description: 'Nostalgic Bollywood throwbacks.',
-    songIds: createSongIds('nostalgia', 20),
-  },
-  {
     id: 'himesh-hot-hits',
     title: 'Hot Himesh Hits',
     description: 'Hook-heavy Himesh anthems.',
