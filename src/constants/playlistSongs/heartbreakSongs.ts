@@ -397,4 +397,15 @@ export const heartbreakSongs: Song[] = [
       'https://aac.saavncdn.com/133/9fbc531ae25229c425162db475f5e62d_160.mp4',
     duration: 221,
   },
+  {
+    id: 'heartbreak-37',
+    title: 'Ya Ali',
+    artist: 'Pritam, Zubeen Garg',
+    album: 'Gangster',
+    coverUrl:
+      'https://c.saavncdn.com/810/Gangster-Hindi-2026-20260327190823-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/810/00e481c84bdba987fe5ded89d2b1355c_160.mp4',
+    duration: 295,
+  },
 ];

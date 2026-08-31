@@ -1,5 +1,6 @@
 export type AdminCartPlaylistId =
-  | 'dhurandhar'
+  | 'shaam-ka-safar'
+  | 'kumar-sanu-hits'
   | 'coke-studio-pakistan'
   | 'coke-studio-bangla'
   | 'coke-studio-india'
@@ -11,8 +12,6 @@ export type AdminCartPlaylistId =
   | 'romance'
   | 'heartbreak'
   | 'masti'
-  | 'nostalgia'
-  | 'bhojpuri-reels'
   | 'himesh-hot-hits'
   | 'kk-best';
 
@@ -27,9 +26,13 @@ export type AdminCartPlaylistSongFile = {
 };
 
 export const adminCartPlaylistSongFileById = {
-  dhurandhar: {
-    filePath: 'src/constants/playlistSongs/dhurandhar.ts',
-    songsExport: 'dhurandharSongs',
+  'shaam-ka-safar': {
+    filePath: 'src/constants/playlistSongs/shaamKaSafarSongs.ts',
+    songsExport: 'shaamKaSafarSongs',
+  },
+  'kumar-sanu-hits': {
+    filePath: 'src/constants/playlistSongs/kumarSanuSongs.ts',
+    songsExport: 'kumarSanuSongs',
   },
   'coke-studio-pakistan': {
     filePath: 'src/constants/playlistSongs/coke-studio-pakistan.ts',
@@ -74,14 +77,6 @@ export const adminCartPlaylistSongFileById = {
   masti: {
     filePath: 'src/constants/playlistSongs/mastiSongs.ts',
     songsExport: 'mastiSongs',
-  },
-  nostalgia: {
-    filePath: 'src/constants/playlistSongs/nostalgiaSongs.ts',
-    songsExport: 'nostalgiaSongs',
-  },
-  'bhojpuri-reels': {
-    filePath: 'src/constants/playlistSongs/bhojpuriSongs.ts',
-    songsExport: 'bhojpuriSongs',
   },
   'himesh-hot-hits': {
     filePath: 'src/constants/playlistSongs/himeshSongs.ts',

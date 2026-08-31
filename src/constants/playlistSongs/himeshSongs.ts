@@ -6,8 +6,10 @@ export const himeshSongs: Song[] = [
     title: 'Aashiq Banaya Aapne',
     artist: 'Himesh Reshammiya, Neha Kakkar',
     album: 'Hate Story IV',
-    coverUrl: 'https://c.saavncdn.com/111/Hate-Story-IV-Hindi-2018-20180223-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/111/6868ab9ebc54581b11c67706e0113970_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/111/Hate-Story-IV-Hindi-2018-20180223-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/111/6868ab9ebc54581b11c67706e0113970_160.mp4',
     duration: 222,
   },
   {
@@ -15,8 +17,10 @@ export const himeshSongs: Song[] = [
     title: 'Jhalak Dikhla Ja',
     artist: 'Himesh Reshammiya',
     album: 'Aksar',
-    coverUrl: 'https://c.saavncdn.com/644/Aksar-Hindi-2005-20221118062219-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/644/24b5df2c1d6f11ad83cd66ffbbbfc473_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/644/Aksar-Hindi-2005-20221118062219-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/644/24b5df2c1d6f11ad83cd66ffbbbfc473_160.mp4',
     duration: 317,
   },
   {
@@ -24,17 +28,23 @@ export const himeshSongs: Song[] = [
     title: 'Tera Suroor',
     artist: 'Himesh Reshammiya, Shreya Ghoshal',
     album: 'Aap Kaa Surroor',
-    coverUrl: 'https://c.saavncdn.com/243/Aap-Kaa-Surroor-Hindi-2007-20230317204211-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/243/d90b946f9ae3d18b84f3e12179b54843_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/243/Aap-Kaa-Surroor-Hindi-2007-20230317204211-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/243/d90b946f9ae3d18b84f3e12179b54843_160.mp4',
     duration: 350,
   },
   {
     id: 'himesh-4',
     title: 'Naam Hai Tera',
-    artist: 'Sachet Tandon, Parampara Tandon, Sachet-Parampara, Himesh Reshammiya',
-    album: 'Is Qadar-Naam Hai Tera (From &quot;Indie Hain Hum 3 With Sachet &amp; Parampara&quot;)',
-    coverUrl: 'https://c.saavncdn.com/123/Is-Qadar-Naam-Hai-Tera-From-Indie-Hain-Hum-3-With-Sachet-Parampara-Hindi-2022-20220521011001-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/123/a18681290ee43e697d2cc95388994693_160.mp4',
+    artist:
+      'Sachet Tandon, Parampara Tandon, Sachet-Parampara, Himesh Reshammiya',
+    album:
+      'Is Qadar-Naam Hai Tera (From &quot;Indie Hain Hum 3 With Sachet &amp; Parampara&quot;)',
+    coverUrl:
+      'https://c.saavncdn.com/123/Is-Qadar-Naam-Hai-Tera-From-Indie-Hain-Hum-3-With-Sachet-Parampara-Hindi-2022-20220521011001-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/123/a18681290ee43e697d2cc95388994693_160.mp4',
     duration: 90,
   },
   {
@@ -42,8 +52,10 @@ export const himeshSongs: Song[] = [
     title: 'Hookah Bar',
     artist: 'Himesh Reshammiya, Vineet Singh, Aaman Trikha',
     album: 'Khiladi 786',
-    coverUrl: 'https://c.saavncdn.com/485/Khiladi-786-Hindi-2012-20221213035019-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/485/b5634f549c269af126d4b6da4bea9faa_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/485/Khiladi-786-Hindi-2012-20221213035019-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/485/b5634f549c269af126d4b6da4bea9faa_160.mp4',
     duration: 254,
   },
   {
@@ -51,17 +63,22 @@ export const himeshSongs: Song[] = [
     title: 'Tandoori Nights',
     artist: 'Himesh Reshammiya, Sunidhi Chauhan',
     album: 'Karzzzz',
-    coverUrl: 'https://c.saavncdn.com/146/Karzzzz-Hindi-2008-20221201073307-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/146/8e4783e65266f548fcb8dff6b8b7dc61_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/146/Karzzzz-Hindi-2008-20221201073307-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/146/8e4783e65266f548fcb8dff6b8b7dc61_160.mp4',
     duration: 351,
   },
   {
     id: 'himesh-7',
     title: 'Shakalaka Boom Boom',
-    artist: 'Himesh Reshammiya, Shreya Ghoshal, Tulsi Kumar, Aditi Singh Sharma, Badshah, Krishna, Ahir, Darshan Raval',
+    artist:
+      'Himesh Reshammiya, Shreya Ghoshal, Tulsi Kumar, Aditi Singh Sharma, Badshah, Krishna, Ahir, Darshan Raval',
     album: 'Himesh Reshammiya Non-Stop Hits Mashup',
-    coverUrl: 'https://c.saavncdn.com/270/Himesh-Reshammiya-Non-Stop-Hits-Mashup-Hindi-2025-20250201181007-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/270/20902e0fa3f15fd8da91dfcbe607c139_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/270/Himesh-Reshammiya-Non-Stop-Hits-Mashup-Hindi-2025-20250201181007-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/270/20902e0fa3f15fd8da91dfcbe607c139_160.mp4',
     duration: 420,
   },
   {
@@ -69,8 +86,10 @@ export const himeshSongs: Song[] = [
     title: 'Soniye',
     artist: 'KK, Sunidhi Chauhan',
     album: 'Aksar',
-    coverUrl: 'https://c.saavncdn.com/644/Aksar-Hindi-2005-20221118062219-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/644/ac9b28c087e0af69bb81e32a8c9730e1_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/644/Aksar-Hindi-2005-20221118062219-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/644/ac9b28c087e0af69bb81e32a8c9730e1_160.mp4',
     duration: 296,
   },
   {
@@ -78,8 +97,10 @@ export const himeshSongs: Song[] = [
     title: 'Jhoom Jhoom',
     artist: 'Himesh Reshammiya',
     album: 'One,Only Himesh Reshammiya Vol-2',
-    coverUrl: 'https://c.saavncdn.com/235/One-Only-Himesh-Reshammiya-Vol-2-Hindi-2007-20221203154547-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/235/f9850ac73638c73b6c1a598794487cc0_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/235/One-Only-Himesh-Reshammiya-Vol-2-Hindi-2007-20221203154547-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/235/f9850ac73638c73b6c1a598794487cc0_160.mp4',
     duration: 248,
   },
   {
@@ -87,8 +108,10 @@ export const himeshSongs: Song[] = [
     title: 'Ahista Ahista',
     artist: 'Himesh Reshammiya',
     album: 'Ahista Ahista',
-    coverUrl: 'https://c.saavncdn.com/511/Ahista-Ahista-Hindi-2006-20221117211357-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/511/1188fa05b0900483c8ba70bc869daa62_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/511/Ahista-Ahista-Hindi-2006-20221117211357-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/511/1188fa05b0900483c8ba70bc869daa62_160.mp4',
     duration: 326,
   },
   {
@@ -96,17 +119,21 @@ export const himeshSongs: Song[] = [
     title: 'Aafreen Tera Chehra',
     artist: 'Himesh Reshammiya',
     album: 'Red - The Dark Side',
-    coverUrl: 'https://c.saavncdn.com/204/Red-The-Dark-Side-Hindi-2007-20221204082909-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/204/61001c02b78733fdd2b8b1394708e62b_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/204/Red-The-Dark-Side-Hindi-2007-20221204082909-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/204/61001c02b78733fdd2b8b1394708e62b_160.mp4',
     duration: 317,
   },
   {
     id: 'himesh-12',
     title: 'Dil Keh Raha Hai',
     artist: 'Kunal Ganjawala',
-    album: 'Kyon Ki - It\'s Fate',
-    coverUrl: 'https://c.saavncdn.com/142/Kyon-Ki-It-s-Fate-Hindi-2005-20221201183824-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/142/4ac8bad4e1595bc94aeacb5b5fe82610_160.mp4',
+    album: "Kyon Ki - It's Fate",
+    coverUrl:
+      'https://c.saavncdn.com/142/Kyon-Ki-It-s-Fate-Hindi-2005-20221201183824-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/142/4ac8bad4e1595bc94aeacb5b5fe82610_160.mp4',
     duration: 305,
   },
   {
@@ -114,8 +141,10 @@ export const himeshSongs: Song[] = [
     title: 'Tera Mera Milna',
     artist: 'Himesh Reshammiya, Shreya Ghoshal',
     album: 'Aap Kaa Surroor',
-    coverUrl: 'https://c.saavncdn.com/243/Aap-Kaa-Surroor-Hindi-2007-20230317204211-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/243/d90b946f9ae3d18b84f3e12179b54843_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/243/Aap-Kaa-Surroor-Hindi-2007-20230317204211-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/243/d90b946f9ae3d18b84f3e12179b54843_160.mp4',
     duration: 350,
   },
   {
@@ -123,8 +152,10 @@ export const himeshSongs: Song[] = [
     title: 'Aap Ki Kashish',
     artist: 'Himesh Reshammiya, Krishna, Ahir',
     album: 'Aashiq Banaya Aapne',
-    coverUrl: 'https://c.saavncdn.com/081/Aashiq-Banaya-Aapne-Hindi-2005-20221118014125-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/081/3f1d6767fcb8941d4b173731e015cb49_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/081/Aashiq-Banaya-Aapne-Hindi-2005-20221118014125-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/081/3f1d6767fcb8941d4b173731e015cb49_160.mp4',
     duration: 333,
   },
   {
@@ -132,8 +163,10 @@ export const himeshSongs: Song[] = [
     title: 'Mujhko Yaad Sataye Teri',
     artist: 'Himesh Reshammiya',
     album: 'Phir Hera Pheri',
-    coverUrl: 'https://c.saavncdn.com/399/Phir-Hera-Pheri-Hindi-2006-20221203211750-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/399/b07fbb252dfd7830e895874472e3e0ef_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/399/Phir-Hera-Pheri-Hindi-2006-20221203211750-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/399/b07fbb252dfd7830e895874472e3e0ef_160.mp4',
     duration: 279,
   },
   {
@@ -141,8 +174,10 @@ export const himeshSongs: Song[] = [
     title: 'Dil Naiyyo Maane Re',
     artist: 'Himesh Reshammiya, Tulsi Kumar',
     album: 'Ahista Ahista',
-    coverUrl: 'https://c.saavncdn.com/511/Ahista-Ahista-Hindi-2006-20221117211357-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/511/4dcf788ef67300fdbfd691ed8d95a846_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/511/Ahista-Ahista-Hindi-2006-20221117211357-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/511/4dcf788ef67300fdbfd691ed8d95a846_160.mp4',
     duration: 292,
   },
   {
@@ -150,8 +185,10 @@ export const himeshSongs: Song[] = [
     title: 'Tera Tera Tera Suroor',
     artist: 'Himesh Reshammiya',
     album: 'One,Only Himesh Reshammiya Vol-2',
-    coverUrl: 'https://c.saavncdn.com/235/One-Only-Himesh-Reshammiya-Vol-2-Hindi-2007-20221203154547-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/235/c29afdc0fcfa2bfd3054e233a6db3b5a_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/235/One-Only-Himesh-Reshammiya-Vol-2-Hindi-2007-20221203154547-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/235/c29afdc0fcfa2bfd3054e233a6db3b5a_160.mp4',
     duration: 186,
   },
   {
@@ -160,7 +197,8 @@ export const himeshSongs: Song[] = [
     artist: 'Himesh Reshammiya, Mika Singh, Palak Muchhal',
     album: 'Kick',
     coverUrl: 'https://c.saavncdn.com/801/Kick-Hindi-2014-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/801/83a2524e917292de89fa5b096c4363b9_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/801/83a2524e917292de89fa5b096c4363b9_160.mp4',
     duration: 275,
   },
   {
@@ -169,16 +207,19 @@ export const himeshSongs: Song[] = [
     artist: 'Himesh Reshammiya, Yo Yo Honey Singh, Palak Muchhal',
     album: 'The Xpose',
     coverUrl: 'https://c.saavncdn.com/066/The-Xpose-2014-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/066/8e1f45192e1f0b77abfe4139046ad585_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/066/8e1f45192e1f0b77abfe4139046ad585_160.mp4',
     duration: 352,
   },
   {
     id: 'himesh-20',
     title: 'Catch Me If You Can',
-    artist: 'Himesh Reshammiya, Mika Singh, Mohit Chauhan, Neeti Mohan, Shubhangi Tiwari, Shalmali',
+    artist:
+      'Himesh Reshammiya, Mika Singh, Mohit Chauhan, Neeti Mohan, Shubhangi Tiwari, Shalmali',
     album: 'The Xpose',
     coverUrl: 'https://c.saavncdn.com/066/The-Xpose-2014-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/066/04efe8076775bca98741315d6eab4e55_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/066/04efe8076775bca98741315d6eab4e55_160.mp4',
     duration: 306,
   },
   {
@@ -186,8 +227,10 @@ export const himeshSongs: Song[] = [
     title: 'Prem Ratan Dhan Payo',
     artist: 'Palak Muchhal, Himesh Reshammiya',
     album: 'Prem Ratan Dhan Payo',
-    coverUrl: 'https://c.saavncdn.com/140/Prem-Ratan-Dhan-Payo-Hindi-2015-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/140/49e3d10a302667ebf82a37dbd5319e97_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/140/Prem-Ratan-Dhan-Payo-Hindi-2015-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/140/49e3d10a302667ebf82a37dbd5319e97_160.mp4',
     duration: 320,
   },
   {
@@ -195,8 +238,10 @@ export const himeshSongs: Song[] = [
     title: 'Bodyguard Title Track',
     artist: 'Himesh Reshammiya, Salman Khan, Band Of Power',
     album: 'Bodyguard',
-    coverUrl: 'https://c.saavncdn.com/722/Bodyguard-Hindi-2011-20221211211236-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/667/2aaa8e45cb3654fca0d00a74dee7b053_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/722/Bodyguard-Hindi-2011-20221211211236-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/667/2aaa8e45cb3654fca0d00a74dee7b053_160.mp4',
     duration: 252,
   },
   {
@@ -205,7 +250,8 @@ export const himeshSongs: Song[] = [
     artist: 'Darshan Raval',
     album: 'Teraa Surroor',
     coverUrl: 'https://c.saavncdn.com/042/Teraa-Surroor-Hindi-2016-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/042/08fb30c6e69482c13ae05de8e4749aa6_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/042/08fb30c6e69482c13ae05de8e4749aa6_160.mp4',
     duration: 322,
   },
   {
@@ -213,8 +259,21 @@ export const himeshSongs: Song[] = [
     title: 'Teri Meri Kahani',
     artist: 'Himesh Reshammiya',
     album: 'Music for Mental Health',
-    coverUrl: 'https://c.saavncdn.com/264/Music-for-Mental-Health-Instrumental-2025-20250603173734-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/264/154f2f6206517c2831c28c9c6ce450d9_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/264/Music-for-Mental-Health-Instrumental-2025-20250603173734-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/264/154f2f6206517c2831c28c9c6ce450d9_160.mp4',
     duration: 458,
+  },
+  {
+    id: 'himesh-25',
+    title: 'Aisa Deewana',
+    artist: 'Sonu Nigam, Alka Yagnik, Himesh Reshammiya',
+    album: 'Dil Maange More',
+    coverUrl:
+      'https://c.saavncdn.com/406/Dil-Maange-More-Hindi-2004-20221124142445-150x150.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/406/79e3c487d7b4656baa29bc0b983cc048_160.mp4',
+    duration: 313,
   },
 ];

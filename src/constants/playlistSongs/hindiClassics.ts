@@ -6,8 +6,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Tujhe Dekha To',
     artist: 'Kumar Sanu, Lata Mangeshkar',
     album: 'Dilwale Dulhania Le Jayenge',
-    coverUrl: 'https://c.saavncdn.com/182/Dilwale-Dulhania-Le-Jayenge-Hindi-1995-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/771/940e02c9f592e5880141e7ae7dafa39f_sar_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/182/Dilwale-Dulhania-Le-Jayenge-Hindi-1995-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/771/940e02c9f592e5880141e7ae7dafa39f_sar_160.mp4',
     duration: 402,
   },
   {
@@ -17,7 +19,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Kuch Kuch Hota Hai',
     coverUrl:
       'https://c.saavncdn.com/907/Kuch-Kuch-Hota-Hai-Original-Motion-Picture-Soundtrack-Hindi-1998-20240711192101-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/907/ce17826775d66752dba879fc2e3d4eb3_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/907/ce17826775d66752dba879fc2e3d4eb3_160.mp4',
     duration: 297,
   },
   {
@@ -25,8 +28,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Ek Ladki Ko Dekha',
     artist: 'Kumar Sanu, R.D. Burman',
     album: '1942: A Love Story',
-    coverUrl: 'https://c.saavncdn.com/283/The-Chosen-One-R-D-Burman-In-The-Groove-2004-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/283/1e3ce4f9658220339c271f9387010181_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/283/The-Chosen-One-R-D-Burman-In-The-Groove-2004-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/283/1e3ce4f9658220339c271f9387010181_160.mp4',
     duration: 258,
   },
   {
@@ -34,8 +39,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Pehla Nasha',
     artist: 'Udit Narayan, Sadhana Sargam',
     album: 'Jo Jeeta Wohi Sikandar',
-    coverUrl: 'https://c.saavncdn.com/852/Jo-Jeeta-Wohi-Sikandar-Hindi-1992-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/852/9d335ee08b26f171a3d65e11f8819d52_sar_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/852/Jo-Jeeta-Wohi-Sikandar-Hindi-1992-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/852/9d335ee08b26f171a3d65e11f8819d52_sar_160.mp4',
     duration: 293,
   },
   {
@@ -45,7 +52,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Dil Hai Ke Manta Nahin',
     coverUrl:
       'https://c.saavncdn.com/880/Dil-Hai-Ke-Manta-Nahin-Hindi-1991-20241225141511-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/880/46d60a2a6d51fe2f331633fcb7ea23bf_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/880/46d60a2a6d51fe2f331633fcb7ea23bf_160.mp4',
     duration: 368,
   },
   {
@@ -53,8 +61,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Ae Mere Humsafar',
     artist: 'Vinod Rathod, Alka Yagnik',
     album: 'Baazigar',
-    coverUrl: 'https://c.saavncdn.com/409/Baazigar-Hindi-1993-20210226141521-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/409/62dfb5f2e424f885a4b069d4db1e4ccc_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/409/Baazigar-Hindi-1993-20210226141521-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/409/62dfb5f2e424f885a4b069d4db1e4ccc_160.mp4',
     duration: 450,
   },
   {
@@ -62,8 +72,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Yaad Aa Raha Hai',
     artist: 'Bappi Lahiri',
     album: 'Disco Dancer',
-    coverUrl: 'https://c.saavncdn.com/317/TOY-Thinking-Of-You-Hindi-2016-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/317/cbc4d2101f8926e55c0c89b26a6a350d_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/317/TOY-Thinking-Of-You-Hindi-2016-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/317/cbc4d2101f8926e55c0c89b26a6a350d_160.mp4',
     duration: 382,
   },
   {
@@ -71,8 +83,10 @@ export const hindiClassicsSongs: Song[] = [
     title: 'Tip Tip Barsa Paani',
     artist: 'Alka Yagnik, Udit Narayan',
     album: 'Mohra',
-    coverUrl: 'https://c.saavncdn.com/041/Mohra-Hindi-1994-20210226141759-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/041/c9c7533375a46d285bc156a2212fdbb5_160.mp4',
+    coverUrl:
+      'https://c.saavncdn.com/041/Mohra-Hindi-1994-20210226141759-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/041/c9c7533375a46d285bc156a2212fdbb5_160.mp4',
     duration: 363,
   },
   {
@@ -82,7 +96,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Main Khiladi Tu Anari',
     coverUrl:
       'https://c.saavncdn.com/274/Main-Khiladi-Tu-Anari-With-Jhankar-Beats-Hindi-2024-20240125184145-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/274/7fef90c6c49981cb50403835234722da_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/274/7fef90c6c49981cb50403835234722da_160.mp4',
     duration: 474,
   },
   {
@@ -92,7 +107,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Hum Aapke Hain Koun',
     coverUrl:
       'https://c.saavncdn.com/428/Hum-Aapke-Hain-Koun-Hindi-1994-20200901153945-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/428/e761bc575ff6b12e564206997440726e_sar_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/428/e761bc575ff6b12e564206997440726e_sar_160.mp4',
     duration: 485,
   },
   {
@@ -102,7 +118,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Dilwale Dulhania Le Jayenge',
     coverUrl:
       'https://c.saavncdn.com/588/Dilwale-Dulhania-Le-Jayenge-Hindi-1995-20171114-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/588/2c084d513320441d55829c9e8d0fc418_sar_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/588/2c084d513320441d55829c9e8d0fc418_sar_160.mp4',
     duration: 286,
   },
   {
@@ -112,7 +129,8 @@ export const hindiClassicsSongs: Song[] = [
     album: 'Hum Aapke Hain Koun',
     coverUrl:
       'https://c.saavncdn.com/428/Hum-Aapke-Hain-Koun-Hindi-1994-20200901153945-500x500.jpg',
-    audioUrl: 'https://aac.saavncdn.com/428/7edad71239e21349090a1dd1f9cc27b1_sar_160.mp4',
+    audioUrl:
+      'https://aac.saavncdn.com/428/7edad71239e21349090a1dd1f9cc27b1_sar_160.mp4',
     duration: 264,
   },
 ];
