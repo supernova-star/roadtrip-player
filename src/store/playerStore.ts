@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Song } from '../types/music';
 import { playlists } from '../constants/playlists';
+import { cachePlaylistAudio } from '../utils/audioPlaylistCache';
 
 interface PlayerState {
   currentSong: Song | null;
@@ -25,7 +26,7 @@ interface PlayerState {
   setIsBuffering: (isBuffering: boolean) => void;
 }
 
-export const usePlayerStore = create<PlayerState>((set) => ({
+export const usePlayerStore = create<PlayerState>((set, get) => ({
   currentSong: null,
   currentPlaylistId: playlists[0]?.id ?? '',
   queue: [],
@@ -36,33 +37,41 @@ export const usePlayerStore = create<PlayerState>((set) => ({
   duration: 0,
 
   playSong: (song) => {
+    const { currentPlaylistId, queue } = get();
+    const existingIndex = queue.findIndex((item) => item.id === song.id);
+    const playlistSongs = existingIndex >= 0 ? queue : [...queue, song];
+
     set((state) => {
-      const existingIndex = state.queue.findIndex(
-        (item) => item.id === song.id,
-      );
-      const nextQueue =
-        existingIndex >= 0 ? state.queue : [...state.queue, song];
       const nextIndex =
-        existingIndex >= 0 ? existingIndex : nextQueue.length - 1;
+        existingIndex >= 0 ? existingIndex : playlistSongs.length - 1;
 
       return {
         currentSong: song,
-        queue: nextQueue,
+        queue: playlistSongs,
         currentIndex: nextIndex,
         isPlaying: true,
         isBuffering: true,
         currentTime: 0,
       };
     });
+
+    cachePlaylistAudio(currentPlaylistId, playlistSongs);
   },
 
-  play: () => set({ isPlaying: true, isBuffering: true }),
+  play: () => {
+    const { currentPlaylistId, queue } = get();
+    set({ isPlaying: true, isBuffering: true });
+    cachePlaylistAudio(currentPlaylistId, queue);
+  },
   pause: () => set({ isPlaying: false, isBuffering: false }),
-  togglePlay: () =>
-    set((state) => ({
-      isPlaying: !state.isPlaying,
-      isBuffering: !state.isPlaying,
-    })),
+  togglePlay: () => {
+    const { currentPlaylistId, isPlaying, queue } = get();
+    set({ isPlaying: !isPlaying, isBuffering: !isPlaying });
+
+    if (!isPlaying) {
+      cachePlaylistAudio(currentPlaylistId, queue);
+    }
+  },
   setCurrentPlaylistId: (playlistId) => set({ currentPlaylistId: playlistId }),
 
   next: () => {

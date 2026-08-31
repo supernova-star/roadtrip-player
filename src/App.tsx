@@ -11,6 +11,8 @@ import { Start } from './pages/Start/Start';
 import { Admin } from './pages/Admin/Admin';
 import { AdminRoute } from './pages/Admin/AdminRoute';
 import { NotFound } from './pages/NotFound/NotFound';
+import { usePresence } from './hooks/usePresence';
+import { useUserProfileStore } from './store/userProfileStore';
 
 interface StartRouteProps {
   hasEnteredHome: boolean;
@@ -40,6 +42,9 @@ interface HomeRouteProps {
 }
 
 const HomeRoute: React.FC<HomeRouteProps> = ({ onEnterHome }) => {
+  const userName = useUserProfileStore((state) => state.userName);
+  usePresence(userName);
+
   useEffect(() => {
     onEnterHome();
   }, [onEnterHome]);

@@ -1,6 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useResponsive } from '@/hooks/useResponsive';
-import { ColumnFlexContainer, RowFlexContainer } from '../uiComponents/container/Container';
+import {
+  ColumnFlexContainer,
+  RowFlexContainer,
+} from '../uiComponents/container/Container';
 import { Typography } from '../uiComponents/typography/Typography';
 import { playlists } from '@/constants/playlists';
 import { songs } from '@/constants/songs';
@@ -34,13 +37,18 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const favoriteSongIds = useFavoritesStore((state) => state.favoriteSongIds);
 
-  const playListDetails = playlists.find((playlist) => playlist.id === currentPlaylistId);
+  const playListDetails = playlists.find(
+    (playlist) => playlist.id === currentPlaylistId,
+  );
 
   const songIds =
-    currentPlaylistId === 'favorites' ? favoriteSongIds : (playListDetails?.songIds ?? []);
+    currentPlaylistId === 'favorites'
+      ? favoriteSongIds
+      : (playListDetails?.songIds ?? []);
   const songDetails = getSongsByIds(songIds, songs);
 
-  const playlistTitle = currentPlaylistId === 'favorites' ? 'Favorites' : playListDetails?.title;
+  const playlistTitle =
+    currentPlaylistId === 'favorites' ? 'Favorites' : playListDetails?.title;
 
   const panelBackground = isLightMode
     ? percentToHex(currentWallpaper.theme.playerBackground, 80)
@@ -67,7 +75,7 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
     (songId: string) => {
       return currentSong?.id === songId && usePlayerStore.getState().isPlaying;
     },
-    [currentSong]
+    [currentSong],
   );
 
   return (
@@ -98,7 +106,9 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
           onClick={onClose}
           gap={[3]}
           backgroundColor={
-            isLightMode ? 'var(--background-dark-transparent)' : 'var(--surface-panel)'
+            isLightMode
+              ? 'var(--background-dark-transparent)'
+              : 'var(--surface-panel)'
           }
         >
           <X size="24px" color="var(--player-text-primary)" cursor="pointer" />
@@ -114,11 +124,17 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
           borderRadius={[3]}
           style={{ alignSelf: 'flex-start' }}
           backgroundColor={
-            isLightMode ? 'var(--background-dark-transparent)' : 'var(--surface-panel)'
+            isLightMode
+              ? 'var(--background-dark-transparent)'
+              : 'var(--surface-panel)'
           }
         >
           <ChevronLeft size="20px" color="var(--player-text-primary)" />
-          <Typography variant="body2" weight="semiBold" color="var(--player-text-primary)">
+          <Typography
+            variant="body2"
+            weight="semiBold"
+            color="var(--player-text-primary)"
+          >
             Now playing
           </Typography>
         </RowFlexContainer>
@@ -153,7 +169,11 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
             variant="h6"
             weight="semiBold"
             color="var(--player-text-primary)"
-            sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
             {playlistTitle || 'Unknown Playlist'}
           </Typography>
@@ -181,7 +201,11 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
               alignItems="center"
               width="100%"
               minWidth={[0]}
-              backgroundColor={currentSong?.id === song.id ? selectedSongBackground : 'transparent'}
+              backgroundColor={
+                currentSong?.id === song.id
+                  ? selectedSongBackground
+                  : 'transparent'
+              }
               onClick={() => handleSelectSong(song.id)}
               cursor="pointer"
               sx={{
@@ -196,7 +220,12 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
                 '&:active': { transform: 'scale(0.99)' },
               }}
             >
-              <RowFlexContainer gap={[3]} alignItems="center" flex={1} minWidth={[0]}>
+              <RowFlexContainer
+                gap={[3]}
+                alignItems="center"
+                flex={1}
+                minWidth={[0]}
+              >
                 <div
                   style={{
                     width: isMobile ? '52px' : '48px',
@@ -272,14 +301,31 @@ export const PlaylistDrawer: FC<PlaylistDrawerProps> = ({
                   {isSongPlaying(song.id) ? (
                     <Pause size="14px" color="var(--player-background)" />
                   ) : (
-                    <Play size="14px" color="var(--player-accent)" />
+                    <Play
+                      size="14px"
+                      color={
+                        currentSong?.id === song.id
+                          ? 'var(--player-background)'
+                          : 'var(--player-accent)'
+                      }
+                      fill={
+                        currentSong?.id === song.id
+                          ? 'var(--player-background)'
+                          : 'none'
+                      }
+                    />
                   )}
                 </RowFlexContainer>
               </RowFlexContainer>
             </RowFlexContainer>
           ))
         ) : (
-          <ColumnFlexContainer alignItems="center" justifyContent="center" padding={[8]} gap={[2]}>
+          <ColumnFlexContainer
+            alignItems="center"
+            justifyContent="center"
+            padding={[8]}
+            gap={[2]}
+          >
             <ListMusic size="28px" color="var(--player-text-disabled)" />
             <Typography variant="body2" color="var(--player-text-secondary)">
               No songs in this playlist yet
