@@ -101,6 +101,39 @@ export const lateNightSongs: Song[] = [
     duration: 264,
   },
   {
+    id: 'late-night-13',
+    title: 'Dariya',
+    artist: 'Arko',
+    album: 'Baar Baar Dekho',
+    coverUrl:
+      'https://c.saavncdn.com/279/Baar-Baar-Dekho-Hindi-2016-20181205114400-500x500.jpg',
+    audioUrl:
+      'https://jiotunepreview.jio.com/content/Converted/010910440279320.mp3',
+    duration: 187,
+  },
+  {
+    id: 'late-night-14',
+    title: 'Tera Chehra',
+    artist: 'Adnan Sami',
+    album: 'Tera Chehra',
+    coverUrl:
+      'https://c.saavncdn.com/048/Tera-Chehra-2002-500x500.jpg',
+    audioUrl:
+      'https://jiotunepreview.jio.com/content/Converted/010910090622110.mp3',
+    duration: 392,
+  },
+  {
+    id: 'late-night-15',
+    title: 'Aankhon Se Batana',
+    artist: 'Dikshant',
+    album: 'Aankhon Se Batana',
+    coverUrl:
+      'https://c.saavncdn.com/620/Aankhon-Se-Batana-Hindi-2022-20220526142609-500x500.jpg',
+    audioUrl:
+      'https://jiotunepreview.jio.com/content/Converted/010910142501713.mp3',
+    duration: 221,
+  },
+  {
     id: 'late-night-10',
     title: 'Riha',
     artist: 'Anuv Jain',

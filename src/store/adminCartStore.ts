@@ -16,6 +16,7 @@ import {
   oldBengaliClassicsSongs,
   romanceSongs,
   shaamKaSafarSongs,
+  punjabiHitsSongs,
 } from '@/constants/songs';
 import type { Song } from '@/types/music';
 import type { AdminSearchSong } from './adminSearchStore';
@@ -34,6 +35,7 @@ const playlistSongsById: Record<string, Song[]> = {
   'coke-studio-india': cokeStudioIndiaSongs,
   'monsoon-mixtape': monsoonMixtapeSongs,
   'late-night': lateNightSongs,
+  'punjabi-hits': punjabiHitsSongs,
   'old-bengali-classics': oldBengaliClassicsSongs,
   'hindi-classics': hindiClassicsSongs,
   barbershop: barbershopSongs,

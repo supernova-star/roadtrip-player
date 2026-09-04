@@ -855,4 +855,15 @@ export const romanceSongs: Song[] = [
       'https://aac.saavncdn.com/351/4a1a85ea69618060018710190de5db05_160.mp4',
     duration: 295,
   },
+  {
+    id: 'romance-79',
+    title: 'Dooron Dooron',
+    artist: 'Paresh Pahuja, Shiv Tandan, Meghdeep Bose',
+    album: 'Dooron Dooron',
+    coverUrl:
+      'https://c.saavncdn.com/615/Dooron-Dooron-Punjabi-2022-20220124231445-500x500.jpg',
+    audioUrl:
+      'https://aac.saavncdn.com/615/4634429434685955596238d69525a28b_160.mp4',
+    duration: 215,
+  },
 ];
