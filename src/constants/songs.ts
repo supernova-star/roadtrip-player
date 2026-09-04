@@ -13,6 +13,7 @@ import { lateNightSongs } from './playlistSongs/late-night';
 import { oldBengaliClassicsSongs } from './playlistSongs/old-bengali-classics';
 import { kumarSanuSongs } from './playlistSongs/kumarSanuSongs';
 import { shaamKaSafarSongs } from './playlistSongs/shaamKaSafarSongs';
+import { punjabiHitsSongs } from './playlistSongs/punjabiHits';
 
 export { hindiClassicsSongs } from './playlistSongs/hindiClassics';
 export { barbershopSongs } from './playlistSongs/barbershop';
@@ -29,6 +30,7 @@ export { lateNightSongs } from './playlistSongs/late-night';
 export { oldBengaliClassicsSongs } from './playlistSongs/old-bengali-classics';
 export { kumarSanuSongs } from './playlistSongs/kumarSanuSongs';
 export { shaamKaSafarSongs } from './playlistSongs/shaamKaSafarSongs';
+export { punjabiHitsSongs } from './playlistSongs/punjabiHits';
 
 export const songs = [
   ...hindiClassicsSongs,
@@ -46,4 +48,5 @@ export const songs = [
   ...oldBengaliClassicsSongs,
   ...kumarSanuSongs,
   ...shaamKaSafarSongs,
+  ...punjabiHitsSongs,
 ];

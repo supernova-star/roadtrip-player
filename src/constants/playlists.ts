@@ -44,7 +44,13 @@ export const playlists: Playlist[] = [
     id: 'late-night',
     title: 'Late Night',
     description: 'Soft, late-night favorites for quiet drives.',
-    songIds: createSongIds('late-night', 9),
+    songIds: createSongIds('late-night', 15),
+  },
+  {
+    id: 'punjabi-hits',
+    title: 'Punjabi Hits',
+    description: 'Modern Punjabi hits and essential Punjabi-pop anthems.',
+    songIds: createSongIds('punjabi-hits', 33),
   },
   {
     id: 'old-bengali-classics',
